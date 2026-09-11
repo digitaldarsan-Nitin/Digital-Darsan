@@ -688,12 +688,14 @@
       renderAlertsList();
 
       const canvas = document.getElementById('cropCanvas');
-      canvas.width = 600; canvas.height = 400;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = "#0f172a"; ctx.fillRect(0,0,600,400);
-      ctx.fillStyle = "#64748b"; ctx.font = "15px 'Plus Jakarta Sans'";
-      ctx.fillText("Upload an image above to start corner crop", 140, 205);
-      setupCanvasEvents();
+      if (canvas) {
+        canvas.width = 600; canvas.height = 400;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = "#0f172a"; ctx.fillRect(0,0,600,400);
+        ctx.fillStyle = "#64748b"; ctx.font = "15px 'Plus Jakarta Sans'";
+        ctx.fillText("Upload an image above to start corner crop", 140, 205);
+        setupCanvasEvents();
+      }
 
       lucide.createIcons();
     }
@@ -710,13 +712,26 @@
     function openTab(tabId, el) {
       document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active'));
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
       if (el) el.classList.add('active');
       lucide.createIcons();
     }
 
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; lucide.createIcons(); }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openModal(id) { 
+      const modal = document.getElementById(id);
+      if (modal) modal.style.display = 'flex'; 
+      lucide.createIcons(); 
+    }
+    
+    function closeModal(id) { 
+      const modal = document.getElementById(id);
+      if (modal) modal.style.display = 'none'; 
+    }
+
+    function openNewCustomerModal() {
+      openModal('newCustomerModal');
+    }
 
     /* -------------------------------------------------------------
        INITIAL SEED DATA
@@ -754,8 +769,10 @@
     }
 
     function renderAlertsList() {
-      const cat = document.getElementById('alertCategoryFilter').value;
+      const filterElem = document.getElementById('alertCategoryFilter');
       const container = document.getElementById('smartAlertsItemsContainer');
+      if (!container) return;
+      const cat = filterElem ? filterElem.value : 'ALL';
       container.innerHTML = '';
 
       let countToday = 0, count7 = 0, count30 = 0, alertItems = [];
@@ -790,9 +807,9 @@
         });
       });
 
-      document.getElementById('alertCountToday').innerText = countToday;
-      document.getElementById('alertCount7Days').innerText = count7;
-      document.getElementById('alertCount30Days').innerText = count30;
+      if(document.getElementById('alertCountToday')) document.getElementById('alertCountToday').innerText = countToday;
+      if(document.getElementById('alertCount7Days')) document.getElementById('alertCount7Days').innerText = count7;
+      if(document.getElementById('alertCount30Days')) document.getElementById('alertCount30Days').innerText = count30;
 
       let filtered = alertItems;
       if (alertFilterDays === 0) filtered = filtered.filter(i => i.days <= 0);
@@ -867,7 +884,9 @@
        VAHAN FETCH API SIMULATION
     ------------------------------------------------------------- */
     function fetchVahanData() {
-      const regNo = document.getElementById('vRegNo').value.trim().toUpperCase();
+      const regNoInput = document.getElementById('vRegNo');
+      if(!regNoInput) return;
+      const regNo = regNoInput.value.trim().toUpperCase();
       if(!regNo) return alert('Please enter Vehicle Registration Number');
 
       const btn = document.getElementById('btnFetchVahan');
@@ -909,7 +928,9 @@
     function handlePhoneSearch(val) { if (val.length === 10) searchCustomerDirect(); }
 
     function searchCustomerDirect() {
-      const phone = document.getElementById('cSearchPhone').value.trim();
+      const searchPhoneInput = document.getElementById('cSearchPhone');
+      if (!searchPhoneInput) return;
+      const phone = searchPhoneInput.value.trim();
       if (!phone || phone.length < 10) return alert('Enter valid 10-digit customer mobile number');
       if (!DB.customers[phone]) {
         if (confirm(`Customer with mobile ${phone} not found. Create new profile?`)) {
@@ -956,8 +977,9 @@
     function switchCustTab(tabId, btn) {
       document.querySelectorAll('.cust-sub-tab-content').forEach(c => c.style.display = 'none');
       document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-      document.getElementById(tabId).style.display = 'block';
-      btn.classList.add('active');
+      const target = document.getElementById(tabId);
+      if (target) target.style.display = 'block';
+      if (btn) btn.classList.add('active');
       lucide.createIcons();
     }
 
@@ -1003,6 +1025,7 @@
 
     function renderCustomerVehiclesList(vehicles) {
       const c = document.getElementById('custVehiclesContainer');
+      if (!c) return;
       c.innerHTML = '';
       if (vehicles.length === 0) {
         c.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-muted); font-size:13px;">No vehicles registered for this customer. Click "Add Vehicle" above.</div>`;
@@ -1070,6 +1093,7 @@
 
     function renderCustomerJobsList(jobs) {
       const container = document.getElementById('custJobsContainer');
+      if (!container) return;
       container.innerHTML = '';
       if (jobs.length === 0) {
         container.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b;">No active jobs found for this customer.</div>`;
@@ -1113,7 +1137,9 @@
        CUSTOMER TAB: DOCUMENTS
     ------------------------------------------------------------- */
     function renderCustomerDocsList(docs) {
-      const c = document.getElementById('custDocsContainer'); c.innerHTML = '';
+      const c = document.getElementById('custDocsContainer'); 
+      if (!c) return;
+      c.innerHTML = '';
       if (docs.length === 0) { c.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:#64748b;">No documents stored.</div>`; return; }
       docs.forEach(d => {
         c.innerHTML += `
@@ -1137,9 +1163,11 @@
        CUSTOMER TAB: BILLS & KHATA
     ------------------------------------------------------------- */
     function renderCustomerBillsList(bills) {
-      const tb = document.getElementById('custBillsTbody'); tb.innerHTML = '';
+      const tb = document.getElementById('custBillsTbody'); 
+      if (!tb) return;
+      tb.innerHTML = '';
       bills.forEach(b => {
-        tb.innerHTML += `<tr><td>${b.date}</td><td><b>${b.invoiceNo}</b></td><td>${b.service}</td><td>₹${b.amount}</td><td><span class="badge badge-paid">${b.status}</span></td><td><button class="btn btn-whatsapp" style="padding:3px 8px; font-size:11px;" onclick="triggerAutoNotification('payment', b.service, '₹' + b.amount, b.invoiceNo)">Send</button></td></tr>`;
+        tb.innerHTML += `<tr><td>${b.date}</td><td><b>${b.invoiceNo}</b></td><td>${b.service}</td><td>₹${b.amount}</td><td><span class="badge badge-paid">${b.status}</span></td><td><button class="btn btn-whatsapp" style="padding:3px 8px; font-size:11px;" onclick="triggerAutoNotification('payment', '${b.service}', '₹${b.amount}', '${b.invoiceNo}')">Send</button></td></tr>`;
       });
     }
 
@@ -1151,7 +1179,9 @@
     }
 
     function renderCustomerKhataList(khata) {
-      const tb = document.getElementById('custKhataTbody'); tb.innerHTML = '';
+      const tb = document.getElementById('custKhataTbody'); 
+      if (!tb) return;
+      tb.innerHTML = '';
       khata.forEach(k => {
         tb.innerHTML += `<tr><td>${k.date}</td><td>${k.note}</td><td style="color:var(--danger); font-weight:700;">₹${k.amount}</td><td><button class="btn btn-success" style="padding:4px 8px; font-size:11px;" onclick="settleCustomerDue(${k.id})">Mark Paid</button></td></tr>`;
       });
@@ -1205,32 +1235,34 @@
       const todayProfit = todayIncome - todayExpense;
       const totalOutstandingDue = DB.khata.reduce((s, k) => s + Number(k.amount || 0), 0);
 
-      document.getElementById('accTodayIncome').innerText = '₹' + todayIncome;
-      document.getElementById('accTodayExpense').innerText = '₹' + todayExpense;
-      document.getElementById('accTodayProfit').innerText = '₹' + todayProfit;
-      document.getElementById('accTotalDue').innerText = '₹' + totalOutstandingDue;
+      if(document.getElementById('accTodayIncome')) document.getElementById('accTodayIncome').innerText = '₹' + todayIncome;
+      if(document.getElementById('accTodayExpense')) document.getElementById('accTodayExpense').innerText = '₹' + todayExpense;
+      if(document.getElementById('accTodayProfit')) document.getElementById('accTodayProfit').innerText = '₹' + todayProfit;
+      if(document.getElementById('accTotalDue')) document.getElementById('accTotalDue').innerText = '₹' + totalOutstandingDue;
 
-      document.getElementById('accPaidJobsCount').innerText = `${DB.invoices.filter(i => i.date === todayStr).length} Paid Jobs`;
-      document.getElementById('accExpenseEntriesCount').innerText = `${DB.expenses.filter(e => e.date === todayStr).length} Expenses`;
+      if(document.getElementById('accPaidJobsCount')) document.getElementById('accPaidJobsCount').innerText = `${DB.invoices.filter(i => i.date === todayStr).length} Paid Jobs`;
+      if(document.getElementById('accExpenseEntriesCount')) document.getElementById('accExpenseEntriesCount').innerText = `${DB.expenses.filter(e => e.date === todayStr).length} Expenses`;
 
       const tb = document.getElementById('todayExpenseTbody');
-      tb.innerHTML = '';
-      DB.expenses.filter(e => e.date === todayStr).forEach(e => {
-        tb.innerHTML += `
-          <tr>
-            <td>${e.title}</td><td style="color:var(--danger); font-weight:700;">₹${e.amount}</td>
-            <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="deleteExpense(${e.id})">🗑️</button></td>
-          </tr>
-        `;
-      });
+      if (tb) {
+        tb.innerHTML = '';
+        DB.expenses.filter(e => e.date === todayStr).forEach(e => {
+          tb.innerHTML += `
+            <tr>
+              <td>${e.title}</td><td style="color:var(--danger); font-weight:700;">₹${e.amount}</td>
+              <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="deleteExpense(${e.id})">🗑️</button></td>
+            </tr>
+          `;
+        });
+      }
 
       const monthlyIncome = DB.invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + Number(i.amount || 0), 0);
       const monthlyExpense = DB.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
       const monthlyProfit = monthlyIncome - monthlyExpense;
 
-      document.getElementById('repMonthlyIncome').innerText = '₹' + monthlyIncome;
-      document.getElementById('repMonthlyExpense').innerText = '₹' + monthlyExpense;
-      document.getElementById('repMonthlyNetProfit').innerText = '₹' + monthlyProfit;
+      if(document.getElementById('repMonthlyIncome')) document.getElementById('repMonthlyIncome').innerText = '₹' + monthlyIncome;
+      if(document.getElementById('repMonthlyExpense')) document.getElementById('repMonthlyExpense').innerText = '₹' + monthlyExpense;
+      if(document.getElementById('repMonthlyNetProfit')) document.getElementById('repMonthlyNetProfit').innerText = '₹' + monthlyProfit;
 
       lucide.createIcons();
     }
@@ -1238,10 +1270,10 @@
     function refreshDashboardMetrics() {
       const todayStr = new Date().toLocaleDateString();
       const todayIncome = DB.invoices.filter(i => i.date === todayStr && i.status === 'Paid').reduce((s, i) => s + Number(i.amount || 0), 0);
-      document.getElementById('dashTodayIncome').innerText = '₹' + todayIncome;
-      document.getElementById('dashTotalDue').innerText = '₹' + DB.khata.reduce((s, k) => s + Number(k.amount || 0), 0);
-      document.getElementById('dashTotalCustomers').innerText = Object.keys(DB.customers).length;
-      document.getElementById('dashTotalVehicles').innerText = DB.vehicles.length;
+      if(document.getElementById('dashTodayIncome')) document.getElementById('dashTodayIncome').innerText = '₹' + todayIncome;
+      if(document.getElementById('dashTotalDue')) document.getElementById('dashTotalDue').innerText = '₹' + DB.khata.reduce((s, k) => s + Number(k.amount || 0), 0);
+      if(document.getElementById('dashTotalCustomers')) document.getElementById('dashTotalCustomers').innerText = Object.keys(DB.customers).length;
+      if(document.getElementById('dashTotalVehicles')) document.getElementById('dashTotalVehicles').innerText = DB.vehicles.length;
     }
 
     /* -------------------------------------------------------------
@@ -1285,14 +1317,20 @@
        ORIGINAL TOOLS UTILITIES
     ------------------------------------------------------------- */
     function genUPI() {
-      const amt = document.getElementById('bAmount').value;
+      const amtElem = document.getElementById('bAmount');
+      if (!amtElem) return;
+      const amt = amtElem.value;
       if (!amt || amt <= 0) return;
       const upiUrl = `upi://pay?pa=8249833933@upi&pn=Digital%20Darsan&am=${amt}&cu=INR`;
-      document.getElementById('billPreviewCard').style.display = 'block';
-      QRCode.toCanvas(document.getElementById('billUpiQr'), upiUrl, { width: 130 });
-      document.getElementById('rName').innerText = document.getElementById('bCustName').value || 'Customer';
-      document.getElementById('rService').innerText = document.getElementById('bService').value || 'Service';
-      document.getElementById('rAmount').innerText = '₹' + amt;
+      const previewCard = document.getElementById('billPreviewCard');
+      if(previewCard) previewCard.style.display = 'block';
+      const qrCanvas = document.getElementById('billUpiQr');
+      if(qrCanvas && window.QRCode) {
+        QRCode.toCanvas(qrCanvas, upiUrl, { width: 130 });
+      }
+      if(document.getElementById('rName')) document.getElementById('rName').innerText = document.getElementById('bCustName').value || 'Customer';
+      if(document.getElementById('rService')) document.getElementById('rService').innerText = document.getElementById('bService').value || 'Service';
+      if(document.getElementById('rAmount')) document.getElementById('rAmount').innerText = '₹' + amt;
     }
 
     function initCropImage(e) {
@@ -1304,6 +1342,7 @@
         img.onload = function() {
           cropState.cropImg = img;
           const canvas = document.getElementById('cropCanvas');
+          if(!canvas) return;
           const maxW = 650;
           canvas.width = maxW;
           canvas.height = img.height * (maxW / img.width);
@@ -1316,6 +1355,7 @@
 
     function drawCropCorners() {
       const canvas = document.getElementById('cropCanvas');
+      if(!canvas) return;
       const ctx = canvas.getContext('2d');
       if (!cropState.cropImg) return;
       ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1331,6 +1371,7 @@
 
     function setupCanvasEvents() {
       const canvas = document.getElementById('cropCanvas');
+      if(!canvas) return;
       function getPos(e) {
         const r = canvas.getBoundingClientRect();
         return { x: (e.clientX - r.left) * (canvas.width / r.width), y: (e.clientY - r.top) * (canvas.height / r.height) };
@@ -1356,7 +1397,8 @@
       sCtx.drawImage(cropState.cropImg, 0, 0, 600, 800);
       const img = new Image();
       img.onload = function() {
-        document.getElementById('enhancedA4Img').src = sCanvas.toDataURL('image/jpeg', 0.95);
+        const enhancedImg = document.getElementById('enhancedA4Img');
+        if(enhancedImg) enhancedImg.src = sCanvas.toDataURL('image/jpeg', 0.95);
         openTab('a4-enhancer', document.querySelectorAll('.nav-item')[5]);
       };
       img.src = sCanvas.toDataURL('image/jpeg');
@@ -1364,8 +1406,9 @@
 
     function applyA4EnhanceFilter() {
       const img = document.getElementById('enhancedA4Img');
-      if (!img.src) return;
+      if (!img || !img.src) return;
       const canvas = document.getElementById('enhancerCanvas');
+      if(!canvas) return;
       const ctx = canvas.getContext('2d');
       canvas.width = img.naturalWidth || 600;
       canvas.height = img.naturalHeight || 800;
@@ -1400,10 +1443,10 @@
       ctx.fillStyle = '#fff'; ctx.fillRect(0,0,350,450);
       if (imgEl) ctx.drawImage(imgEl, 0, 0, 350, 450);
       const data = canvas.toDataURL('image/jpeg', 0.7);
-      document.getElementById('resizerResult').style.display = 'block';
-      document.getElementById('resizerPreviewImg').src = data;
-      document.getElementById('resizerInfoText').innerText = `Target: 350×450 px | Size: ~35 KB`;
-      document.getElementById('resizerDownloadBtn').href = data;
+      if(document.getElementById('resizerResult')) document.getElementById('resizerResult').style.display = 'block';
+      if(document.getElementById('resizerPreviewImg')) document.getElementById('resizerPreviewImg').src = data;
+      if(document.getElementById('resizerInfoText')) document.getElementById('resizerInfoText').innerText = `Target: 350×450 px | Size: ~35 KB`;
+      if(document.getElementById('resizerDownloadBtn')) document.getElementById('resizerDownloadBtn').href = data;
     }
 
     function loadPassPhoto(e) {
@@ -1412,6 +1455,7 @@
       const reader = new FileReader();
       reader.onload = function(evt) {
         const grid = document.getElementById('passGrid');
+        if (!grid) return;
         grid.innerHTML = '';
         for (let i = 0; i < 8; i++) {
           const div = document.createElement('div');
@@ -1423,7 +1467,9 @@
     }
 
     function genOdiaLetter() {
-      document.getElementById('letterPreviewArea').innerHTML = `
+      const previewArea = document.getElementById('letterPreviewArea');
+      if(!previewArea) return;
+      previewArea.innerHTML = `
         <div style="font-family:'Kalinga', sans-serif;">
           <p>${document.getElementById('ltrTo').value}</p>
           <p style="margin-top:14px;"><b>ବିଷୟ: ${document.getElementById('ltrSub').value}</b></p>
