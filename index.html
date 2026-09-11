@@ -3,21 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Darsan — Complete VLE Business Management ERP</title>
-  <!-- Google Modern Fonts -->
+  <title>Digital Darsan — Advanced VLE CRM & Job ERP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Kalinga&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Lucide Vector Icons -->
   <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- QR Code Generator CDN -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
 
   <style>
     :root {
       --font-main: 'Plus Jakarta Sans', 'Kalinga', -apple-system, BlinkMacSystemFont, sans-serif;
       --bg: #f8fafc;
-      --surface-glass: rgba(255, 255, 255, 0.92);
+      --surface-glass: rgba(255, 255, 255, 0.94);
       --border-glass: rgba(255, 255, 255, 0.95);
       --border-subtle: #e2e8f0;
       --primary: #2563eb;
@@ -47,7 +44,6 @@
     @keyframes spin { 100% { transform: rotate(360deg); } }
     .spin { animation: spin 1s linear infinite; }
 
-    /* Floating Modern Sidebar */
     aside {
       width: 280px; margin: 16px 0 16px 16px; background: #090d16; color: #fff;
       display: flex; flex-direction: column; flex-shrink: 0; border-radius: var(--radius-lg);
@@ -68,13 +64,12 @@
     .nav-category { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #475569; padding: 12px 16px 6px 16px; }
     .nav-item {
       padding: 12px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: #94a3b8;
-      font-size: 0.92rem; font-weight: 600; border-radius: var(--radius-sm); margin-bottom: 4px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      font-size: 0.92rem; font-weight: 600; border-radius: var(--radius-sm); margin-bottom: 4px; transition: all 0.25s ease;
     }
     .nav-item svg { width: 19px; height: 19px; stroke-width: 2.2px; }
     .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: #f8fafc; transform: translateX(3px); }
     .nav-item.active { background: linear-gradient(90deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.5); }
 
-    /* Main Container */
     main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; padding: 16px 24px; }
     header {
       background: var(--surface-glass); backdrop-filter: blur(16px); padding: 18px 28px; border-radius: var(--radius-md);
@@ -85,75 +80,37 @@
 
     .content { flex: 1; }
     .tab-section { display: none; }
-    .tab-section.active { display: block; animation: modernFade 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    .tab-section.active { display: block; animation: modernFade 0.25s ease; }
     @keyframes modernFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    /* Cards & Forms */
     .card { background: var(--surface-glass); backdrop-filter: blur(16px); border-radius: var(--radius-md); border: 1px solid var(--border-glass); padding: 24px; box-shadow: var(--shadow-md); margin-bottom: 22px; }
-    .card-title { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    .card-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
     
     .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 16px; }
     .form-group { display: flex; flex-direction: column; gap: 6px; }
     label { font-size: 0.85rem; font-weight: 600; color: #334155; }
-    input, select, textarea { padding: 12px 14px; background: rgba(248, 250, 252, 0.85); border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.92rem; outline: none; transition: all 0.2s ease; }
+    input, select, textarea { padding: 12px 14px; background: rgba(248, 250, 252, 0.85); border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.92rem; outline: none; }
     input:focus, select:focus, textarea:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
 
-    /* Buttons */
-    .btn { padding: 11px 18px; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .btn { padding: 11px 18px; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
     .btn svg { width: 17px; height: 17px; stroke-width: 2.2px; }
     .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 99, 235, 0.4); }
-    .btn-primary:hover { box-shadow: 0 10px 20px -3px rgba(37, 99, 235, 0.5); transform: translateY(-1px); }
     .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
     .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
     .btn-secondary { background: #f1f5f9; color: #334155; }
-    .btn-secondary:hover { background: #e2e8f0; }
     .btn-whatsapp { background: #25d366; color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 211, 102, 0.4); }
-    .btn-whatsapp:hover { background: #1eb956; transform: translateY(-1px); }
 
-    /* Tables & Badges */
     .table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
     table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
     th, td { padding: 13px 16px; border-bottom: 1px solid var(--border-subtle); }
     th { background: rgba(241, 245, 249, 0.85); font-weight: 700; color: #475569; font-size: 0.82rem; text-transform: uppercase; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
     .badge-paid { background: #dcfce7; color: #15803d; }
     .badge-due { background: #fee2e2; color: #b91c1c; }
 
-    /* SMART ALERT CARDS (DASHBOARD) */
-    .alerts-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
-    .alert-chip-box { padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease; }
-    .chip-red { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
-    .chip-orange { background: #fffbeb; border-color: #fde68a; color: #b45309; }
-    .chip-yellow { background: #fefce8; border-color: #fef08a; color: #854d0e; }
-    .alert-item-card { background: #fff; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: all 0.2s ease; }
-    .alert-item-card:hover { border-color: #93c5fd; box-shadow: var(--shadow-sm); }
-
-    /* CUSTOMER 360° PROFILE SPECIFIC */
     .profile-banner { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
-    .profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.4); }
-    .profile-stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; background: #f8fafc; padding: 12px 18px; border-radius: 14px; border: 1px solid #e2e8f0; }
-    @media (max-width: 900px) { .profile-stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    .p-stat-item { text-align: center; }
-    .p-stat-item span { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block; }
-    .p-stat-item b { font-size: 1.25rem; font-weight: 800; display: block; margin-top: 2px; }
+    .profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; }
     
-    .sub-tabs-bar { display: flex; gap: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 18px; overflow-x: auto; }
-    .sub-tab-btn { padding: 8px 16px; border: none; background: none; border-radius: 8px; font-size: 0.88rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; white-space: nowrap; }
-    .sub-tab-btn.active { background: #eff6ff; color: var(--primary); }
-
-    /* Metrics Grid */
-    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-bottom: 22px; }
-    .metric-card { background: var(--surface-glass); backdrop-filter: blur(14px); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); }
-    .metric-header { display: flex; justify-content: space-between; align-items: center; }
-    .metric-title { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-    .metric-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
-    .icon-blue { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
-    .icon-red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-    .icon-green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-    .icon-amber { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
-    .metric-value { font-size: 1.9rem; font-weight: 800; margin: 12px 0 6px 0; }
-
-    /* Pipeline Tracking Card */
     .pipeline-steps { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 18px 0; }
     .pipeline-steps::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 3px; background: #e2e8f0; z-index: 1; }
     .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
@@ -162,21 +119,12 @@
     .step-node.current .step-circle { background: #2563eb; border-color: #2563eb; color: #fff; box-shadow: 0 0 0 4px var(--primary-glow); }
     .step-label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
 
-    /* Modal */
     .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
-    .modal-content { background: #fff; padding: 24px; border-radius: 18px; width: 100%; max-width: 600px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
-
-    @media print {
-      body * { visibility: hidden; }
-      #printableArea, #printableArea * { visibility: visible; }
-      #printableArea { position: absolute; left: 0; top: 0; width: 210mm; min-height: 297mm; margin: 0; padding: 0; background: #fff; }
-      .no-print { display: none !important; }
-    }
+    .modal-content { background: #fff; padding: 24px; border-radius: 18px; width: 100%; max-width: 650px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
   </style>
 </head>
 <body>
 
-  <!-- Floating Navigation Sidebar -->
   <aside class="no-print">
     <div class="brand">
       <div class="brand-badge"><i data-lucide="shield-check"></i></div>
@@ -185,121 +133,62 @@
 
     <ul class="nav-list">
       <div class="nav-category">Core Business Modules</div>
-      <li class="nav-item active" onclick="openTab('dashboard-module', this)"><i data-lucide="layout-dashboard"></i> Overview & Alerts</li>
-      <li class="nav-item" onclick="openTab('customer-module', this)"><i data-lucide="users"></i> Customer 360°</li>
+      <li class="nav-item active" onclick="openTab('dashboard-module', this)"><i data-lucide="layout-dashboard"></i> Overview & Jobs</li>
+      <li class="nav-item" onclick="openTab('customer-module', this)"><i data-lucide="users"></i> Customer 360° CRM</li>
       <li class="nav-item" onclick="openTab('accounts-module', this)"><i data-lucide="wallet"></i> Business Accounts</li>
-
-      <div class="nav-category">Tools & Workspace</div>
-      <li class="nav-item" onclick="openTab('billing-module', this)"><i data-lucide="receipt"></i> Direct Billing</li>
-      <li class="nav-item" onclick="openTab('smart-crop', this)"><i data-lucide="crop"></i> Auto Corner Crop</li>
-      <li class="nav-item" onclick="openTab('a4-enhancer', this)"><i data-lucide="file-check"></i> Clear White A4</li>
-      <li class="nav-item" onclick="openTab('resizer', this)"><i data-lucide="maximize-2"></i> Job Resizer (OSSSC)</li>
-      <li class="nav-item" onclick="openTab('photo-studio', this)"><i data-lucide="image"></i> Passport Studio (4×6)</li>
-      <li class="nav-item" onclick="openTab('letter-module', this)"><i data-lucide="file-text"></i> Odia Letter Maker</li>
-      <li class="nav-item" onclick="openTab('cloud-backup', this)"><i data-lucide="cloud"></i> Database Backup</li>
-      <li class="nav-item" onclick="openTab('settings', this)"><i data-lucide="settings"></i> Settings</li>
+      <div class="nav-category">Quick Actions</div>
+      <li class="nav-item" onclick="openNewCustomerModal()"><i data-lucide="user-plus"></i> New Customer Entry</li>
+      <li class="nav-item" onclick="openTab('cloud-backup', this)"><i data-lucide="cloud"></i> Backup / Restore</li>
     </ul>
   </aside>
 
   <main>
     <header class="no-print">
       <div class="shop-details">
-        <h2 id="headerShopName">Digital Darsan</h2>
-        <p id="headerShopContact">Contact: 8249833933 | Rathapada, Dhenkanal</p>
+        <h2>Digital Darsan ERP</h2>
+        <p>Rathapada, Dhenkanal | Contact: 8249833933</p>
       </div>
       <div style="display:flex; gap:10px;">
         <button class="btn btn-primary" onclick="openNewCustomerModal()">
-          <i data-lucide="user-plus"></i> New Customer
-        </button>
-        <button class="btn btn-primary" onclick="window.print()">
-          <i data-lucide="printer"></i> Print Screen
+          <i data-lucide="user-plus"></i> + New Customer & Job
         </button>
       </div>
     </header>
 
     <div class="content">
 
-      <!-- ========================================================
-           MODULE 1: DASHBOARD & SMART ALERTS HUB
-      ======================================================== -->
+      <!-- DASHBOARD & JOBS PIPELINE -->
       <section id="dashboard-module" class="tab-section active">
-        <!-- 4 Primary Financial Metrics -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Today's Income</span><div class="metric-icon icon-green"><i data-lucide="indian-rupee"></i></div></div>
-            <div class="metric-value" style="color:var(--success);" id="dashTodayIncome">₹0</div>
-            <div style="font-size:0.8rem; color:var(--success); font-weight:600;">Paid & Received Today</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Pending / Due Amount</span><div class="metric-icon icon-red"><i data-lucide="alert-circle"></i></div></div>
-            <div class="metric-value" style="color:var(--danger);" id="dashTotalDue">₹0</div>
-            <div style="font-size:0.8rem; color:var(--danger); font-weight:600;">Total Khata Outstanding</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Total Customers</span><div class="metric-icon icon-blue"><i data-lucide="users"></i></div></div>
-            <div class="metric-value" style="color:var(--primary);" id="dashTotalCustomers">0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">In Database</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Active Vehicles Tracked</span><div class="metric-icon icon-amber"><i data-lucide="truck"></i></div></div>
-            <div class="metric-value" style="color:var(--accent);" id="dashTotalVehicles">0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Insurance & PUCs Active</div>
-          </div>
-        </div>
-
-        <!-- SMART RENEWAL ALERTS WIDGET -->
         <div class="card">
           <div class="card-title">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <i data-lucide="bell-ring" style="color:var(--danger);"></i>
-              <span>Smart Renewal & Expiry Alerts Hub</span>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <select id="alertCategoryFilter" onchange="renderAlertsList()" style="padding:6px 10px; font-size:12px;">
-                <option value="ALL">All Categories</option>
-                <option value="Insurance">🚘 Insurance</option>
-                <option value="PUC">🛞 PUC / Pollution</option>
-                <option value="RoadTax">🧾 Road Tax</option>
-                <option value="Fitness">🔧 Fitness</option>
-                <option value="Permit">📋 Permit</option>
-                <option value="RC">🪪 RC Validity</option>
-              </select>
-            </div>
+            <span>🚀 Active Jobs & Smart WhatsApp Tracking</span>
+            <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="openNewCustomerModal()"><i data-lucide="plus"></i> New Entry</button>
           </div>
-
-          <div class="alerts-summary-grid">
-            <div class="alert-chip-box chip-red" onclick="filterAlertsByDays(0)">
-              <div><b>🔴 Expired / Today</b><p style="font-size:0.75rem; margin-top:2px;">Immediate action</p></div>
-              <h3 id="alertCountToday" style="font-size:1.4rem;">0</h3>
-            </div>
-            <div class="alert-chip-box chip-orange" onclick="filterAlertsByDays(7)">
-              <div><b>🟠 Next 7 Days</b><p style="font-size:0.75rem; margin-top:2px;">Urgent renewals</p></div>
-              <h3 id="alertCount7Days" style="font-size:1.4rem;">0</h3>
-            </div>
-            <div class="alert-chip-box chip-yellow" onclick="filterAlertsByDays(30)">
-              <div><b>🟡 Next 30 Days</b><p style="font-size:0.75rem; margin-top:2px;">Advance notices</p></div>
-              <h3 id="alertCount30Days" style="font-size:1.4rem;">0</h3>
-            </div>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Customer Name & Phone</th>
+                  <th>Service / Work</th>
+                  <th>Stage (Tracking)</th>
+                  <th>Payment</th>
+                  <th>WhatsApp Action</th>
+                </tr>
+              </thead>
+              <tbody id="globalJobsTbody"></tbody>
+            </table>
           </div>
-
-          <div id="smartAlertsItemsContainer" style="margin-top:14px;"></div>
         </div>
       </section>
 
-      <!-- ========================================================
-           MODULE 2: CENTRALIZED CUSTOMER 360° (WITH VEHICLE & RTO FETCH)
-      ======================================================== -->
+      <!-- CUSTOMER 360 CRM -->
       <section id="customer-module" class="tab-section">
         <div class="card">
-          <div class="card-title">
-            <span>👤 Customer 360° Central Workspace</span>
-            <span style="font-size:12px; color:var(--text-muted);">Instant Customer Lookup</span>
-          </div>
+          <div class="card-title"><span>🔍 Customer 360° Search & History</span></div>
           <div style="display:flex; gap:10px; max-width:540px;">
-            <input type="tel" id="cSearchPhone" placeholder="Enter 10-Digit Mobile Number (e.g. 8249833933)" maxlength="10" style="flex:1;" oninput="handlePhoneSearch(this.value)">
-            <button class="btn btn-primary" onclick="searchCustomerDirect()">
-              <i data-lucide="search"></i> Load Profile
-            </button>
+            <input type="tel" id="cSearchPhone" placeholder="Enter 10-Digit Mobile Number" maxlength="10" style="flex:1;" oninput="handlePhoneSearch(this.value)">
+            <button class="btn btn-primary" onclick="searchCustomerDirect()"><i data-lucide="search"></i> Search</button>
           </div>
         </div>
 
@@ -309,356 +198,81 @@
               <div class="profile-avatar" id="cpAvatar">R</div>
               <div>
                 <h3 id="cpName" style="font-size:1.35rem; font-weight:800;">Customer Name</h3>
-                <p style="font-size:0.9rem; color:var(--text-muted); margin-top:2px;">
-                  📱 <span id="cpPhone">9876543210</span> &nbsp;·&nbsp; 📍 <span id="cpAddress">Rathapada, Dhenkanal</span>
+                <p style="font-size:0.88rem; color:var(--text-muted); margin-top:2px;">
+                  📱 <span id="cpPhone">9876543210</span> | Father: <span id="cpFather">-</span> | Mother: <span id="cpMother">-</span>
                 </p>
+                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">📍 Address: <span id="cpAddress">-</span></p>
               </div>
-            </div>
-
-            <div class="profile-stats-grid">
-              <div class="p-stat-item"><span>Active Jobs</span><b style="color:var(--accent);" id="cpStatActiveJobs">0</b></div>
-              <div class="p-stat-item"><span>Vehicles</span><b style="color:#0284c7;" id="cpStatVehicles">0</b></div>
-              <div class="p-stat-item"><span>Documents</span><b style="color:var(--primary);" id="cpStatDocs">0</b></div>
-              <div class="p-stat-item"><span>Total Paid</span><b style="color:var(--success);" id="cpStatPaid">₹0</b></div>
-              <div class="p-stat-item"><span>Total Due</span><b style="color:var(--danger);" id="cpStatDue">₹0</b></div>
             </div>
           </div>
 
           <div class="card">
-            <div class="sub-tabs-bar">
-              <button class="sub-tab-btn active" onclick="switchCustTab('c-tab-vehicles', this)"><i data-lucide="truck"></i> VEHICLES & RENEWALS</button>
-              <button class="sub-tab-btn" onclick="switchCustTab('c-tab-jobs', this)"><i data-lucide="briefcase"></i> JOBS PIPELINE</button>
-              <button class="sub-tab-btn" onclick="switchCustTab('c-tab-docs', this)"><i data-lucide="folder"></i> DOCUMENTS</button>
-              <button class="sub-tab-btn" onclick="switchCustTab('c-tab-bills', this)"><i data-lucide="receipt"></i> BILLS & PAYMENTS</button>
-              <button class="sub-tab-btn" onclick="switchCustTab('c-tab-khata', this)"><i data-lucide="book-open"></i> KHATA / DUE</button>
-            </div>
-
-            <!-- SUB-TAB 1: VEHICLES & RENEWALS -->
-            <div id="c-tab-vehicles" class="cust-sub-tab-content">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-size:0.95rem; font-weight:700;">Customer Vehicles & Validities</h4>
-                <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="openAddVehicleModal()">
-                  <i data-lucide="plus"></i> Add Vehicle Record
-                </button>
-              </div>
-              <div id="custVehiclesContainer"></div>
-            </div>
-
-            <!-- SUB-TAB 2: JOBS PIPELINE -->
-            <div id="c-tab-jobs" class="cust-sub-tab-content" style="display:none;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-size:0.95rem; font-weight:700;">Customer Applications & Jobs</h4>
-                <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="openAddJobForCust()"><i data-lucide="plus"></i> Add New Job</button>
-              </div>
-              <div id="custJobsContainer"></div>
-            </div>
-
-            <!-- SUB-TAB 3: DOCUMENTS -->
-            <div id="c-tab-docs" class="cust-sub-tab-content" style="display:none;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-size:0.95rem; font-weight:700;">Saved Documents (PDF + JPG + PNG)</h4>
-                <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="openUploadDocForCust()"><i data-lucide="upload"></i> Upload Document</button>
-              </div>
-              <div id="custDocsContainer" style="display:grid; grid-template-columns:repeat(auto-fill, minmax(180px, 1fr)); gap:14px;"></div>
-            </div>
-
-            <!-- SUB-TAB 4: BILLS & PAYMENTS -->
-            <div id="c-tab-bills" class="cust-sub-tab-content" style="display:none;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-size:0.95rem; font-weight:700;">Invoices & Payment Receipts</h4>
-                <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="createBillForCust()"><i data-lucide="plus"></i> Create Bill</button>
-              </div>
-              <div class="table-container">
-                <table>
-                  <thead><tr><th>Date</th><th>Invoice #</th><th>Service</th><th>Amount</th><th>Status</th><th>WhatsApp</th></tr></thead>
-                  <tbody id="custBillsTbody"></tbody>
-                </table>
-              </div>
-            </div>
-
-            <!-- SUB-TAB 5: KHATA / DUE -->
-            <div id="c-tab-khata" class="cust-sub-tab-content" style="display:none;">
-              <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                <h4 style="font-size:0.95rem; font-weight:700;">Pending Due Ledger</h4>
-                <button class="btn btn-danger" style="padding:6px 12px; font-size:12px;" onclick="addDueForCust()"><i data-lucide="plus"></i> Add Due Entry</button>
-              </div>
-              <div class="table-container">
-                <table>
-                  <thead><tr><th>Date</th><th>Reason / Service</th><th>Due Amount</th><th>Action</th></tr></thead>
-                  <tbody id="custKhataTbody"></tbody>
-                </table>
-              </div>
-            </div>
-
+            <h4 style="font-size:1rem; font-weight:700; margin-bottom:12px;">Saved Documents & Work History</h4>
+            <div id="custWorkHistoryContainer"></div>
           </div>
         </div>
       </section>
 
-      <!-- ========================================================
-           MODULE 3: BUSINESS ACCOUNTS & P&L
-      ======================================================== -->
+      <!-- ACCOUNTS -->
       <section id="accounts-module" class="tab-section">
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Today's Income</span><div class="metric-icon icon-green"><i data-lucide="arrow-down-left"></i></div></div>
-            <div class="metric-value" style="color:var(--success);" id="accTodayIncome">₹0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;" id="accPaidJobsCount">0 Paid Jobs</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Today's Expense</span><div class="metric-icon icon-red"><i data-lucide="arrow-up-right"></i></div></div>
-            <div class="metric-value" style="color:var(--danger);" id="accTodayExpense">₹0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;" id="accExpenseEntriesCount">0 Expense Items</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Today's Net Profit</span><div class="metric-icon icon-blue"><i data-lucide="trending-up"></i></div></div>
-            <div class="metric-value" style="color:var(--primary);" id="accTodayProfit">₹0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Income - Expense</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Total Outstanding Due</span><div class="metric-icon icon-amber"><i data-lucide="alert-circle"></i></div></div>
-            <div class="metric-value" style="color:var(--accent);" id="accTotalDue">₹0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Pending from Customers</div>
-          </div>
-        </div>
-
-        <div style="display:grid; grid-template-columns:1.2fr 1fr; gap:20px;">
-          <div class="card">
-            <div class="card-title"><span>💸 Record Shop Daily Expense</span></div>
-            <div class="form-grid">
-              <div class="form-group"><label>Expense Reason</label><input type="text" id="expTitle" placeholder="e.g. Tea ₹50, Paper ₹250"></div>
-              <div class="form-group"><label>Amount (₹)</label><input type="number" id="expAmount" placeholder="Amount"></div>
-            </div>
-            <button class="btn btn-danger" onclick="addShopExpense()"><i data-lucide="plus-circle"></i> Save Expense</button>
-            <div style="margin-top:20px;">
-              <h5 style="font-size:0.85rem; font-weight:700; color:var(--text-muted); margin-bottom:8px;">TODAY'S EXPENSES</h5>
-              <div class="table-container">
-                <table><thead><tr><th>Description</th><th>Amount</th><th>Action</th></tr></thead><tbody id="todayExpenseTbody"></tbody></table>
-              </div>
-            </div>
-          </div>
-
-          <div class="card">
-            <div class="card-title"><span>📅 Financial Overview</span><b style="color:var(--primary);" id="accMonthLabel">SEPTEMBER 2026</b></div>
-            <div style="display:flex; flex-direction:column; gap:12px; margin-top:10px;">
-              <div style="display:flex; justify-content:space-between; padding:10px; background:#f8fafc; border-radius:8px;"><span>Total Income</span><b style="color:var(--success); font-size:1.1rem;" id="repMonthlyIncome">₹0</b></div>
-              <div style="display:flex; justify-content:space-between; padding:10px; background:#f8fafc; border-radius:8px;"><span>Total Expense</span><b style="color:var(--danger); font-size:1.1rem;" id="repMonthlyExpense">₹0</b></div>
-              <div style="display:flex; justify-content:space-between; padding:12px; background:#eff6ff; border-radius:8px; border:1px solid #bfdbfe;"><span style="font-weight:800; color:#1e40af;">Net Profit</span><b style="color:#1d4ed8; font-size:1.25rem;" id="repMonthlyNetProfit">₹0</b></div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ========================================================
-           UTILITY TOOLS SECTION
-      ======================================================== -->
-      <section id="billing-module" class="tab-section">
         <div class="card">
-          <div class="card-title"><span>🧾 Direct Billing & Dynamic UPI QR</span></div>
-          <div class="form-grid">
-            <div class="form-group"><label>Customer Mobile</label><input type="tel" id="bCustPhone"></div>
-            <div class="form-group"><label>Customer Name</label><input type="text" id="bCustName"></div>
-            <div class="form-group"><label>Service Description</label><input type="text" id="bService"></div>
-            <div class="form-group"><label>Amount (₹)</label><input type="number" id="bAmount" oninput="genUPI()"></div>
+          <div class="card-title"><span>💰 Daily Income & Due Khata</span></div>
+          <div class="table-container">
+            <table>
+              <thead><tr><th>Date</th><th>Customer</th><th>Service</th><th>Amount</th><th>Status</th></tr></thead>
+              <tbody id="accountsInvoicesTbody"></tbody>
+            </table>
           </div>
-          <button class="btn btn-primary" onclick="window.print()"><i data-lucide="printer"></i> Print Invoice</button>
-        </div>
-        <div class="card" id="billPreviewCard" style="display:none;">
-          <div style="display:flex; gap:30px; align-items:center;">
-            <div id="printableArea" style="background:#fff; border:1px solid #cbd5e1; padding:20px; width:320px; border-radius:10px;">
-              <h3 style="text-align:center;">Digital Darsan</h3>
-              <p style="text-align:center; font-size:12px; color:#64748b;">Rathapada, Dhenkanal · 8249833933</p>
-              <hr style="margin:10px 0;">
-              <p style="font-size:13px;"><b>Customer:</b> <span id="rName">-</span></p>
-              <p style="font-size:13px;"><b>Service:</b> <span id="rService">-</span></p>
-              <hr style="margin:10px 0;">
-              <h4>Total: <span id="rAmount">₹0</span></h4>
-            </div>
-            <canvas id="billUpiQr"></canvas>
-          </div>
-        </div>
-      </section>
-
-      <section id="smart-crop" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>📐 Auto Corner Crop & Perspective Straightener</span></div>
-          <div class="form-grid">
-            <div class="form-group"><label>Upload Document Image</label><input type="file" id="cropFileInput" accept="image/*" onchange="initCropImage(event)"></div>
-          </div>
-          <button class="btn btn-primary" onclick="executePerspectiveCrop()"><i data-lucide="scissors"></i> Straighten & Crop</button>
-        </div>
-        <div class="card" style="text-align:center; background:#0b1120;">
-          <div class="crop-workspace-wrapper"><canvas id="cropCanvas"></canvas></div>
-        </div>
-      </section>
-
-      <section id="a4-enhancer" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>✨ Clear White A4 Document Scanner (Photocopy Filter)</span></div>
-          <div class="form-grid">
-            <div class="form-group">
-              <label>Filter Mode</label>
-              <select id="enhancerMode" onchange="applyA4EnhanceFilter()">
-                <option value="magic">✨ Clear White (Magic Photocopy)</option>
-                <option value="bw">📄 High Contrast Black & White</option>
-              </select>
-            </div>
-          </div>
-          <button class="btn btn-primary" onclick="window.print()"><i data-lucide="printer"></i> Print A4</button>
-        </div>
-        <div class="card" style="background:#e2e8f0; overflow:auto; text-align:center;">
-          <div id="a4PrintContainer" class="a4-preview-frame">
-            <canvas id="enhancerCanvas" style="display:none;"></canvas>
-            <img id="enhancedA4Img" class="a4-enhanced-img" alt="Enhanced A4 Output">
-          </div>
-        </div>
-      </section>
-
-      <section id="resizer" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>📐 Job Resizer (OSSSC / SSC / Railway)</span></div>
-          <div class="form-grid">
-            <div class="form-group"><label>Select Photo/Sign</label><input type="file" id="resizerInput" accept="image/*" onchange="handleResizer(event)"></div>
-            <div class="form-group">
-              <label>Preset</label>
-              <select id="resizerPreset" onchange="applyJobResize()">
-                <option value="photo_osssc">OSSSC Photo (20 KB - 50 KB)</option>
-                <option value="sign_osssc">OSSSC Signature (10 KB - 20 KB)</option>
-              </select>
-            </div>
-          </div>
-          <div id="resizerResult" style="display:none; text-align:center; padding:15px; background:#fff; border-radius:10px;">
-            <img id="resizerPreviewImg" style="max-height:160px; border:1px solid #cbd5e1; margin-bottom:10px;" alt="Resized">
-            <p id="resizerInfoText" style="font-size:13px; font-weight:700; color:var(--primary); margin-bottom:10px;"></p>
-            <a id="resizerDownloadBtn" class="btn btn-success" download="job_ready.jpg"><i data-lucide="download"></i> Download</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="photo-studio" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>🖼️ Quick Passport Photo Sheet (8 Copies on 4×6)</span></div>
-          <div class="form-grid"><div class="form-group"><label>Upload Photo</label><input type="file" id="passInput" accept="image/*" onchange="loadPassPhoto(event)"></div></div>
-          <button class="btn btn-primary" onclick="window.print()"><i data-lucide="printer"></i> Print Sheet</button>
-        </div>
-        <div class="card"><div id="passPrintArea"><div id="passGrid" style="display:flex; flex-wrap:wrap; gap:8px; padding:15px; background:#fff; width:fit-content; border:1px solid #cbd5e1; border-radius:8px;"></div></div></div>
-      </section>
-
-      <section id="letter-module" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>✍️ Instant Odia Application Maker</span></div>
-          <div class="form-grid">
-            <div class="form-group"><label>ପ୍ରାପକ</label><input type="text" id="ltrTo" value="ମାନ୍ୟବର ତହସିଲଦାର ମହୋଦୟଙ୍କ ସମୀପେଷୁ, ଢେଙ୍କାନାଳ"></div>
-            <div class="form-group"><label>ବିଷୟ</label><input type="text" id="ltrSub" value="ନୂତନ ଆବାସିକ ପ୍ରମାଣପତ୍ର ନିମନ୍ତେ ଆବେଦନ।"></div>
-            <div class="form-group"><label>ନାମ</label><input type="text" id="ltrName" placeholder="ପ୍ରିୟଦର୍ଶନ ଓଝା"></div>
-            <div class="form-group"><label>ଠିକଣା</label><input type="text" id="ltrAddr" placeholder="ରଥପଡ଼ା, ଢେଙ୍କାନାଳ"></div>
-          </div>
-          <button class="btn btn-primary" onclick="genOdiaLetter()"><i data-lucide="file-text"></i> Generate</button>
-        </div>
-        <div class="card">
-          <div id="letterPreviewArea" style="background:#fff; border:1px solid #cbd5e1; padding:30px; font-size:15px; line-height:1.9; border-radius:8px;"></div>
         </div>
       </section>
 
       <section id="cloud-backup" class="tab-section">
         <div class="card">
-          <div class="card-title"><span>💾 Secure Database Backup & Migration</span></div>
-          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:16px;">
-            କମ୍ପ୍ୟୁଟର୍ ବଦଳାଇବା କିମ୍ବା ବ୍ରାଉଜର୍ କ୍ୟାଚ୍ କ୍ଲିୟର୍ ହେଲେ ମଧ୍ୟ ଆପଣଙ୍କର ସମସ୍ତ ଗ୍ରାହକ, ଗାଡ଼ି ବିବରଣୀ, ଫାଇଲ୍, ଖାତା ଓ ବିଲ୍ ସୁରକ୍ଷିତ ରଖିବା ପାଇଁ ଏକ-କ୍ଲିକ୍ ବ୍ୟାକଅପ୍ ନିଅନ୍ତୁ।
-          </p>
-          <div style="display:flex; gap:14px; flex-wrap:wrap;">
-            <button class="btn btn-primary" onclick="exportDatabaseJSON()"><i data-lucide="download-cloud"></i> Export Complete Database (JSON)</button>
-            <label class="btn btn-secondary" style="cursor:pointer;">
-              <i data-lucide="upload-cloud"></i> Restore Database
-              <input type="file" id="importJsonInput" accept=".json" style="display:none;" onchange="importDatabaseJSON(event)">
-            </label>
-          </div>
-        </div>
-      </section>
-
-      <section id="settings" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>⚙️ Business Profile Settings</span></div>
-          <p style="color:#64748b;">Center: Digital Darsan · Contact: 8249833933 · UPI: 8249833933@upi</p>
+          <div class="card-title"><span>💾 Database Backup</span></div>
+          <button class="btn btn-primary" onclick="exportDatabaseJSON()"><i data-lucide="download-cloud"></i> Export Backup JSON</button>
         </div>
       </section>
 
     </div>
   </main>
 
-  <!-- MODAL: ADD CUSTOMER -->
+  <!-- MODAL: NEW CUSTOMER & JOB ENTRY -->
   <div id="newCustomerModal" class="modal">
     <div class="modal-content">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-size:1.15rem; font-weight:800;">Create Customer Profile</h3>
-        <button onclick="closeModal('newCustomerModal')" style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
-      </div>
-      <div class="form-group"><label>Customer Mobile Number (WhatsApp)</label><input type="tel" id="ncPhone" placeholder="10-digit number" maxlength="10"></div>
-      <div class="form-group"><label>Customer Full Name</label><input type="text" id="ncName" placeholder="Full Name"></div>
-      <div class="form-group"><label>Address / Village</label><input type="text" id="ncAddress" placeholder="Rathapada, Dhenkanal"></div>
-      <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:10px;" onclick="saveNewCustomerProfile()">
-        <i data-lucide="check"></i> Create Profile
-      </button>
-    </div>
-  </div>
-
-  <!-- MODAL: ADD VEHICLE & VAHAN FETCH API -->
-  <div id="newVehicleModal" class="modal">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-size:1.15rem; font-weight:800;">Add Vehicle & Renewals</h3>
-        <button onclick="closeModal('newVehicleModal')" style="border:none; background:none; font-size:20px; cursor:pointer;">&times;</button>
-      </div>
-
-      <!-- VAHAN FETCH SYSTEM -->
-      <div class="form-group" style="margin-bottom:18px; padding:14px; background:#eff6ff; border:1px solid #bfdbfe; border-radius:10px;">
-        <label style="color:#1e40af; font-weight:800;">Vehicle Number (Live RTO Search)</label>
-        <div style="display:flex; gap:10px; margin-top:6px;">
-          <input type="text" id="vRegNo" placeholder="e.g. OD-02-AB-1234" style="flex:1; text-transform:uppercase; font-weight:700;">
-          <button class="btn btn-primary" id="btnFetchVahan" onclick="fetchVahanData()">
-            <i data-lucide="search"></i> Fetch Data
-          </button>
-        </div>
+        <h3 style="font-size:1.15rem; font-weight:800;">Digital Darsan — One-Click Customer & Job Entry</h3>
+        <button onclick="closeModal('newCustomerModal')" style="border:none; background:none; font-size:22px; cursor:pointer;">&times;</button>
       </div>
 
       <div class="form-grid">
+        <div class="form-group"><label>Mobile Number (WhatsApp) *</label><input type="tel" id="ncPhone" maxlength="10" placeholder="9876543210"></div>
+        <div class="form-group"><label>Customer Full Name *</label><input type="text" id="ncName" placeholder="Priyadarshan Ojha"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Father's Name</label><input type="text" id="ncFather" placeholder="Father Name"></div>
+        <div class="form-group"><label>Mother's Name</label><input type="text" id="ncMother" placeholder="Mother Name"></div>
+      </div>
+      <div class="form-group" style="margin-bottom:14px;"><label>Address / Village</label><input type="text" id="ncAddress" placeholder="Rathapada, Dhenkanal"></div>
+
+      <hr style="border:0; border-top:1px solid #e2e8f0; margin:14px 0;">
+
+      <div class="form-grid">
+        <div class="form-group"><label>Work / Service Type *</label><input type="text" id="ncService" placeholder="e.g. Income Certificate / PAN / DL"></div>
+        <div class="form-group"><label>Documents Given by Customer</label><input type="text" id="ncDocs" placeholder="e.g. Aadhaar, Photo, Passbook"></div>
+      </div>
+      <div class="form-grid">
+        <div class="form-group"><label>Total Amount (₹)</label><input type="number" id="ncAmount" placeholder="150"></div>
         <div class="form-group">
-          <label>Vehicle Type</label>
-          <select id="vType">
-            <option value="Bike / Two-Wheeler">🏍️ Bike / Scooter</option>
-            <option value="Car / Four-Wheeler">🚗 Car / Taxi</option>
-            <option value="Auto / 3-Wheeler">🛺 Auto Rickshaw</option>
-            <option value="Commercial / Truck">🚛 Truck / Bus</option>
-            <option value="Tractor">🚜 Tractor</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Fuel Type</label>
-          <select id="vFuel">
-            <option value="Petrol">Petrol</option>
-            <option value="Diesel">Diesel</option>
-            <option value="EV">Electric (EV)</option>
-            <option value="CNG">CNG</option>
+          <label>Payment Status</label>
+          <select id="ncPayStatus">
+            <option value="Paid">Paid (Advance / Full)</option>
+            <option value="Due">Due (Khata)</option>
           </select>
         </div>
       </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Insurance Company</label><input type="text" id="vInsCo" placeholder="e.g. Tata AIG, Digit"></div>
-        <div class="form-group"><label>Policy No.</label><input type="text" id="vPolicyNo" placeholder="Policy Number"></div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Insurance Expiry</label><input type="date" id="vInsExp"></div>
-        <div class="form-group"><label>PUC / Pollution Expiry</label><input type="date" id="vPucExp"></div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>RC Validity (Reg Exp)</label><input type="date" id="vRcExp"></div>
-        <div class="form-group"><label>Permit Expiry</label><input type="date" id="vPermitExp"></div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Road Tax Expiry</label><input type="date" id="vTaxExp"></div>
-        <div class="form-group"><label>Fitness Expiry</label><input type="date" id="vFitExp"></div>
-      </div>
-      <button class="btn btn-success" style="width:100%; justify-content:center; margin-top:10px;" onclick="saveVehicleDetails()">
-        <i data-lucide="check-circle"></i> Save & Link Vehicle to Customer
+
+      <button class="btn btn-success" style="width:100%; justify-content:center; margin-top:14px;" onclick="saveCompleteCustomerJob()">
+        <i data-lucide="check-circle"></i> Save & Send Welcome Greeting (WhatsApp)
       </button>
     </div>
   </div>
@@ -667,46 +281,23 @@
     let DB = {
       customers: JSON.parse(localStorage.getItem('vle_customers') || '{}'),
       jobs: JSON.parse(localStorage.getItem('vle_jobs') || '[]'),
-      expenses: JSON.parse(localStorage.getItem('vle_expenses') || '[]'),
-      invoices: JSON.parse(localStorage.getItem('vle_invoices') || '[]'),
-      khata: JSON.parse(localStorage.getItem('vle_khata') || '[]'),
-      vehicles: JSON.parse(localStorage.getItem('vle_vehicles') || '[]'),
       activeCustomerPhone: null
     };
 
-    let cropState = {
-      cropImg: null, corners: [{x:40, y:40}, {x:460, y:40}, {x:460, y:360}, {x:40, y:360}], activeCornerIdx: -1
-    };
-    let alertFilterDays = null;
+    const STAGES = ["Received", "Processing", "Ready", "Delivered"];
 
     function initSuite() {
       if (Object.keys(DB.customers).length === 0) {
         seedInitialData();
       }
-      refreshDashboardMetrics();
-      refreshAccountsModule();
-      renderAlertsList();
-
-      const canvas = document.getElementById('cropCanvas');
-      if (canvas) {
-        canvas.width = 600; canvas.height = 400;
-        const ctx = canvas.getContext('2d');
-        ctx.fillStyle = "#0f172a"; ctx.fillRect(0,0,600,400);
-        ctx.fillStyle = "#64748b"; ctx.font = "15px 'Plus Jakarta Sans'";
-        ctx.fillText("Upload an image above to start corner crop", 140, 205);
-        setupCanvasEvents();
-      }
-
+      renderGlobalJobs();
+      renderAccountsTable();
       lucide.createIcons();
     }
 
     function saveDB() {
       localStorage.setItem('vle_customers', JSON.stringify(DB.customers));
       localStorage.setItem('vle_jobs', JSON.stringify(DB.jobs));
-      localStorage.setItem('vle_expenses', JSON.stringify(DB.expenses));
-      localStorage.setItem('vle_invoices', JSON.stringify(DB.invoices));
-      localStorage.setItem('vle_khata', JSON.stringify(DB.khata));
-      localStorage.setItem('vle_vehicles', JSON.stringify(DB.vehicles));
     }
 
     function openTab(tabId, el) {
@@ -718,771 +309,169 @@
       lucide.createIcons();
     }
 
-    function openModal(id) { 
-      const modal = document.getElementById(id);
-      if (modal) modal.style.display = 'flex'; 
-      lucide.createIcons(); 
-    }
-    
-    function closeModal(id) { 
-      const modal = document.getElementById(id);
-      if (modal) modal.style.display = 'none'; 
-    }
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; lucide.createIcons(); }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    function openNewCustomerModal() { openModal('newCustomerModal'); }
 
-    function openNewCustomerModal() {
-      openModal('newCustomerModal');
-    }
-
-    /* -------------------------------------------------------------
-       INITIAL SEED DATA
-    ------------------------------------------------------------- */
     function seedInitialData() {
       const p = "8249833933";
-      DB.customers[p] = { name: "Priyadarshan Ojha", phone: p, address: "Rathapada, Dhenkanal", docs: [] };
-      DB.vehicles.push({
-        id: 501,
-        phone: p,
-        regNo: "OD-06-AB-1234",
-        type: "Bike / Two-Wheeler",
-        fuel: "Petrol",
-        insCo: "Tata AIG",
-        policyNo: "POL-889341",
-        insExp: "2026-09-20",
-        pucExp: "2026-09-10",
-        taxExp: "2026-10-15",
-        fitExp: "",
-        rcExp: "2035-01-01",
-        permitExp: "",
-        history: []
+      DB.customers[p] = { 
+        name: "Priyadarshan Ojha", phone: p, father: "Pankaj Ojha", mother: "Annapurna Ojha", address: "Rathapada, Dhenkanal" 
+      };
+      DB.jobs.unshift({
+        id: Date.now(), phone: p, name: "Priyadarshan Ojha", service: "Income Certificate", 
+        docs: "Aadhaar, Photo", amount: 100, payStatus: "Paid", stage: "Received", date: new Date().toLocaleDateString()
       });
       saveDB();
     }
 
-    /* -------------------------------------------------------------
-       SMART RENEWAL ALERTS HUB
-    ------------------------------------------------------------- */
-    function getDaysDiff(targetDateStr) {
-      if (!targetDateStr) return null;
-      const today = new Date(); today.setHours(0, 0, 0, 0);
-      const target = new Date(targetDateStr); target.setHours(0, 0, 0, 0);
-      return Math.round((target - today) / (1000 * 60 * 60 * 24));
-    }
+    /* ONE-CLICK SAVE & WHATSAPP GREETING */
+    function saveCompleteCustomerJob() {
+      const phone = document.getElementById('ncPhone').value.trim();
+      const name = document.getElementById('ncName').value.trim();
+      const father = document.getElementById('ncFather').value.trim();
+      const mother = document.getElementById('ncMother').value.trim();
+      const address = document.getElementById('ncAddress').value.trim();
+      const service = document.getElementById('ncService').value.trim();
+      const docs = document.getElementById('ncDocs').value.trim();
+      const amount = Number(document.getElementById('ncAmount').value) || 0;
+      const payStatus = document.getElementById('ncPayStatus').value;
 
-    function renderAlertsList() {
-      const filterElem = document.getElementById('alertCategoryFilter');
-      const container = document.getElementById('smartAlertsItemsContainer');
-      if (!container) return;
-      const cat = filterElem ? filterElem.value : 'ALL';
-      container.innerHTML = '';
-
-      let countToday = 0, count7 = 0, count30 = 0, alertItems = [];
-
-      DB.vehicles.forEach(v => {
-        const cust = DB.customers[v.phone] || { name: 'Customer' };
-        const checks = [
-          { type: 'Insurance', name: '🚘 Insurance Policy', exp: v.insExp, co: v.insCo, num: v.policyNo },
-          { type: 'PUC', name: '🛞 PUC / Pollution Certificate', exp: v.pucExp },
-          { type: 'RoadTax', name: '🧾 Road Tax', exp: v.taxExp },
-          { type: 'Fitness', name: '🔧 Vehicle Fitness', exp: v.fitExp },
-          { type: 'RC', name: '🪪 RC Validity', exp: v.rcExp },
-          { type: 'Permit', name: '📋 Permit Expiry', exp: v.permitExp }
-        ];
-
-        checks.forEach(c => {
-          if (c.exp) {
-            const days = getDaysDiff(c.exp);
-            if (days !== null) {
-              if (days <= 0) countToday++;
-              else if (days <= 7) count7++;
-              else if (days <= 30) count30++;
-
-              if (days <= 30) {
-                alertItems.push({
-                  vId: v.id, phone: v.phone, custName: cust.name, regNo: v.regNo,
-                  type: c.type, title: c.name, exp: c.exp, days: days, co: c.co, num: c.num
-                });
-              }
-            }
-          }
-        });
-      });
-
-      if(document.getElementById('alertCountToday')) document.getElementById('alertCountToday').innerText = countToday;
-      if(document.getElementById('alertCount7Days')) document.getElementById('alertCount7Days').innerText = count7;
-      if(document.getElementById('alertCount30Days')) document.getElementById('alertCount30Days').innerText = count30;
-
-      let filtered = alertItems;
-      if (alertFilterDays === 0) filtered = filtered.filter(i => i.days <= 0);
-      else if (alertFilterDays === 7) filtered = filtered.filter(i => i.days > 0 && i.days <= 7);
-      else if (alertFilterDays === 30) filtered = filtered.filter(i => i.days > 7 && i.days <= 30);
-
-      if (cat !== 'ALL') filtered = filtered.filter(i => i.type === cat);
-
-      if (filtered.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-muted); font-size:13px;">✅ No renewals pending in this selection.</div>`;
-        return;
+      if (!phone || phone.length < 10 || !name || !service) {
+        return alert('ଦୟାକରି ମୋବାଇଲ୍ ନମ୍ବର, ନାମ ଏବଂ କାମର ନାମ ଠିକ୍ ଭାବେ ଭରନ୍ତୁ!');
       }
 
-      filtered.sort((a, b) => a.days - b.days);
+      // Save or Update Customer Profile
+      DB.customers[phone] = { name, phone, father: father || 'N/A', mother: mother || 'N/A', address: address || 'Dhenkanal' };
 
-      filtered.forEach(item => {
-        let tagHtml = '';
-        if (item.days < 0) tagHtml = `<span class="badge" style="background:#fee2e2; color:#b91c1c;">EXPIRED (${Math.abs(item.days)}d ago)</span>`;
-        else if (item.days === 0) tagHtml = `<span class="badge" style="background:#fef2f2; color:#b91c1c;">EXPIRES TODAY</span>`;
-        else if (item.days <= 7) tagHtml = `<span class="badge" style="background:#fef3c7; color:#b45309;">${item.days} DAYS LEFT</span>`;
-        else tagHtml = `<span class="badge" style="background:#eff6ff; color:#1d4ed8;">${item.days} DAYS LEFT</span>`;
-
-        const row = document.createElement('div');
-        row.className = 'alert-item-card';
-        row.innerHTML = `
-          <div>
-            <div style="display:flex; align-items:center; gap:8px;"><b style="font-size:0.95rem; color:#0f172a;">${item.title}</b>${tagHtml}</div>
-            <p style="font-size:0.84rem; color:var(--text-muted); margin-top:3px;">Vehicle: <b style="color:var(--text-main);">${item.regNo}</b> · Customer: <b>${item.custName}</b> (${item.phone})</p>
-            <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Expiry Date: <b>${item.exp}</b> ${item.co ? '· ' + item.co : ''}</p>
-          </div>
-          <div style="display:flex; gap:8px;">
-            <button class="btn btn-whatsapp" style="padding:6px 12px; font-size:12px;" onclick="sendVehicleReminderWhatsApp('${item.phone}', '${item.custName}', '${item.regNo}', '${item.type}', '${item.exp}')">
-              <i data-lucide="send" style="width:13px;"></i> Send Reminder
-            </button>
-            <button class="btn btn-secondary" style="padding:6px 12px; font-size:12px;" onclick="quickRenewPrompt(${item.vId}, '${item.type}')">
-              <i data-lucide="rotate-cw" style="width:13px;"></i> Renew
-            </button>
-          </div>
-        `;
-        container.appendChild(row);
+      // Save Job
+      const jobId = Date.now();
+      DB.jobs.unshift({
+        id: jobId, phone, name, service, docs: docs || 'Standard', amount, payStatus, stage: "Received", date: new Date().toLocaleDateString()
       });
-      lucide.createIcons();
+
+      saveDB();
+      closeModal('newCustomerModal');
+      renderGlobalJobs();
+      renderAccountsTable();
+
+      // Send Welcome Greeting & Smart Notification on WhatsApp
+      sendWhatsAppMessage(phone, name, service, "Received", docs);
     }
 
-    function filterAlertsByDays(days) { alertFilterDays = (alertFilterDays === days) ? null : days; renderAlertsList(); }
-
-    function sendVehicleReminderWhatsApp(phone, name, regNo, type, expDate) {
-      let msg = `*ନମସ୍କାର ${name} ji,*\nDigital Darsan (ଢେଙ୍କାନାଳ) ତରଫରୁ ସୂଚନା:\nଆପଣଙ୍କ ଗାଡ଼ି *${regNo}* ର ${type} validity ତାରିଖ *${expDate}* ରେ ସମାପ୍ତ ହେଉଛି। ରିନିଉଆଲ୍ ପାଇଁ ଆମ ସହିତ ଯୋଗାଯୋଗ କରନ୍ତୁ।\nContact: 8249833933`;
+    function sendWhatsAppMessage(phone, name, service, stage, docs) {
+      let msg = "";
+      if (stage === "Received") {
+        msg = `*ନମସ୍କାର ${name} Ji,*\nDigital Darsan (ରଥପଡ଼ା, ଢେଙ୍କାନାଳ) କୁ ଆସିଥିବାରୁ ଅନେକ ଧନ୍ୟବାଦ। 🙏\n\nଆପଣଙ୍କର *${service}* କାମ ଆମେ ଗ୍ରହଣ କଲୁ।\n📁 *ଜମା ହୋଇଥିବା ଡକ୍ୟୁମେଣ୍ଟ୍:* ${docs}\n\nକାମର ଅଗ୍ରଗତି (Status) ଆପଣଙ୍କୁ WhatsApp ରେ ଜଣାଇ ଦିଆଯିବ।\n\n📞 Contact: 8249833933`;
+      } else if (stage === "Processing") {
+        msg = `*ନମସ୍କାର ${name} Ji,*\nDigital ଦର୍ଶନ ତରଫରୁ ସୂଚନା: ଆପଣଙ୍କ *${service}* କାମ ବର୍ତ୍ତମାନ ପ୍ରୋସେସିଂ (Processing) ଚାଲିଛି।`;
+      } else if (stage === "Ready") {
+        msg = `*ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସୂଚନା, ${name} Ji! 🎉*\nDigital Darsan ରେ ଆପଣଙ୍କ *${service}* କାମ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇସାରିଛି।\n\nଦୟାକରି ଦୋକାନକୁ ଆସି ଆପଣଙ୍କ କାଗଜପତ୍ର ସଂଗ୍ରହ କରିନିଅନ୍ତୁ। ଧନ୍ୟବାଦ!`;
+      } else if (stage === "Delivered") {
+        msg = `*ନମସ୍କାର ${name} Ji,*\nଆପଣଙ୍କର *${service}* କାମ ସଫଳତାପୂର୍ବକ ପ୍ରଦାନ କରାଗଲା। Digital Darsan ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ!`;
+      }
       window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
     }
 
-    function quickRenewPrompt(vId, type) {
-      const v = DB.vehicles.find(x => x.id === vId);
-      if (!v) return;
-      const newDate = prompt(`Enter NEW Expiry Date for ${type} (YYYY-MM-DD):`);
-      if (!newDate) return;
-      
-      if (!v.history) v.history = [];
-      if (type === 'Insurance') { v.history.push({ type: 'Insurance', oldExp: v.insExp, renewedOn: new Date().toLocaleDateString() }); v.insExp = newDate; }
-      else if (type === 'PUC') { v.history.push({ type: 'PUC', oldExp: v.pucExp, renewedOn: new Date().toLocaleDateString() }); v.pucExp = newDate; }
-      else if (type === 'RoadTax') { v.history.push({ type: 'RoadTax', oldExp: v.taxExp, renewedOn: new Date().toLocaleDateString() }); v.taxExp = newDate; }
-      else if (type === 'Fitness') { v.history.push({ type: 'Fitness', oldExp: v.fitExp, renewedOn: new Date().toLocaleDateString() }); v.fitExp = newDate; }
-      else if (type === 'RC') { v.history.push({ type: 'RC', oldExp: v.rcExp, renewedOn: new Date().toLocaleDateString() }); v.rcExp = newDate; }
-      else if (type === 'Permit') { v.history.push({ type: 'Permit', oldExp: v.permitExp, renewedOn: new Date().toLocaleDateString() }); v.permitExp = newDate; }
-
-      saveDB(); renderAlertsList();
-      if (DB.activeCustomerPhone) loadCustomerWorkspace(DB.activeCustomerPhone);
-      alert(`✅ ${type} renewed successfully!`);
-    }
-
-    /* -------------------------------------------------------------
-       VAHAN FETCH API SIMULATION
-    ------------------------------------------------------------- */
-    function fetchVahanData() {
-      const regNoInput = document.getElementById('vRegNo');
-      if(!regNoInput) return;
-      const regNo = regNoInput.value.trim().toUpperCase();
-      if(!regNo) return alert('Please enter Vehicle Registration Number');
-
-      const btn = document.getElementById('btnFetchVahan');
-      btn.innerHTML = `<i data-lucide="loader" class="spin"></i> Fetching...`;
-      btn.disabled = true;
-
-      setTimeout(() => {
-        document.getElementById('vType').value = "Car / Four-Wheeler";
-        document.getElementById('vFuel').value = "Petrol";
-        document.getElementById('vInsCo').value = "Tata AIG Insurance";
-        document.getElementById('vPolicyNo').value = "POL-" + Math.floor(Math.random() * 9000000);
-        
-        const setDate = (months) => { let d = new Date(); d.setMonth(d.getMonth() + months); return d.toISOString().split('T')[0]; };
-        
-        document.getElementById('vInsExp').value = setDate(8);
-        document.getElementById('vPucExp').value = setDate(3);
-        document.getElementById('vTaxExp').value = setDate(24);
-        document.getElementById('vFitExp').value = setDate(36);
-        document.getElementById('vRcExp').value = setDate(120);
-        document.getElementById('vPermitExp').value = setDate(12);
-
-        btn.innerHTML = `<i data-lucide="check-circle"></i> Data Found`;
-        btn.style.background = "var(--success)";
-        
-        setTimeout(() => {
-          btn.innerHTML = `<i data-lucide="search"></i> Fetch Data`;
-          btn.style.background = "";
-          btn.disabled = false;
-          lucide.createIcons();
-        }, 2000);
-
-        lucide.createIcons();
-      }, 1500);
-    }
-
-    /* -------------------------------------------------------------
-       CUSTOMER 360° ENGINE
-    ------------------------------------------------------------- */
-    function handlePhoneSearch(val) { if (val.length === 10) searchCustomerDirect(); }
-
-    function searchCustomerDirect() {
-      const searchPhoneInput = document.getElementById('cSearchPhone');
-      if (!searchPhoneInput) return;
-      const phone = searchPhoneInput.value.trim();
-      if (!phone || phone.length < 10) return alert('Enter valid 10-digit customer mobile number');
-      if (!DB.customers[phone]) {
-        if (confirm(`Customer with mobile ${phone} not found. Create new profile?`)) {
-          document.getElementById('ncPhone').value = phone;
-          openModal('newCustomerModal');
-        }
-        return;
-      }
-      loadCustomerWorkspace(phone);
-    }
-
-    function loadCustomerWorkspace(phone) {
-      DB.activeCustomerPhone = phone;
-      const cust = DB.customers[phone];
-
-      const custJobs = DB.jobs.filter(j => j.phone === phone);
-      const custVehicles = DB.vehicles.filter(v => v.phone === phone);
-      const custInvoices = DB.invoices.filter(i => i.phone === phone);
-      const custKhata = DB.khata.filter(k => k.phone === phone);
-      const totalPaid = custInvoices.filter(i => i.status === 'Paid').reduce((sum, i) => sum + Number(i.amount || 0), 0);
-      const totalDue = custKhata.reduce((sum, k) => sum + Number(k.amount || 0), 0);
-
-      document.getElementById('customerProfileWorkspace').style.display = 'block';
-      document.getElementById('cpAvatar').innerText = cust.name.charAt(0).toUpperCase();
-      document.getElementById('cpName').innerText = cust.name;
-      document.getElementById('cpPhone').innerText = phone;
-      document.getElementById('cpAddress').innerText = cust.address || 'Dhenkanal';
-
-      document.getElementById('cpStatActiveJobs').innerText = custJobs.filter(j => j.stage !== 'Delivered').length;
-      document.getElementById('cpStatVehicles').innerText = custVehicles.length;
-      document.getElementById('cpStatDocs').innerText = cust.docs ? cust.docs.length : 0;
-      document.getElementById('cpStatPaid').innerText = '₹' + totalPaid;
-      document.getElementById('cpStatDue').innerText = '₹' + totalDue;
-
-      renderCustomerVehiclesList(custVehicles);
-      renderCustomerJobsList(custJobs);
-      renderCustomerDocsList(cust.docs || []);
-      renderCustomerBillsList(custInvoices);
-      renderCustomerKhataList(custKhata);
-
-      lucide.createIcons();
-    }
-
-    function switchCustTab(tabId, btn) {
-      document.querySelectorAll('.cust-sub-tab-content').forEach(c => c.style.display = 'none');
-      document.querySelectorAll('.sub-tab-btn').forEach(b => b.classList.remove('active'));
-      const target = document.getElementById(tabId);
-      if (target) target.style.display = 'block';
-      if (btn) btn.classList.add('active');
-      lucide.createIcons();
-    }
-
-    /* -------------------------------------------------------------
-       CUSTOMER TAB: VEHICLES
-    ------------------------------------------------------------- */
-    function openAddVehicleModal() {
-      if (!DB.activeCustomerPhone) return alert('Select customer first');
-      openModal('newVehicleModal');
-    }
-
-    function saveVehicleDetails() {
-      const regNo = document.getElementById('vRegNo').value.trim().toUpperCase();
-      const type = document.getElementById('vType').value;
-      const fuel = document.getElementById('vFuel').value;
-      const insCo = document.getElementById('vInsCo').value.trim();
-      const policyNo = document.getElementById('vPolicyNo').value.trim();
-      const insExp = document.getElementById('vInsExp').value;
-      const pucExp = document.getElementById('vPucExp').value;
-      const taxExp = document.getElementById('vTaxExp').value;
-      const fitExp = document.getElementById('vFitExp').value;
-      const rcExp = document.getElementById('vRcExp').value;
-      const permitExp = document.getElementById('vPermitExp').value;
-
-      if (!regNo) return alert('Please enter vehicle registration number');
-
-      DB.vehicles.unshift({
-        id: Date.now(),
-        phone: DB.activeCustomerPhone,
-        regNo: regNo, type: type, fuel: fuel,
-        insCo: insCo, policyNo: policyNo,
-        insExp: insExp, pucExp: pucExp, taxExp: taxExp, fitExp: fitExp, rcExp: rcExp, permitExp: permitExp,
-        history: []
-      });
-
+    function changeJobStage(jobId, stg) {
+      const j = DB.jobs.find(x => x.id === jobId);
+      if (!j) return;
+      j.stage = stg;
       saveDB();
-      closeModal('newVehicleModal');
-      loadCustomerWorkspace(DB.activeCustomerPhone);
-      renderAlertsList();
-      refreshDashboardMetrics();
-      alert('✅ Vehicle and renewal dates saved & linked to customer!');
+      renderGlobalJobs();
+      sendWhatsAppMessage(j.phone, j.name, j.service, stg, j.docs);
     }
 
-    function renderCustomerVehiclesList(vehicles) {
-      const c = document.getElementById('custVehiclesContainer');
-      if (!c) return;
-      c.innerHTML = '';
-      if (vehicles.length === 0) {
-        c.innerHTML = `<div style="text-align:center; padding:24px; color:var(--text-muted); font-size:13px;">No vehicles registered for this customer. Click "Add Vehicle" above.</div>`;
+    function renderGlobalJobs() {
+      const tbody = document.getElementById('globalJobsTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      if (DB.jobs.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#64748b;">କୌଣସି ଜବ୍ ନାହିଁ।</td></tr>`;
         return;
       }
 
-      vehicles.forEach(v => {
-        const insDays = getDaysDiff(v.insExp); const pucDays = getDaysDiff(v.pucExp); const rcDays = getDaysDiff(v.rcExp);
-
-        c.innerHTML += `
-          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:14px;">
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px;">
-              <div>
-                <div style="display:flex; align-items:center; gap:10px;">
-                  <b style="font-size:1.1rem; color:#0f172a;">${v.regNo}</b>
-                  <span class="badge" style="background:#f1f5f9; color:#475569;">${v.type}</span>
-                  <span class="badge" style="background:#fefce8; color:#854d0e;">⛽ ${v.fuel || 'Petrol'}</span>
-                </div>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:3px;">
-                  Insurance: <b>${v.insCo || 'N/A'}</b> (${v.policyNo || 'No Policy'})
-                </p>
-              </div>
-              <div style="display:flex; gap:8px;">
-                <button class="btn btn-secondary" style="padding:6px 10px; font-size:12px;" onclick="deleteVehicleRecord(${v.id})">
-                  <i data-lucide="trash-2" style="width:13px; color:var(--danger);"></i>
-                </button>
-              </div>
-            </div>
-
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:10px; margin-top:14px; padding-top:12px; border-top:1px dashed #e2e8f0;">
-              <div style="font-size:0.8rem;">
-                <span style="color:var(--text-muted);">Insurance:</span><br><b>${v.insExp || 'Not set'}</b>
-                ${insDays !== null ? `<br><small style="color:${insDays<=7?'var(--danger)':'var(--success)'}; font-weight:700;">${insDays<=0?'Expired':insDays+'d left'}</small>` : ''}
-              </div>
-              <div style="font-size:0.8rem;">
-                <span style="color:var(--text-muted);">PUC / Poll:</span><br><b>${v.pucExp || 'Not set'}</b>
-                ${pucDays !== null ? `<br><small style="color:${pucDays<=7?'var(--danger)':'var(--success)'}; font-weight:700;">${pucDays<=0?'Expired':pucDays+'d left'}</small>` : ''}
-              </div>
-              <div style="font-size:0.8rem;">
-                <span style="color:var(--text-muted);">RC Validity:</span><br><b>${v.rcExp || 'Not set'}</b>
-                ${rcDays !== null ? `<br><small style="color:${rcDays<=7?'var(--danger)':'var(--success)'}; font-weight:700;">${rcDays<=0?'Expired':rcDays+'d left'}</small>` : ''}
-              </div>
-              <div style="font-size:0.8rem;">
-                <span style="color:var(--text-muted);">Road Tax:</span><br><b>${v.taxExp || 'Not set'}</b>
-              </div>
-              <div style="font-size:0.8rem;">
-                <span style="color:var(--text-muted);">Fitness:</span><br><b>${v.fitExp || 'Not set'}</b>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    function deleteVehicleRecord(vId) {
-      if (!confirm('Are you sure you want to delete this vehicle record?')) return;
-      DB.vehicles = DB.vehicles.filter(x => x.id !== vId);
-      saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone); renderAlertsList(); refreshDashboardMetrics();
-    }
-
-    /* -------------------------------------------------------------
-       CUSTOMER TAB: JOBS PIPELINE
-    ------------------------------------------------------------- */
-    const STAGES = ["Received", "Processing", "Submitted", "Approved", "Delivered"];
-
-    function renderCustomerJobsList(jobs) {
-      const container = document.getElementById('custJobsContainer');
-      if (!container) return;
-      container.innerHTML = '';
-      if (jobs.length === 0) {
-        container.innerHTML = `<div style="text-align:center; padding:20px; color:#64748b;">No active jobs found for this customer.</div>`;
-        return;
-      }
-      jobs.forEach(job => {
+      DB.jobs.forEach(job => {
         const curIdx = STAGES.indexOf(job.stage);
         let stepsHtml = '';
         STAGES.forEach((stg, idx) => {
           let cls = ''; if (idx < curIdx) cls = 'completed'; else if (idx === curIdx) cls = 'current';
           stepsHtml += `<div class="step-node ${cls}" onclick="changeJobStage(${job.id}, '${stg}')"><div class="step-circle">${idx < curIdx ? '✓' : idx + 1}</div><span class="step-label">${stg}</span></div>`;
         });
-        container.innerHTML += `
-          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; padding:16px; margin-bottom:12px;">
-            <div style="display:flex; justify-content:space-between; align-items:center;">
-              <div><b style="font-size:1rem;">${job.service}</b><p style="font-size:0.8rem; color:#64748b;">Ref: <b>${job.ackNo || 'N/A'}</b> · Fee: ₹${job.charge}</p></div>
-              <button class="btn btn-whatsapp" style="padding:6px 12px; font-size:11px;" onclick="triggerAutoNotification('status', '${job.service}', '${job.stage}', '${job.ackNo}')"><i data-lucide="send" style="width:13px;"></i> Send Status</button>
-            </div>
-            <div class="pipeline-steps">${stepsHtml}</div>
-          </div>
+
+        tbody.innerHTML += `
+          <tr>
+            <td>${job.date}</td>
+            <td><b>${job.name}</b><br><small style="color:#64748b;">📱 ${job.phone}</small></td>
+            <td><b>${job.service}</b><br><small style="color:#64748b;">Docs: ${job.docs}</small></td>
+            <td><div class="pipeline-steps" style="margin:4px 0; width:220px;">${stepsHtml}</div></td>
+            <td><span class="badge ${job.payStatus === 'Paid' ? 'badge-paid' : 'badge-due'}">₹${job.amount} (${job.payStatus})</span></td>
+            <td>
+              <button class="btn btn-whatsapp" style="padding:5px 10px; font-size:11px;" onclick="sendWhatsAppMessage('${job.phone}', '${job.name}', '${job.service}', '${job.stage}', '${job.docs}')">
+                <i data-lucide="send" style="width:12px;"></i> WhatsApp
+              </button>
+            </td>
+          </tr>
         `;
       });
-    }
-
-    function changeJobStage(jobId, stg) {
-      const j = DB.jobs.find(x => x.id === jobId); if (!j) return;
-      j.stage = stg; saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone);
-      triggerAutoNotification('status', j.service, stg, j.ackNo);
-    }
-
-    function openAddJobForCust() {
-      const s = prompt('Enter Service Name:'); if (!s) return;
-      const ref = prompt('Acknowledgement No (Optional):', 'N/A');
-      const amt = prompt('Service Fee (₹):', '100');
-      DB.jobs.unshift({ id: Date.now(), phone: DB.activeCustomerPhone, name: DB.customers[DB.activeCustomerPhone].name, service: s, ackNo: ref || 'N/A', charge: Number(amt) || 0, stage: "Received", date: new Date().toLocaleDateString() });
-      saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone);
-      triggerAutoNotification('received', s, 'Received', ref);
-    }
-
-    /* -------------------------------------------------------------
-       CUSTOMER TAB: DOCUMENTS
-    ------------------------------------------------------------- */
-    function renderCustomerDocsList(docs) {
-      const c = document.getElementById('custDocsContainer'); 
-      if (!c) return;
-      c.innerHTML = '';
-      if (docs.length === 0) { c.innerHTML = `<div style="grid-column:1/-1; text-align:center; padding:20px; color:#64748b;">No documents stored.</div>`; return; }
-      docs.forEach(d => {
-        c.innerHTML += `
-          <div style="background:#fff; border:1px solid #e2e8f0; border-radius:10px; padding:10px; text-align:center;">
-            <div style="height:90px; background:#f8fafc; border-radius:6px; display:flex; align-items:center; justify-content:center; margin-bottom:8px;"><i data-lucide="${d.type === 'pdf' ? 'file-text' : 'image'}" style="width:34px; height:34px; color:${d.type === 'pdf' ? '#ef4444' : '#2563eb'};"></i></div>
-            <div style="font-weight:700; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${d.title}</div>
-            <div style="font-size:10px; color:#64748b; margin-bottom:8px;">${d.date}</div>
-            <a href="${d.data}" download="${d.title}" class="btn btn-primary" style="padding:4px 8px; font-size:11px; width:100%; justify-content:center; text-decoration:none;">Download</a>
-          </div>
-        `;
-      });
-    }
-
-    function openUploadDocForCust() {
-      const title = prompt('Enter document name:'); if (!title) return;
-      DB.customers[DB.activeCustomerPhone].docs.push({ id: Date.now(), title: title, type: "pdf", date: new Date().toLocaleDateString(), data: "#" });
-      saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone);
-    }
-
-    /* -------------------------------------------------------------
-       CUSTOMER TAB: BILLS & KHATA
-    ------------------------------------------------------------- */
-    function renderCustomerBillsList(bills) {
-      const tb = document.getElementById('custBillsTbody'); 
-      if (!tb) return;
-      tb.innerHTML = '';
-      bills.forEach(b => {
-        tb.innerHTML += `<tr><td>${b.date}</td><td><b>${b.invoiceNo}</b></td><td>${b.service}</td><td>₹${b.amount}</td><td><span class="badge badge-paid">${b.status}</span></td><td><button class="btn btn-whatsapp" style="padding:3px 8px; font-size:11px;" onclick="triggerAutoNotification('payment', '${b.service}', '₹${b.amount}', '${b.invoiceNo}')">Send</button></td></tr>`;
-      });
-    }
-
-    function createBillForCust() {
-      const svc = prompt('Service name:'); const amt = prompt('Amount (₹):'); if (!svc || !amt) return;
-      DB.invoices.unshift({ id: Date.now(), invoiceNo: `INV-${Date.now().toString().slice(-4)}`, phone: DB.activeCustomerPhone, service: svc, amount: Number(amt), status: "Paid", date: new Date().toLocaleDateString() });
-      saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone); refreshAccountsModule(); refreshDashboardMetrics();
-      triggerAutoNotification('payment', svc, '₹' + amt, 'INV');
-    }
-
-    function renderCustomerKhataList(khata) {
-      const tb = document.getElementById('custKhataTbody'); 
-      if (!tb) return;
-      tb.innerHTML = '';
-      khata.forEach(k => {
-        tb.innerHTML += `<tr><td>${k.date}</td><td>${k.note}</td><td style="color:var(--danger); font-weight:700;">₹${k.amount}</td><td><button class="btn btn-success" style="padding:4px 8px; font-size:11px;" onclick="settleCustomerDue(${k.id})">Mark Paid</button></td></tr>`;
-      });
-    }
-
-    function addDueForCust() {
-      const amt = prompt('Due Amount (₹):'); const reason = prompt('Reason for due:'); if (!amt) return;
-      DB.khata.unshift({ id: Date.now(), phone: DB.activeCustomerPhone, amount: Number(amt), note: reason || 'Service Due', date: new Date().toLocaleDateString() });
-      saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone); refreshAccountsModule(); refreshDashboardMetrics();
-    }
-
-    function settleCustomerDue(id) {
-      DB.khata = DB.khata.filter(k => k.id !== id); saveDB(); loadCustomerWorkspace(DB.activeCustomerPhone); refreshAccountsModule(); refreshDashboardMetrics();
-    }
-
-    function triggerAutoNotification(type, serviceName, extra, refNo) {
-      if (!DB.activeCustomerPhone) return;
-      const cust = DB.customers[DB.activeCustomerPhone];
-      let msg = "";
-      if (type === 'received') msg = `*ନମସ୍କାର ${cust.name} ji,*\nDigital Darsan (ଢେଙ୍କାନାଳ) ରେ ଆପଣଙ୍କର *${serviceName}* ଆବେଦନ ପତ୍ର ଗ୍ରହଣ କରାଯାଇଛି। ଆମେ କାର୍ଯ୍ୟ ଆରମ୍ଭ କରୁଅଛୁ।\nContact: 8249833933`;
-      else if (type === 'ready') msg = `*ନମସ୍କାର ${cust.name} ji,*\nଆପଣଙ୍କର *${serviceName}* କାମ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇସାରିଛି। ଦୟାକରି Digital Darsan, ରଥପଡ଼ା ଆସି ଆପଣଙ୍କ ଡକ୍ୟୁମେଣ୍ଟ୍ ସଂଗ୍ରହ କରିନିଅନ୍ତୁ।`;
-      else if (type === 'delivered') msg = `*ନମସ୍କାର ${cust.name} ji,*\nଆପଣଙ୍କର *${serviceName}* ସଫଳତାପୂର୍ବକ ପ୍ରଦାନ (Delivered) କରାଗଲା। ଧନ୍ୟବାଦ!`;
-      else if (type === 'payment') msg = `*ନମସ୍କାର ${cust.name} ji,*\nDigital Darsan ରେ ଆପଣଙ୍କର *${extra}* ପେମେଣ୍ଟ୍ ଗ୍ରହଣ କରାଯାଇଛି। ଧନ୍ୟବାଦ!`;
-      else msg = `*ନମସ୍କାର ${cust.name} ji,*\nଆପଣଙ୍କ *${serviceName}* ର ବର୍ତ୍ତମାନର ଷ୍ଟାଟସ୍: *[ ${extra} ]*।`;
-      window.open(`https://wa.me/91${cust.phone}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
-
-    function saveNewCustomerProfile() {
-      const p = document.getElementById('ncPhone').value.trim(); const n = document.getElementById('ncName').value.trim(); const a = document.getElementById('ncAddress').value.trim();
-      if (!p || p.length < 10) return alert('Enter valid mobile'); if (!n) return alert('Enter name');
-      DB.customers[p] = { name: n, phone: p, address: a || 'Dhenkanal', docs: [] };
-      saveDB(); closeModal('newCustomerModal'); document.getElementById('cSearchPhone').value = p; searchCustomerDirect(); refreshDashboardMetrics();
-    }
-
-    /* -------------------------------------------------------------
-       ACCOUNTS & FINANCIAL MODULE
-    ------------------------------------------------------------- */
-    function addShopExpense() {
-      const title = document.getElementById('expTitle').value.trim(); const amt = parseFloat(document.getElementById('expAmount').value) || 0;
-      if (!title || amt <= 0) return alert('Enter expense reason and amount');
-      DB.expenses.unshift({ id: Date.now(), title: title, amount: amt, date: new Date().toLocaleDateString() });
-      saveDB(); refreshAccountsModule(); document.getElementById('expTitle').value = ''; document.getElementById('expAmount').value = '';
-    }
-
-    function deleteExpense(id) { DB.expenses = DB.expenses.filter(e => e.id !== id); saveDB(); refreshAccountsModule(); }
-
-    function refreshAccountsModule() {
-      const todayStr = new Date().toLocaleDateString();
-      const todayIncome = DB.invoices.filter(i => i.date === todayStr && i.status === 'Paid').reduce((s, i) => s + Number(i.amount || 0), 0);
-      const todayExpense = DB.expenses.filter(e => e.date === todayStr).reduce((s, e) => s + Number(e.amount || 0), 0);
-      const todayProfit = todayIncome - todayExpense;
-      const totalOutstandingDue = DB.khata.reduce((s, k) => s + Number(k.amount || 0), 0);
-
-      if(document.getElementById('accTodayIncome')) document.getElementById('accTodayIncome').innerText = '₹' + todayIncome;
-      if(document.getElementById('accTodayExpense')) document.getElementById('accTodayExpense').innerText = '₹' + todayExpense;
-      if(document.getElementById('accTodayProfit')) document.getElementById('accTodayProfit').innerText = '₹' + todayProfit;
-      if(document.getElementById('accTotalDue')) document.getElementById('accTotalDue').innerText = '₹' + totalOutstandingDue;
-
-      if(document.getElementById('accPaidJobsCount')) document.getElementById('accPaidJobsCount').innerText = `${DB.invoices.filter(i => i.date === todayStr).length} Paid Jobs`;
-      if(document.getElementById('accExpenseEntriesCount')) document.getElementById('accExpenseEntriesCount').innerText = `${DB.expenses.filter(e => e.date === todayStr).length} Expenses`;
-
-      const tb = document.getElementById('todayExpenseTbody');
-      if (tb) {
-        tb.innerHTML = '';
-        DB.expenses.filter(e => e.date === todayStr).forEach(e => {
-          tb.innerHTML += `
-            <tr>
-              <td>${e.title}</td><td style="color:var(--danger); font-weight:700;">₹${e.amount}</td>
-              <td><button class="btn btn-secondary" style="padding:4px 8px; font-size:11px;" onclick="deleteExpense(${e.id})">🗑️</button></td>
-            </tr>
-          `;
-        });
-      }
-
-      const monthlyIncome = DB.invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + Number(i.amount || 0), 0);
-      const monthlyExpense = DB.expenses.reduce((s, e) => s + Number(e.amount || 0), 0);
-      const monthlyProfit = monthlyIncome - monthlyExpense;
-
-      if(document.getElementById('repMonthlyIncome')) document.getElementById('repMonthlyIncome').innerText = '₹' + monthlyIncome;
-      if(document.getElementById('repMonthlyExpense')) document.getElementById('repMonthlyExpense').innerText = '₹' + monthlyExpense;
-      if(document.getElementById('repMonthlyNetProfit')) document.getElementById('repMonthlyNetProfit').innerText = '₹' + monthlyProfit;
-
       lucide.createIcons();
     }
 
-    function refreshDashboardMetrics() {
-      const todayStr = new Date().toLocaleDateString();
-      const todayIncome = DB.invoices.filter(i => i.date === todayStr && i.status === 'Paid').reduce((s, i) => s + Number(i.amount || 0), 0);
-      if(document.getElementById('dashTodayIncome')) document.getElementById('dashTodayIncome').innerText = '₹' + todayIncome;
-      if(document.getElementById('dashTotalDue')) document.getElementById('dashTotalDue').innerText = '₹' + DB.khata.reduce((s, k) => s + Number(k.amount || 0), 0);
-      if(document.getElementById('dashTotalCustomers')) document.getElementById('dashTotalCustomers').innerText = Object.keys(DB.customers).length;
-      if(document.getElementById('dashTotalVehicles')) document.getElementById('dashTotalVehicles').innerText = DB.vehicles.length;
+    function renderAccountsTable() {
+      const tbody = document.getElementById('accountsInvoicesTbody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      DB.jobs.forEach(job => {
+        tbody.innerHTML += `
+          <tr>
+            <td>${job.date}</td>
+            <td><b>${job.name}</b> (${job.phone})</td>
+            <td>${job.service}</td>
+            <td>₹${job.amount}</td>
+            <td><span class="badge ${job.payStatus === 'Paid' ? 'badge-paid' : 'badge-due'}">${job.payStatus}</span></td>
+          </tr>
+        `;
+      });
     }
 
-    /* -------------------------------------------------------------
-       DATABASE BACKUP & RESTORE (JSON)
-    ------------------------------------------------------------- */
+    function handlePhoneSearch(val) { if (val.length === 10) searchCustomerDirect(); }
+
+    function searchCustomerDirect() {
+      const phone = document.getElementById('cSearchPhone').value.trim();
+      if (!phone || phone.length < 10) return;
+      const cust = DB.customers[phone];
+      if (!cust) return alert('ଏହି ନମ୍ବରରେ କୌଣସି ଗ୍ରାହକ ନାହାଁନ୍ତି!');
+
+      document.getElementById('customerProfileWorkspace').style.display = 'block';
+      document.getElementById('cpAvatar').innerText = cust.name.charAt(0).toUpperCase();
+      document.getElementById('cpName').innerText = cust.name;
+      document.getElementById('cpPhone').innerText = cust.phone;
+      document.getElementById('cpFather').innerText = cust.father;
+      document.getElementById('cpMother').innerText = cust.mother;
+      document.getElementById('cpAddress').innerText = cust.address;
+
+      const histContainer = document.getElementById('custWorkHistoryContainer');
+      histContainer.innerHTML = '';
+      const cJobs = DB.jobs.filter(j => j.phone === phone);
+      cJobs.forEach(j => {
+        histContainer.innerHTML += `
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <b>${j.service}</b> (Status: <span style="color:var(--primary);">${j.stage}</span>)
+              <br><small style="color:#64748b;">ଜମା ଡକ୍ୟୁମେଣ୍ଟ୍: ${j.docs} | ତାରିଖ: ${j.date}</small>
+            </div>
+            <div><b>₹${j.amount}</b> (${j.payStatus})</div>
+          </div>
+        `;
+      });
+    }
+
     function exportDatabaseJSON() {
       const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(DB));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `DigitalDarsan_Backup_${new Date().toISOString().slice(0,10)}.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
-      alert('✅ Complete database backup successfully downloaded!');
-    }
-
-    function importDatabaseJSON(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        try {
-          const imported = JSON.parse(evt.target.result);
-          if (imported.customers) {
-            DB = imported;
-            saveDB();
-            alert('✅ Database restored successfully!');
-            location.reload();
-          } else {
-            alert('Invalid backup file.');
-          }
-        } catch(err) {
-          alert('Error parsing JSON.');
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    /* -------------------------------------------------------------
-       ORIGINAL TOOLS UTILITIES
-    ------------------------------------------------------------- */
-    function genUPI() {
-      const amtElem = document.getElementById('bAmount');
-      if (!amtElem) return;
-      const amt = amtElem.value;
-      if (!amt || amt <= 0) return;
-      const upiUrl = `upi://pay?pa=8249833933@upi&pn=Digital%20Darsan&am=${amt}&cu=INR`;
-      const previewCard = document.getElementById('billPreviewCard');
-      if(previewCard) previewCard.style.display = 'block';
-      const qrCanvas = document.getElementById('billUpiQr');
-      if(qrCanvas && window.QRCode) {
-        QRCode.toCanvas(qrCanvas, upiUrl, { width: 130 });
-      }
-      if(document.getElementById('rName')) document.getElementById('rName').innerText = document.getElementById('bCustName').value || 'Customer';
-      if(document.getElementById('rService')) document.getElementById('rService').innerText = document.getElementById('bService').value || 'Service';
-      if(document.getElementById('rAmount')) document.getElementById('rAmount').innerText = '₹' + amt;
-    }
-
-    function initCropImage(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() {
-          cropState.cropImg = img;
-          const canvas = document.getElementById('cropCanvas');
-          if(!canvas) return;
-          const maxW = 650;
-          canvas.width = maxW;
-          canvas.height = img.height * (maxW / img.width);
-          drawCropCorners();
-        };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function drawCropCorners() {
-      const canvas = document.getElementById('cropCanvas');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      if (!cropState.cropImg) return;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(cropState.cropImg, 0, 0, canvas.width, canvas.height);
-      ctx.strokeStyle = "#38bdf8"; ctx.lineWidth = 2.5;
-      ctx.beginPath();
-      ctx.moveTo(cropState.corners[0].x, cropState.corners[0].y);
-      ctx.lineTo(cropState.corners[1].x, cropState.corners[1].y);
-      ctx.lineTo(cropState.corners[2].x, cropState.corners[2].y);
-      ctx.lineTo(cropState.corners[3].x, cropState.corners[3].y);
-      ctx.closePath(); ctx.stroke();
-    }
-
-    function setupCanvasEvents() {
-      const canvas = document.getElementById('cropCanvas');
-      if(!canvas) return;
-      function getPos(e) {
-        const r = canvas.getBoundingClientRect();
-        return { x: (e.clientX - r.left) * (canvas.width / r.width), y: (e.clientY - r.top) * (canvas.height / r.height) };
-      }
-      canvas.addEventListener('mousedown', (e) => {
-        const p = getPos(e);
-        cropState.activeCornerIdx = cropState.corners.findIndex(pt => Math.hypot(pt.x - p.x, pt.y - p.y) < 30);
-      });
-      window.addEventListener('mousemove', (e) => {
-        if (cropState.activeCornerIdx === -1) return;
-        const p = getPos(e);
-        cropState.corners[cropState.activeCornerIdx] = { x: Math.max(0, Math.min(canvas.width, p.x)), y: Math.max(0, Math.min(canvas.height, p.y)) };
-        drawCropCorners();
-      });
-      window.addEventListener('mouseup', () => cropState.activeCornerIdx = -1);
-    }
-
-    function executePerspectiveCrop() {
-      if (!cropState.cropImg) return alert('Upload image first');
-      const sCanvas = document.createElement('canvas');
-      sCanvas.width = 600; sCanvas.height = 800;
-      const sCtx = sCanvas.getContext('2d');
-      sCtx.drawImage(cropState.cropImg, 0, 0, 600, 800);
-      const img = new Image();
-      img.onload = function() {
-        const enhancedImg = document.getElementById('enhancedA4Img');
-        if(enhancedImg) enhancedImg.src = sCanvas.toDataURL('image/jpeg', 0.95);
-        openTab('a4-enhancer', document.querySelectorAll('.nav-item')[5]);
-      };
-      img.src = sCanvas.toDataURL('image/jpeg');
-    }
-
-    function applyA4EnhanceFilter() {
-      const img = document.getElementById('enhancedA4Img');
-      if (!img || !img.src) return;
-      const canvas = document.getElementById('enhancerCanvas');
-      if(!canvas) return;
-      const ctx = canvas.getContext('2d');
-      canvas.width = img.naturalWidth || 600;
-      canvas.height = img.naturalHeight || 800;
-      ctx.drawImage(img, 0, 0);
-      const imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const d = imgData.data;
-      for (let i = 0; i < d.length; i += 4) {
-        let g = 0.299 * d[i] + 0.587 * d[i+1] + 0.114 * d[i+2];
-        g = g > 135 ? 255 : (g < 85 ? Math.max(0, g - 30) : (g - 85) * 5);
-        d[i] = g; d[i+1] = g; d[i+2] = g;
-      }
-      ctx.putImageData(imgData, 0, 0);
-      img.src = canvas.toDataURL('image/jpeg', 0.92);
-    }
-
-    function handleResizer(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const img = new Image();
-        img.onload = function() { applyJobResize(img); };
-        img.src = evt.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function applyJobResize(imgEl) {
-      const canvas = document.createElement('canvas');
-      canvas.width = 350; canvas.height = 450;
-      const ctx = canvas.getContext('2d');
-      ctx.fillStyle = '#fff'; ctx.fillRect(0,0,350,450);
-      if (imgEl) ctx.drawImage(imgEl, 0, 0, 350, 450);
-      const data = canvas.toDataURL('image/jpeg', 0.7);
-      if(document.getElementById('resizerResult')) document.getElementById('resizerResult').style.display = 'block';
-      if(document.getElementById('resizerPreviewImg')) document.getElementById('resizerPreviewImg').src = data;
-      if(document.getElementById('resizerInfoText')) document.getElementById('resizerInfoText').innerText = `Target: 350×450 px | Size: ~35 KB`;
-      if(document.getElementById('resizerDownloadBtn')) document.getElementById('resizerDownloadBtn').href = data;
-    }
-
-    function loadPassPhoto(e) {
-      const file = e.target.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function(evt) {
-        const grid = document.getElementById('passGrid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        for (let i = 0; i < 8; i++) {
-          const div = document.createElement('div');
-          div.style.cssText = `width:35mm; height:45mm; border:1px solid #ccc; background-image:url(${evt.target.result}); background-size:cover;`;
-          grid.appendChild(div);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function genOdiaLetter() {
-      const previewArea = document.getElementById('letterPreviewArea');
-      if(!previewArea) return;
-      previewArea.innerHTML = `
-        <div style="font-family:'Kalinga', sans-serif;">
-          <p>${document.getElementById('ltrTo').value}</p>
-          <p style="margin-top:14px;"><b>ବିଷୟ: ${document.getElementById('ltrSub').value}</b></p>
-          <p style="margin-top:14px;">ମହାଶୟ,</p>
-          <p style="text-indent:40px; margin-top:10px;">
-            ନିବେଦନର କାରଣ ଏହିକି ଯେ, ମୁଁ ଶ୍ରୀ <b>${document.getElementById('ltrName').value}</b>, ସାକିନ: <b>${document.getElementById('ltrAddr').value}</b> ର ଜଣେ ସ୍ଥାୟୀ ବାସିନ୍ଦା ଅଟେ। ମୋର ଜରୁରୀ କାର୍ଯ୍ୟ ନିମନ୍ତେ ଆବଶ୍ୟକୀୟ କାର୍ଯ୍ୟାନୁଷ୍ଠାନ ଗ୍ରହଣ କରିବାକୁ ଅନୁରୋଧ କରୁଅଛି।
-          </p>
-          <div style="margin-top:35px; display:flex; justify-content:space-between;">
-            <div><p>ତାରିଖ: ${new Date().toLocaleDateString()}</p></div>
-            <div style="text-align:right;"><p>ଆପଣଙ୍କର ବିଶ୍ୱସ୍ତ<br><br><b>(${document.getElementById('ltrName').value})</b></p></div>
-          </div>
-        </div>
-      `;
+      const dl = document.createElement('a');
+      dl.setAttribute("href", dataStr);
+      dl.setAttribute("download", `DigitalDarsan_Backup_${new Date().toISOString().slice(0,10)}.json`);
+      document.body.appendChild(dl); dl.click(); dl.remove();
     }
 
     window.onload = initSuite;
