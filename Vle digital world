@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="or">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Darsan — Complete VLE Business Management ERP</title>
+  <!-- Google Modern Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kalinga&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <!-- Lucide Vector Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- QR Code Generator CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+
+  <style>
+    :root {
+      --font-main: 'Plus Jakarta Sans', 'Kalinga', -apple-system, BlinkMacSystemFont, sans-serif;
+      --bg: #f8fafc;
+      --surface-glass: rgba(255, 255, 255, 0.92);
+      --border-glass: rgba(255, 255, 255, 0.95);
+      --border-subtle: #e2e8f0;
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-glow: rgba(37, 99, 235, 0.16);
+      --accent: #f59e0b;
+      --success: #10b981;
+      --danger: #ef4444;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --radius-sm: 10px;
+      --radius-md: 16px;
+      --radius-lg: 22px;
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
+
+    body {
+      background: radial-gradient(at 0% 0%, #f1f5f9 0px, transparent 50%),
+                  radial-gradient(at 100% 100%, #e2e8f0 0px, transparent 50%), var(--bg);
+      color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+    .spin { animation: spin 1s linear infinite; }
+
+    /* Floating Modern Sidebar */
+    aside {
+      width: 280px; margin: 16px 0 16px 16px; background: #090d16; color: #fff;
+      display: flex; flex-direction: column; flex-shrink: 0; border-radius: var(--radius-lg);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .brand {
+      padding: 26px 22px; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center;
+      gap: 12px; letter-spacing: -0.02em; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .brand-badge {
+      width: 38px; height: 38px; background: linear-gradient(135deg, #38bdf8, #2563eb);
+      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
+      color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .nav-list { list-style: none; padding: 16px 12px; overflow-y: auto; flex: 1; }
+    .nav-category { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #475569; padding: 12px 16px 6px 16px; }
+    .nav-item {
+      padding: 12px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: #94a3b8;
+      font-size: 0.92rem; font-weight: 600; border-radius: var(--radius-sm); margin-bottom: 4px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .nav-item svg { width: 19px; height: 19px; stroke-width: 2.2px; }
+    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: #f8fafc; transform: translateX(3px); }
+    .nav-item.active { background: linear-gradient(90deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.5); }
+
+    /* Main Container */
+    main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; padding: 16px 24px; }
+    header {
+      background: var(--surface-glass); backdrop-filter: blur(16px); padding: 18px 28px; border-radius: var(--radius-md);
+      border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
+    }
+    .shop-details h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
+    .shop-details p { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+    .content { flex: 1; }
+    .tab-section { display: none; }
+    .tab-section.active { display: block; animation: modernFade 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+    @keyframes modernFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards & Forms */
+    .card { background: var(--surface-glass); backdrop-filter: blur(16px); border-radius: var(--radius-md); border: 1px solid var(--border-glass); padding: 24px; box-shadow: var(--shadow-md); margin-bottom: 22px; }
+    .card-title { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+    
+    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 16px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    label { font-size: 0.85rem; font-weight: 600; color: #334155; }
+    input, select, textarea { padding: 12px 14px; background: rgba(248, 250, 252, 0.85); border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.92rem; outline: none; transition: all 0.2s ease; }
+    input:focus, select:focus, textarea:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
+
+    /* Buttons */
+    .btn { padding: 11px 18px; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+    .btn svg { width: 17px; height: 17px; stroke-width: 2.2px; }
+    .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 99, 235, 0.4); }
+    .btn-primary:hover { box-shadow: 0 10px 20px -3px rgba(37, 99, 235, 0.5); transform: translateY(-1px); }
+    .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
+    .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
+    .btn-secondary { background: #f1f5f9; color: #334155; }
+    .btn-secondary:hover { background: #e2e8f0; }
+    .btn-whatsapp { background: #25d366; color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 211, 102, 0.4); }
+    .btn-whatsapp:hover { background: #1eb956; transform: translateY(-1px); }
+
+    /* Tables & Badges */
+    .table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
+    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
+    th, td { padding: 13px 16px; border-bottom: 1px solid var(--border-subtle); }
+    th { background: rgba(241, 245, 249, 0.85); font-weight: 700; color: #475569; font-size: 0.82rem; text-transform: uppercase; }
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
+    .badge-paid { background: #dcfce7; color: #15803d; }
+    .badge-due { background: #fee2e2; color: #b91c1c; }
+
+    /* SMART ALERT CARDS (DASHBOARD) */
+    .alerts-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
+    .alert-chip-box { padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease; }
+    .chip-red { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
+    .chip-orange { background: #fffbeb; border-color: #fde68a; color: #b45309; }
+    .chip-yellow { background: #fefce8; border-color: #fef08a; color: #854d0e; }
+    .alert-item-card { background: #fff; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: all 0.2s ease; }
+    .alert-item-card:hover { border-color: #93c5fd; box-shadow: var(--shadow-sm); }
+
+    /* CUSTOMER 360° PROFILE SPECIFIC */
+    .profile-banner { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+    .profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.4); }
+    .profile-stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; background: #f8fafc; padding: 12px 18px; border-radius: 14px; border: 1px solid #e2e8f0; }
+    @media (max-width: 900px) { .profile-stats-grid { grid-template-columns: repeat(2, 1fr); } }
+    .p-stat-item { text-align: center; }
+    .p-stat-item span { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block; }
+    .p-stat-item b { font-size: 1.25rem; font-weight: 800; display: block; margin-top: 2px; }
+    
+    .sub-tabs-bar { display: flex; gap: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 18px; overflow-x: auto; }
+    .sub-tab-btn { padding: 8px 16px; border: none; background: none; border-radius: 8px; font-size: 0.88rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; white-space: nowrap; }
+    .sub-tab-btn.active { background: #eff6ff; color: var(--primary); }
+
+    /* Metrics Grid */
+    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-bottom: 22px; }
+    .metric-card { background: var(--surface-glass); backdrop-filter: blur(14px); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); }
+    .metric-header { display: flex; justify-content: space-between; align-items: center; }
+    .metric-title { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+    .metric-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
+    .icon-blue { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
+    .icon-red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
+    .icon-green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
+    .icon-amber { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
+    .metric-value { font-size: 1.9rem; font-weight: 800; margin: 12px 0 6px 0; }
+
+    /* Pipeline Tracking Card */
+    .pipeline-steps { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 18px 0; }
+    .pipeline-steps::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 3px; background: #e2e8f0; z-index: 1; }
+    .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
+    .step-circle { width: 30px; height: 30px; border-radius: 50%; background: #f1f5f9; border: 2px solid #cbd5e1; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
+    .step-node.completed .step-circle { background: #10b981; border-color: #10b981; color: #fff; }
+    .step-node.current .step-circle { background: #2563eb; border-color: #2563eb; color: #fff; box-shadow: 0 0 0 4px var(--primary-glow); }
+    .step-label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
+
+    /* Modal */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
+    .modal-content { background: #fff; padding: 24px; border-radius: 18px; width: 100%; max-width: 600px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
+
+    @media print {
+      body * { visibility: hidden; }
+      #printableArea, #printableArea * { visibility: visible; }
+      #printableArea { position: absolute; left: 0; top: 0; width: 210mm; min-height: 297mm; margin: 0; padding: 0; background: #fff; }
+      .no-print { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Navigation Sidebar -->
+  <aside class="no-print">
+    <div class="brand">
+      <div class="brand-badge"><i data-lucide="shield-check"></i></div>
+      <span>Digital Darsan</span>
+    </div>
+
+    <ul class="nav-list">
+      <div class="nav-category">Core Business Modules</div>
+      <li class="nav-item active" onclick="openTab('dashboard-module', this)"><i data-lucide="layout-dashboard"></i> Overview & Alerts</li>
+      <li class="nav-item" onclick="openTab('customer-module', this)"><i data-lucide="users"></i> Customer 360°</li>
+      <li class="nav-item" onclick="openTab('accounts-module', this)"><i data-lucide="wallet"></i> Business Accounts</li>
+
+      <div class="nav-category">Tools & Workspace</div>
+      <li class="nav-item" onclick="openTab('billing-module', this)"><i data-lucide="receipt"></i> Direct Billing</li>
+      <li class="nav-item" onclick="openTab('smart-crop', this)"><i data-lucide="crop"></i> Auto Corner Crop</li>
+      <li class="nav-item" onclick="openTab('a4-enhancer', this)"><i data-lucide="file-check"></i> Clear White A4</li>
+      <li class="nav-item" onclick="openTab('resizer', this)"><i data-lucide="maximize-2"></i> Job Resizer (OSSSC)</li>
+      <li class="nav-item" onclick="openTab('photo-studio', this)"><i data-lucide="image"></i> Passport Studio (4×6)</li>
+      <li class="nav-item" onclick="openTab('letter-module', this)"><i data-lucide="file-text"></i> Odia Letter Maker</li>
+      <li class="nav-item" onclick="openTab('cloud-backup', this)"><i data-lucide="cloud"></i> Database Backup</li>
+      <li class="nav-item" onclick="openTab('settings', this)"><i data-lucide="settings"></i> Settings</li>
+    </ul>
+  </aside>
+
+  <main>
+    <header class="no-print">
+      <div class="shop-details">
+        <h2 id="headerShopName">Digital Darsan</h2>
+        <p id="headerShopContact">Contact: 8249833933 | Rathapada, Dhenkanal</p>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="btn btn-primary" onclick="openNewCustomerModal()">
+          <i data-lucide="user-plus"></i> New Customer
+        </button>
+        <button class="btn btn-primary" onclick="window.print()">
+          <i data-lucide="printer"></i> Print Screen
+        </button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- ========================================================
+           MODULE 1: DASHBOARD & SMART ALERTS HUB
+      ======================================================== -->
+      <section id="dashboard-module" class="tab-section active">
+        <!-- 4 Primary Financial Metrics -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header"><span class="metric-title">Today's Income</span><div class="metric-icon icon-green"><i data-lucide="indian-rupee"></i></div></div>
+            <div class="metric-value" style="color:var(--success);" id="dashTodayIncome">₹0</div>
+            <div style="font-size:0.8rem; color:var(--success); font-weight:600;">Paid & Received Today</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header"><span class="metric-title">Pending / Due Amount</span><div class="metric-icon icon-red"><i data-lucide="alert-circle"></i></div></div>
+            <div class="metric-value" style="color:var(--danger);" id="dashTotalDue">₹0</div>
+            <div style="font-size:0.8rem; color:var(--danger); font-weight:600;">Total Khata Outstanding</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header"><span class="metric-title">Total Customers</span><div class="metric-icon icon-blue"><i data-lucide="users"></i></div></div>
+            <div class="metric-value" style="color:var(--primary);" id="dashTotalCustomers">0</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">In Database</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header"><span class="metric-title">Active Vehicles Tracked</span><div class="metric-icon icon-amber"><i data-lucide="truck"></i></div></div>
+            <div class="metric-value" style="color:var(--accent);" id="dashTotalVehicles">0</div>
+            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Insurance & PUCs Active</div>
+          </div>
+        </div>
+
+        <!-- SMART RENEWAL ALERTS WIDGET -->
+        <div class="card">
+          <div class="card-title">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <i data-lucide="bell-ring" style="color:var(--danger);"></i>
+              <span>Smart Renewal & Expiry Alerts Hub</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <select id="alertCategoryFilter" onchange="renderAlertsList()" style="padding:6px 10px; font-size:12px;">
+                <option value="ALL">All Categories</option>
+                <option value="Insurance">🚘 Insurance</option>
+                <option value="PUC">🛞 PUC / Pollution</option>
+                <option value="RoadTax">🧾 Road Tax</option>
+                <option value="Fitness">🔧 Fitness</option>
+                <option value="Permit">📋 Permit</option>
+                <option value="RC">🪪 RC Validity</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="alerts-summary-grid">
+            <div class="alert-chip-box chip-red" onclick="filterAlertsByDays(0)">
+              <div><b>🔴 Expired / Today</b><p style="font-size:0.75rem; margin-top:2px;">Immediate action</p></div>
+              <h3 id="alertCountToday" style="font-size:1.4rem;">0</h3>
+            </div>
+            <div class="alert-chip-box chip-orange" onclick="filterAlertsByDays(7)">
+              <div><b>🟠 Next 7 Days</b><p style="font-size:0.75rem; margin-top:2px;">Urgent renewals</p></div>
+              <h3 id="alertCount7Days" style="font-size:1.4rem;">0</h3>
+            </div>
+            <div class="alert-chip-box chip-yellow" onclick="filterAlertsByDays(30)">
+              <div><b>🟡 Next 30 Days</b><p style="font-size:0.75rem; margin-top:2px;">Advance notices</p></div>
+              <h3 id="alertCount30Days" style="font-size:1.4rem;">0</h3>
+            </div>
+          </div>
+
+          <div id="smartAlertsItemsContainer" style="margin-top:14px;"></div>
+        </div>
+      </section>
+
+      <!-- ========================================================
+           MODULE 2: CENTRALIZED CUSTOMER 360° (WITH VEHICLE & RTO FETCH)
+      ======================================================== -->
+      <section id="customer-module" class="tab-section">
+        <div class="card">
+          <div class="card-title">
+            <span>👤 Customer 360° Central Workspace</span>
+            <span style="font-size:12px; color:var(--text-muted);">Instant Customer Lookup</span>
+          </div>
+          <div style="display:flex; gap:10px; max-width:540px;">
+            <input type="tel" id="cSearchPhone" placeholder="Enter 10-Digit Mobile Number (e.g. 8249833933)" maxlength="10" style="flex:1;" oninput="handlePhoneSearch(this.value)
