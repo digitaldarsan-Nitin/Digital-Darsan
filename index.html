@@ -1,480 +1,410 @@
+
 <!DOCTYPE html>
-<html lang="or">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Darsan — Advanced VLE CRM & Job ERP</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kalinga&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-
-  <style>
-    :root {
-      --font-main: 'Plus Jakarta Sans', 'Kalinga', -apple-system, BlinkMacSystemFont, sans-serif;
-      --bg: #f8fafc;
-      --surface-glass: rgba(255, 255, 255, 0.94);
-      --border-glass: rgba(255, 255, 255, 0.95);
-      --border-subtle: #e2e8f0;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --primary-glow: rgba(37, 99, 235, 0.16);
-      --accent: #f59e0b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 22px;
-      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
-      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
-
-    body {
-      background: radial-gradient(at 0% 0%, #f1f5f9 0px, transparent 50%),
-                  radial-gradient(at 100% 100%, #e2e8f0 0px, transparent 50%), var(--bg);
-      color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden;
-    }
-
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .spin { animation: spin 1s linear infinite; }
-
-    aside {
-      width: 280px; margin: 16px 0 16px 16px; background: #090d16; color: #fff;
-      display: flex; flex-direction: column; flex-shrink: 0; border-radius: var(--radius-lg);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .brand {
-      padding: 26px 22px; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center;
-      gap: 12px; letter-spacing: -0.02em; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .brand-badge {
-      width: 38px; height: 38px; background: linear-gradient(135deg, #38bdf8, #2563eb);
-      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
-      color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-    }
-
-    .nav-list { list-style: none; padding: 16px 12px; overflow-y: auto; flex: 1; }
-    .nav-category { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #475569; padding: 12px 16px 6px 16px; }
-    .nav-item {
-      padding: 12px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: #94a3b8;
-      font-size: 0.92rem; font-weight: 600; border-radius: var(--radius-sm); margin-bottom: 4px; transition: all 0.25s ease;
-    }
-    .nav-item svg { width: 19px; height: 19px; stroke-width: 2.2px; }
-    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: #f8fafc; transform: translateX(3px); }
-    .nav-item.active { background: linear-gradient(90deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.5); }
-
-    main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; padding: 16px 24px; }
-    header {
-      background: var(--surface-glass); backdrop-filter: blur(16px); padding: 18px 28px; border-radius: var(--radius-md);
-      border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
-    }
-    .shop-details h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
-    .shop-details p { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
-
-    .content { flex: 1; }
-    .tab-section { display: none; }
-    .tab-section.active { display: block; animation: modernFade 0.25s ease; }
-    @keyframes modernFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    .card { background: var(--surface-glass); backdrop-filter: blur(16px); border-radius: var(--radius-md); border: 1px solid var(--border-glass); padding: 24px; box-shadow: var(--shadow-md); margin-bottom: 22px; }
-    .card-title { font-size: 1.12rem; font-weight: 700; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: 0.85rem; font-weight: 600; color: #334155; }
-    input, select, textarea { padding: 12px 14px; background: rgba(248, 250, 252, 0.85); border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.92rem; outline: none; }
-    input:focus, select:focus, textarea:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
-
-    .btn { padding: 11px 18px; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s ease; }
-    .btn svg { width: 17px; height: 17px; stroke-width: 2.2px; }
-    .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 99, 235, 0.4); }
-    .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
-    .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
-    .btn-secondary { background: #f1f5f9; color: #334155; }
-    .btn-whatsapp { background: #25d366; color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 211, 102, 0.4); }
-
-    .table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
-    th, td { padding: 13px 16px; border-bottom: 1px solid var(--border-subtle); }
-    th { background: rgba(241, 245, 249, 0.85); font-weight: 700; color: #475569; font-size: 0.82rem; text-transform: uppercase; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-    .badge-paid { background: #dcfce7; color: #15803d; }
-    .badge-due { background: #fee2e2; color: #b91c1c; }
-
-    .profile-banner { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
-    .profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; }
-    
-    .pipeline-steps { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 18px 0; }
-    .pipeline-steps::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 3px; background: #e2e8f0; z-index: 1; }
-    .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
-    .step-circle { width: 30px; height: 30px; border-radius: 50%; background: #f1f5f9; border: 2px solid #cbd5e1; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
-    .step-node.completed .step-circle { background: #10b981; border-color: #10b981; color: #fff; }
-    .step-node.current .step-circle { background: #2563eb; border-color: #2563eb; color: #fff; box-shadow: 0 0 0 4px var(--primary-glow); }
-    .step-label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
-
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
-    .modal-content { background: #fff; padding: 24px; border-radius: 18px; width: 100%; max-width: 650px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VLE Digital World - Final Dashboard</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
+body{background:#f4f7fb;color:#172033}
+button,input,select{font:inherit}
+button{cursor:pointer}
+.topbar{background:linear-gradient(135deg,#173b8f,#2563eb);color:white;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
+.brand h1{font-size:24px}
+.brand p{font-size:13px;margin-top:4px;opacity:.85}
+.top-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:8px;padding:10px 14px;background:white;color:#173b8f;font-weight:bold}
+.btn.dark{background:#102a67;color:white}
+.layout{display:flex;min-height:calc(100vh - 85px)}
+.sidebar{width:245px;background:#101b35;color:white;padding:18px 12px;flex-shrink:0}
+.sidebar h3{font-size:14px;color:#b8c5e8;padding:10px}
+.menu{list-style:none}
+.menu li{margin:4px 0}
+.menu button{width:100%;text-align:left;border:0;background:transparent;color:#dce5ff;padding:12px;border-radius:8px}
+.menu button:hover,.menu button.active{background:#2563eb;color:white}
+.main{flex:1;padding:24px;min-width:0}
+.page-title{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
+.page-title h2{font-size:25px}
+.muted{color:#6b7280;font-size:13px}
+.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
+.card{background:white;border-radius:14px;padding:18px;box-shadow:0 4px 15px #1720330d;border:1px solid #e6ebf3}
+.card .label{font-size:13px;color:#6b7280}
+.card .value{font-size:28px;font-weight:bold;margin-top:8px;color:#173b8f}
+.card .small{font-size:12px;color:#16a34a;margin-top:5px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.panel{background:white;border-radius:14px;padding:18px;border:1px solid #e6ebf3;box-shadow:0 4px 15px #1720330d;margin-bottom:18px}
+.panel h3{margin-bottom:14px;color:#173b8f}
+.module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.module{border:1px solid #e1e7f0;background:#f9fbff;padding:15px;border-radius:11px;text-align:left}
+.module strong{display:block;color:#173b8f;margin-bottom:7px}
+.module span{font-size:12px;color:#6b7280}
+.module:hover{border-color:#2563eb;background:#eff6ff}
+.quick-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.field{width:100%;padding:11px;border:1px solid #d7deea;border-radius:8px;background:white}
+.field.full{grid-column:1/-1}
+label{font-size:13px;color:#4b5563;display:block;margin-bottom:5px}
+.submit{background:#2563eb;color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:bold}
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:520px}
+th,td{text-align:left;padding:11px;border-bottom:1px solid #e5e7eb;font-size:13px}
+th{background:#f1f5f9;color:#334155}
+.badge{padding:5px 8px;border-radius:20px;font-size:11px;background:#dbeafe;color:#1d4ed8}
+.hidden{display:none!important}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:9px;font-size:13px;margin-bottom:18px}
+.footer{text-align:center;color:#6b7280;font-size:12px;padding:20px}
+@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:750px){.layout{display:block}.sidebar{width:100%;padding:10px}.menu{display:flex;overflow-x:auto;gap:5px}.menu li{min-width:max-content}.menu button{padding:10px}.main{padding:15px}.grid{grid-template-columns:1fr}}
+@media(max-width:480px){.cards{grid-template-columns:1fr 1fr}.module-grid,.quick-form{grid-template-columns:1fr}.card{padding:13px}.card .value{font-size:22px}.topbar{padding:15px}.brand h1{font-size:20px}}
+</style>
 </head>
 <body>
 
-  <aside class="no-print">
-    <div class="brand">
-      <div class="brand-badge"><i data-lucide="shield-check"></i></div>
-      <span>Digital Darsan</span>
-    </div>
+<header class="topbar">
+  <div class="brand">
+    <h1>VLE Digital World</h1>
+    <p>CSC • Cyber Cafe • Online Service Management</p>
+  </div>
+  <div class="top-actions">
+    <button class="btn" onclick="showPage('dashboard')">Dashboard</button>
+    <button class="btn" onclick="backupData()">Backup</button>
+    <button class="btn" onclick="window.print()">Print</button>
+  </div>
+</header>
 
-    <ul class="nav-list">
-      <div class="nav-category">Core Business Modules</div>
-      <li class="nav-item active" onclick="openTab('dashboard-module', this)"><i data-lucide="layout-dashboard"></i> Overview & Jobs</li>
-      <li class="nav-item" onclick="openTab('customer-module', this)"><i data-lucide="users"></i> Customer 360° CRM</li>
-      <li class="nav-item" onclick="openTab('accounts-module', this)"><i data-lucide="wallet"></i> Business Accounts</li>
-      <div class="nav-category">Quick Actions</div>
-      <li class="nav-item" onclick="openNewCustomerModal()"><i data-lucide="user-plus"></i> New Customer Entry</li>
-      <li class="nav-item" onclick="openTab('cloud-backup', this)"><i data-lucide="cloud"></i> Backup / Restore</li>
+<div class="layout">
+  <aside class="sidebar">
+    <h3>MAIN MENU</h3>
+    <ul class="menu">
+      <li><button class="active" data-page="dashboard" onclick="showPage('dashboard')">🏠 Dashboard</button></li>
+      <li><button data-page="customers" onclick="showPage('customers')">👥 Customers</button></li>
+      <li><button data-page="finance" onclick="showPage('finance')">💰 Finance</button></li>
+      <li><button data-page="services" onclick="showPage('services')">🛠 Services</button></li>
+      <li><button data-page="settlement" onclick="showPage('settlement')">🧾 Daily Settlement</button></li>
+      <li><button data-page="staff" onclick="showPage('staff')">👨‍💼 Staff Performance</button></li>
+      <li><button data-page="reports" onclick="showPage('reports')">📊 Reports</button></li>
+      <li><button data-page="settings" onclick="showPage('settings')">⚙ Settings</button></li>
     </ul>
   </aside>
 
-  <main>
-    <header class="no-print">
-      <div class="shop-details">
-        <h2>Digital Darsan ERP</h2>
-        <p>Rathapada, Dhenkanal | Contact: 8249833933</p>
+  <main class="main">
+
+    <section id="dashboard" class="page">
+      <div class="page-title">
+        <div>
+          <h2>Final Dashboard</h2>
+          <p class="muted">Welcome to your digital service business control panel.</p>
+        </div>
+        <span class="badge" id="today"></span>
       </div>
-      <div style="display:flex; gap:10px;">
-        <button class="btn btn-primary" onclick="openNewCustomerModal()">
-          <i data-lucide="user-plus"></i> + New Customer & Job
-        </button>
+
+      <div class="notice">
+        This final page works with browser localStorage. Your entries remain saved in this browser.
       </div>
-    </header>
 
-    <div class="content">
+      <div class="cards">
+        <div class="card"><div class="label">Total Customers</div><div class="value" id="dash-customers">0</div><div class="small">Customer master</div></div>
+        <div class="card"><div class="label">Total Income</div><div class="value" id="dash-income">₹0</div><div class="small">Recorded income</div></div>
+        <div class="card"><div class="label">Total Expense</div><div class="value" id="dash-expense">₹0</div><div class="small">Recorded expenses</div></div>
+        <div class="card"><div class="label">Net Balance</div><div class="value" id="dash-balance">₹0</div><div class="small">Income minus expense</div></div>
+      </div>
 
-      <!-- DASHBOARD & JOBS PIPELINE -->
-      <section id="dashboard-module" class="tab-section active">
-        <div class="card">
-          <div class="card-title">
-            <span>🚀 Active Jobs & Smart WhatsApp Tracking</span>
-            <button class="btn btn-primary" style="padding:6px 12px; font-size:12px;" onclick="openNewCustomerModal()"><i data-lucide="plus"></i> New Entry</button>
-          </div>
-          <div class="table-container">
-            <table>
-              <thead>
-                <tr>
-                  <th>Date</th>
-                  <th>Customer Name & Phone</th>
-                  <th>Service / Work</th>
-                  <th>Stage (Tracking)</th>
-                  <th>Payment</th>
-                  <th>WhatsApp Action</th>
-                </tr>
-              </thead>
-              <tbody id="globalJobsTbody"></tbody>
-            </table>
-          </div>
+      <div class="panel">
+        <h3>All Modules</h3>
+        <div class="module-grid">
+          <button class="module" onclick="showPage('customers')"><strong>👥 Customer Master</strong><span>Manage customer records</span></button>
+          <button class="module" onclick="showPage('finance')"><strong>💰 Finance Center</strong><span>Income and expense records</span></button>
+          <button class="module" onclick="showPage('services')"><strong>🛠 Service Manager</strong><span>Manage services and prices</span></button>
+          <button class="module" onclick="showPage('settlement')"><strong>🧾 Daily Settlement</strong><span>Cash closing and difference</span></button>
+          <button class="module" onclick="showPage('staff')"><strong>👨‍💼 Staff Performance</strong><span>Workload and task tracking</span></button>
+          <button class="module" onclick="showPage('reports')"><strong>📊 Reports</strong><span>Business summary and export</span></button>
+          <button class="module" onclick="showPage('settings')"><strong>⚙ Business Settings</strong><span>Shop details and preferences</span></button>
         </div>
-      </section>
+      </div>
 
-      <!-- CUSTOMER 360 CRM -->
-      <section id="customer-module" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>🔍 Customer 360° Search & History</span></div>
-          <div style="display:flex; gap:10px; max-width:540px;">
-            <input type="tel" id="cSearchPhone" placeholder="Enter 10-Digit Mobile Number" maxlength="10" style="flex:1;" oninput="handlePhoneSearch(this.value)">
-            <button class="btn btn-primary" onclick="searchCustomerDirect()"><i data-lucide="search"></i> Search</button>
-          </div>
-        </div>
+      <div class="panel">
+        <h3>Recent Activity</h3>
+        <div id="recent-activity" class="muted">No recent activity available.</div>
+      </div>
+    </section>
 
-        <div id="customerProfileWorkspace" style="display:none;">
-          <div class="profile-banner">
-            <div style="display:flex; align-items:center; gap:16px;">
-              <div class="profile-avatar" id="cpAvatar">R</div>
-              <div>
-                <h3 id="cpName" style="font-size:1.35rem; font-weight:800;">Customer Name</h3>
-                <p style="font-size:0.88rem; color:var(--text-muted); margin-top:2px;">
-                  📱 <span id="cpPhone">9876543210</span> | Father: <span id="cpFather">-</span> | Mother: <span id="cpMother">-</span>
-                </p>
-                <p style="font-size:0.85rem; color:var(--text-muted); margin-top:2px;">📍 Address: <span id="cpAddress">-</span></p>
-              </div>
-            </div>
-          </div>
+    <section id="customers" class="page hidden">
+      <div class="page-title"><h2>Customer Management</h2></div>
+      <div class="panel">
+        <h3>Add Customer</h3>
+        <form id="customer-form" class="quick-form">
+          <div><label>Name</label><input class="field" id="customer-name" required></div>
+          <div><label>Mobile</label><input class="field" id="customer-mobile" required></div>
+          <div><label>Email</label><input class="field" id="customer-email" type="email"></div>
+          <div><label>Address</label><input class="field" id="customer-address"></div>
+          <button class="submit" type="submit">Save Customer</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h3>Customer List</h3>
+        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Address</th></tr></thead><tbody id="customer-list"></tbody></table></div>
+      </div>
+    </section>
 
-          <div class="card">
-            <h4 style="font-size:1rem; font-weight:700; margin-bottom:12px;">Saved Documents & Work History</h4>
-            <div id="custWorkHistoryContainer"></div>
-          </div>
-        </div>
-      </section>
+    <section id="finance" class="page hidden">
+      <div class="page-title"><h2>Finance Center</h2></div>
+      <div class="panel">
+        <h3>Add Finance Entry</h3>
+        <form id="finance-form" class="quick-form">
+          <div><label>Type</label><select class="field" id="finance-type"><option value="income">Income</option><option value="expense">Expense</option></select></div>
+          <div><label>Amount ₹</label><input class="field" id="finance-amount" type="number" min="0" required></div>
+          <div><label>Category</label><input class="field" id="finance-category" placeholder="Printing, Rent, Commission"></div>
+          <div><label>Date</label><input class="field" id="finance-date" type="date" required></div>
+          <div class="field full"><label>Description</label><input class="field" id="finance-description"></div>
+          <button class="submit" type="submit">Save Entry</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h3>Finance History</h3>
+        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Category</th><th>Description</th></tr></thead><tbody id="finance-list"></tbody></table></div>
+      </div>
+    </section>
 
-      <!-- ACCOUNTS -->
-      <section id="accounts-module" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>💰 Daily Income & Due Khata</span></div>
-          <div class="table-container">
-            <table>
-              <thead><tr><th>Date</th><th>Customer</th><th>Service</th><th>Amount</th><th>Status</th></tr></thead>
-              <tbody id="accountsInvoicesTbody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+    <section id="services" class="page hidden">
+      <div class="page-title"><h2>Service Manager</h2></div>
+      <div class="panel">
+        <h3>Add Service</h3>
+        <form id="service-form" class="quick-form">
+          <div><label>Service Name</label><input class="field" id="service-name" required></div>
+          <div><label>Price ₹</label><input class="field" id="service-price" type="number" min="0" required></div>
+          <div><label>Category</label><input class="field" id="service-category"></div>
+          <div><label>Service Code</label><input class="field" id="service-code"></div>
+          <button class="submit" type="submit">Save Service</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h3>Service List</h3>
+        <div class="table-wrap"><table><thead><tr><th>Service</th><th>Price</th><th>Category</th><th>Code</th></tr></thead><tbody id="service-list"></tbody></table></div>
+      </div>
+    </section>
 
-      <section id="cloud-backup" class="tab-section">
-        <div class="card">
-          <div class="card-title"><span>💾 Database Backup</span></div>
-          <button class="btn btn-primary" onclick="exportDatabaseJSON()"><i data-lucide="download-cloud"></i> Export Backup JSON</button>
-        </div>
-      </section>
+    <section id="settlement" class="page hidden">
+      <div class="page-title"><h2>Daily Cash Settlement</h2></div>
+      <div class="panel">
+        <h3>Settlement Calculator</h3>
+        <form id="settlement-form" class="quick-form">
+          <div><label>Date</label><input class="field" id="settle-date" type="date" required></div>
+          <div><label>Staff / Shift</label><input class="field" id="settle-staff" required></div>
+          <div><label>Opening Cash ₹</label><input class="field" id="settle-opening" type="number" min="0" value="0"></div>
+          <div><label>Cash Collection ₹</label><input class="field" id="settle-cash" type="number" min="0" value="0"></div>
+          <div><label>Daily Expenses ₹</label><input class="field" id="settle-expense" type="number" min="0" value="0"></div>
+          <div><label>Actual Closing Cash ₹</label><input class="field" id="settle-actual" type="number" min="0" value="0"></div>
+          <div><label>Expected Closing</label><input class="field" id="settle-expected" readonly></div>
+          <div><label>Difference</label><input class="field" id="settle-difference" readonly></div>
+          <button class="submit" type="submit">Save Settlement</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h3>Settlement History</h3>
+        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Staff</th><th>Expected</th><th>Actual</th><th>Difference</th></tr></thead><tbody id="settlement-list"></tbody></table></div>
+      </div>
+    </section>
 
-    </div>
+    <section id="staff" class="page hidden">
+      <div class="page-title"><h2>Staff Performance</h2></div>
+      <div class="panel">
+        <h3>Add Staff Work</h3>
+        <form id="staff-form" class="quick-form">
+          <div><label>Staff Name</label><input class="field" id="staff-name" required></div>
+          <div><label>Task / Service</label><input class="field" id="staff-task" required></div>
+          <div><label>Hours Worked</label><input class="field" id="staff-hours" type="number" min="0" value="0"></div>
+          <div><label>Status</label><select class="field" id="staff-status"><option>Pending</option><option>Completed</option></select></div>
+          <button class="submit" type="submit">Save Work Record</button>
+        </form>
+      </div>
+      <div class="panel">
+        <h3>Work History</h3>
+        <div class="table-wrap"><table><thead><tr><th>Staff</th><th>Task</th><th>Hours</th><th>Status</th></tr></thead><tbody id="staff-list"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="reports" class="page hidden">
+      <div class="page-title"><h2>Reports & Analytics</h2></div>
+      <div class="cards">
+        <div class="card"><div class="label">Income</div><div class="value" id="report-income">₹0</div></div>
+        <div class="card"><div class="label">Expense</div><div class="value" id="report-expense">₹0</div></div>
+        <div class="card"><div class="label">Customers</div><div class="value" id="report-customers">0</div></div>
+        <div class="card"><div class="label">Services</div><div class="value" id="report-services">0</div></div>
+      </div>
+      <div class="panel">
+        <h3>Export Business Data</h3>
+        <p class="muted">Export all records saved by this final page.</p>
+        <br>
+        <button class="submit" onclick="backupData()">Download Complete Backup</button>
+      </div>
+    </section>
+
+    <section id="settings" class="page hidden">
+      <div class="page-title"><h2>Business Settings</h2></div>
+      <div class="panel">
+        <h3>Shop Details</h3>
+        <form id="settings-form" class="quick-form">
+          <div><label>Shop Name</label><input class="field" id="shop-name"></div>
+          <div><label>Owner Name</label><input class="field" id="owner-name"></div>
+          <div><label>Mobile</label><input class="field" id="shop-mobile"></div>
+          <div><label>Address</label><input class="field" id="shop-address"></div>
+          <button class="submit" type="submit">Save Settings</button>
+        </form>
+        <p id="settings-message" class="muted"></p>
+      </div>
+      <div class="panel">
+        <h3>Data Control</h3>
+        <button class="submit" onclick="backupData()">Backup Data</button>
+        <button class="submit" style="background:#dc2626;margin-left:8px" onclick="clearAllData()">Clear All Data</button>
+      </div>
+    </section>
+
+    <div class="footer">© <span id="year"></span> VLE Digital World • Local Business Management System</div>
   </main>
+</div>
 
-  <!-- MODAL: NEW CUSTOMER & JOB ENTRY -->
-  <div id="newCustomerModal" class="modal">
-    <div class="modal-content">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-        <h3 style="font-size:1.15rem; font-weight:800;">Digital Darsan — One-Click Customer & Job Entry</h3>
-        <button onclick="closeModal('newCustomerModal')" style="border:none; background:none; font-size:22px; cursor:pointer;">&times;</button>
-      </div>
+<script>
+const keys={
+ customers:'vle_final_customers',
+ finance:'vle_final_finance',
+ services:'vle_final_services',
+ settlements:'vle_final_settlements',
+ staff:'vle_final_staff',
+ settings:'vle_final_settings'
+};
 
-      <div class="form-grid">
-        <div class="form-group"><label>Mobile Number (WhatsApp) *</label><input type="tel" id="ncPhone" maxlength="10" placeholder="9876543210"></div>
-        <div class="form-group"><label>Customer Full Name *</label><input type="text" id="ncName" placeholder="Priyadarshan Ojha"></div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Father's Name</label><input type="text" id="ncFather" placeholder="Father Name"></div>
-        <div class="form-group"><label>Mother's Name</label><input type="text" id="ncMother" placeholder="Mother Name"></div>
-      </div>
-      <div class="form-group" style="margin-bottom:14px;"><label>Address / Village</label><input type="text" id="ncAddress" placeholder="Rathapada, Dhenkanal"></div>
+const get=(key)=>JSON.parse(localStorage.getItem(key)||'[]');
+const put=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
+const money=(n)=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
+const val=(id)=>document.getElementById(id).value;
 
-      <hr style="border:0; border-top:1px solid #e2e8f0; margin:14px 0;">
+function showPage(page){
+ document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));
+ document.getElementById(page).classList.remove('hidden');
+ document.querySelectorAll('.menu button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+ refresh();
+}
 
-      <div class="form-grid">
-        <div class="form-group"><label>Work / Service Type *</label><input type="text" id="ncService" placeholder="e.g. Income Certificate / PAN / DL"></div>
-        <div class="form-group"><label>Documents Given by Customer</label><input type="text" id="ncDocs" placeholder="e.g. Aadhaar, Photo, Passbook"></div>
-      </div>
-      <div class="form-grid">
-        <div class="form-group"><label>Total Amount (₹)</label><input type="number" id="ncAmount" placeholder="150"></div>
-        <div class="form-group">
-          <label>Payment Status</label>
-          <select id="ncPayStatus">
-            <option value="Paid">Paid (Advance / Full)</option>
-            <option value="Due">Due (Khata)</option>
-          </select>
-        </div>
-      </div>
+function refresh(){
+ const customers=get(keys.customers);
+ const finance=get(keys.finance);
+ const services=get(keys.services);
+ const settlements=get(keys.settlements);
+ const staff=get(keys.staff);
+ const income=finance.filter(x=>x.type==='income').reduce((s,x)=>s+Number(x.amount),0);
+ const expense=finance.filter(x=>x.type==='expense').reduce((s,x)=>s+Number(x.amount),0);
 
-      <button class="btn btn-success" style="width:100%; justify-content:center; margin-top:14px;" onclick="saveCompleteCustomerJob()">
-        <i data-lucide="check-circle"></i> Save & Send Welcome Greeting (WhatsApp)
-      </button>
-    </div>
-  </div>
+ document.getElementById('dash-customers').textContent=customers.length;
+ document.getElementById('dash-income').textContent=money(income);
+ document.getElementById('dash-expense').textContent=money(expense);
+ document.getElementById('dash-balance').textContent=money(income-expense);
 
-  <script>
-    let DB = {
-      customers: JSON.parse(localStorage.getItem('vle_customers') || '{}'),
-      jobs: JSON.parse(localStorage.getItem('vle_jobs') || '[]'),
-      activeCustomerPhone: null
-    };
+ document.getElementById('report-income').textContent=money(income);
+ document.getElementById('report-expense').textContent=money(expense);
+ document.getElementById('report-customers').textContent=customers.length;
+ document.getElementById('report-services').textContent=services.length;
 
-    const STAGES = ["Received", "Processing", "Ready", "Delivered"];
+ document.getElementById('customer-list').innerHTML=customers.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.mobile)}</td><td>${safe(x.email)}</td><td>${safe(x.address)}</td></tr>`).join('');
+ document.getElementById('finance-list').innerHTML=finance.slice().reverse().map(x=>`<tr><td>${safe(x.date)}</td><td>${safe(x.type)}</td><td>${money(x.amount)}</td><td>${safe(x.category)}</td><td>${safe(x.description)}</td></tr>`).join('');
+ document.getElementById('service-list').innerHTML=services.map(x=>`<tr><td>${safe(x.name)}</td><td>${money(x.price)}</td><td>${safe(x.category)}</td><td>${safe(x.code)}</td></tr>`).join('');
+ document.getElementById('settlement-list').innerHTML=settlements.slice().reverse().map(x=>`<tr><td>${safe(x.date)}</td><td>${safe(x.staff)}</td><td>${money(x.expected)}</td><td>${money(x.actual)}</td><td>${money(x.difference)}</td></tr>`).join('');
+ document.getElementById('staff-list').innerHTML=staff.slice().reverse().map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.task)}</td><td>${x.hours}</td><td>${safe(x.status)}</td></tr>`).join('');
 
-    function initSuite() {
-      if (Object.keys(DB.customers).length === 0) {
-        seedInitialData();
-      }
-      renderGlobalJobs();
-      renderAccountsTable();
-      lucide.createIcons();
-    }
+ const activity=[];
+ if(customers.length)activity.push(customers.length+' customer records');
+ if(finance.length)activity.push(finance.length+' finance entries');
+ if(services.length)activity.push(services.length+' services');
+ if(settlements.length)activity.push(settlements.length+' settlements');
+ document.getElementById('recent-activity').textContent=activity.length?activity.join(' • '):'No recent activity available.';
+}
 
-    function saveDB() {
-      localStorage.setItem('vle_customers', JSON.stringify(DB.customers));
-      localStorage.setItem('vle_jobs', JSON.stringify(DB.jobs));
-    }
+function safe(value){
+ return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
 
-    function openTab(tabId, el) {
-      document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active'));
-      document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-      const target = document.getElementById(tabId);
-      if (target) target.classList.add('active');
-      if (el) el.classList.add('active');
-      lucide.createIcons();
-    }
+document.getElementById('customer-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=get(keys.customers);
+ data.push({name:val('customer-name'),mobile:val('customer-mobile'),email:val('customer-email'),address:val('customer-address'),createdAt:new Date().toISOString()});
+ put(keys.customers,data);e.target.reset();refresh();
+});
 
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; lucide.createIcons(); }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    function openNewCustomerModal() { openModal('newCustomerModal'); }
+document.getElementById('finance-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=get(keys.finance);
+ data.push({type:val('finance-type'),amount:Number(val('finance-amount')),category:val('finance-category'),date:val('finance-date'),description:val('finance-description'),createdAt:new Date().toISOString()});
+ put(keys.finance,data);e.target.reset();document.getElementById('finance-date').value=new Date().toISOString().slice(0,10);refresh();
+});
 
-    function seedInitialData() {
-      const p = "8249833933";
-      DB.customers[p] = { 
-        name: "Priyadarshan Ojha", phone: p, father: "Pankaj Ojha", mother: "Annapurna Ojha", address: "Rathapada, Dhenkanal" 
-      };
-      DB.jobs.unshift({
-        id: Date.now(), phone: p, name: "Priyadarshan Ojha", service: "Income Certificate", 
-        docs: "Aadhaar, Photo", amount: 100, payStatus: "Paid", stage: "Received", date: new Date().toLocaleDateString()
-      });
-      saveDB();
-    }
+document.getElementById('service-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=get(keys.services);
+ data.push({name:val('service-name'),price:Number(val('service-price')),category:val('service-category'),code:val('service-code'),createdAt:new Date().toISOString()});
+ put(keys.services,data);e.target.reset();refresh();
+});
 
-    /* ONE-CLICK SAVE & WHATSAPP GREETING */
-    function saveCompleteCustomerJob() {
-      const phone = document.getElementById('ncPhone').value.trim();
-      const name = document.getElementById('ncName').value.trim();
-      const father = document.getElementById('ncFather').value.trim();
-      const mother = document.getElementById('ncMother').value.trim();
-      const address = document.getElementById('ncAddress').value.trim();
-      const service = document.getElementById('ncService').value.trim();
-      const docs = document.getElementById('ncDocs').value.trim();
-      const amount = Number(document.getElementById('ncAmount').value) || 0;
-      const payStatus = document.getElementById('ncPayStatus').value;
+function calculateSettlement(){
+ const expected=Number(val('settle-opening')||0)+Number(val('settle-cash')||0)-Number(val('settle-expense')||0);
+ const actual=Number(val('settle-actual')||0);
+ document.getElementById('settle-expected').value=money(expected);
+ document.getElementById('settle-difference').value=money(actual-expected);
+ return {expected,actual,difference:actual-expected};
+}
+['settle-opening','settle-cash','settle-expense','settle-actual'].forEach(id=>document.getElementById(id).addEventListener('input',calculateSettlement));
 
-      if (!phone || phone.length < 10 || !name || !service) {
-        return alert('ଦୟାକରି ମୋବାଇଲ୍ ନମ୍ବର, ନାମ ଏବଂ କାମର ନାମ ଠିକ୍ ଭାବେ ଭରନ୍ତୁ!');
-      }
+document.getElementById('settlement-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const result=calculateSettlement();
+ const data=get(keys.settlements);
+ data.push({date:val('settle-date'),staff:val('settle-staff'),expected:result.expected,actual:result.actual,difference:result.difference,createdAt:new Date().toISOString()});
+ put(keys.settlements,data);e.target.reset();document.getElementById('settle-date').value=new Date().toISOString().slice(0,10);calculateSettlement();refresh();
+});
 
-      // Save or Update Customer Profile
-      DB.customers[phone] = { name, phone, father: father || 'N/A', mother: mother || 'N/A', address: address || 'Dhenkanal' };
+document.getElementById('staff-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ const data=get(keys.staff);
+ data.push({name:val('staff-name'),task:val('staff-task'),hours:Number(val('staff-hours')),status:val('staff-status'),createdAt:new Date().toISOString()});
+ put(keys.staff,data);e.target.reset();refresh();
+});
 
-      // Save Job
-      const jobId = Date.now();
-      DB.jobs.unshift({
-        id: jobId, phone, name, service, docs: docs || 'Standard', amount, payStatus, stage: "Received", date: new Date().toLocaleDateString()
-      });
+document.getElementById('settings-form').addEventListener('submit',e=>{
+ e.preventDefault();
+ put(keys.settings,{shopName:val('shop-name'),ownerName:val('owner-name'),mobile:val('shop-mobile'),address:val('shop-address')});
+ document.getElementById('settings-message').textContent='Settings saved successfully.';
+});
 
-      saveDB();
-      closeModal('newCustomerModal');
-      renderGlobalJobs();
-      renderAccountsTable();
+function loadSettings(){
+ const s=JSON.parse(localStorage.getItem(keys.settings)||'{}');
+ document.getElementById('shop-name').value=s.shopName||'';
+ document.getElementById('owner-name').value=s.ownerName||'';
+ document.getElementById('shop-mobile').value=s.mobile||'';
+ document.getElementById('shop-address').value=s.address||'';
+}
 
-      // Send Welcome Greeting & Smart Notification on WhatsApp
-      sendWhatsAppMessage(phone, name, service, "Received", docs);
-    }
+function backupData(){
+ const backup={format:'vle-digital-world-final-dashboard',createdAt:new Date().toISOString(),data:{}};
+ Object.values(keys).forEach(key=>backup.data[key]=JSON.parse(localStorage.getItem(key)||'[]'));
+ const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=url;a.download='vle-digital-world-backup.json';a.click();
+ URL.revokeObjectURL(url);
+}
 
-    function sendWhatsAppMessage(phone, name, service, stage, docs) {
-      let msg = "";
-      if (stage === "Received") {
-        msg = `*ନମସ୍କାର ${name} Ji,*\nDigital Darsan (ରଥପଡ଼ା, ଢେଙ୍କାନାଳ) କୁ ଆସିଥିବାରୁ ଅନେକ ଧନ୍ୟବାଦ। 🙏\n\nଆପଣଙ୍କର *${service}* କାମ ଆମେ ଗ୍ରହଣ କଲୁ।\n📁 *ଜମା ହୋଇଥିବା ଡକ୍ୟୁମେଣ୍ଟ୍:* ${docs}\n\nକାମର ଅଗ୍ରଗତି (Status) ଆପଣଙ୍କୁ WhatsApp ରେ ଜଣାଇ ଦିଆଯିବ।\n\n📞 Contact: 8249833933`;
-      } else if (stage === "Processing") {
-        msg = `*ନମସ୍କାର ${name} Ji,*\nDigital ଦର୍ଶନ ତରଫରୁ ସୂଚନା: ଆପଣଙ୍କ *${service}* କାମ ବର୍ତ୍ତମାନ ପ୍ରୋସେସିଂ (Processing) ଚାଲିଛି।`;
-      } else if (stage === "Ready") {
-        msg = `*ଗୁରୁତ୍ୱପୂର୍ଣ୍ଣ ସୂଚନା, ${name} Ji! 🎉*\nDigital Darsan ରେ ଆପଣଙ୍କ *${service}* କାମ ସମ୍ପୂର୍ଣ୍ଣ ହୋଇସାରିଛି।\n\nଦୟାକରି ଦୋକାନକୁ ଆସି ଆପଣଙ୍କ କାଗଜପତ୍ର ସଂଗ୍ରହ କରିନିଅନ୍ତୁ। ଧନ୍ୟବାଦ!`;
-      } else if (stage === "Delivered") {
-        msg = `*ନମସ୍କାର ${name} Ji,*\nଆପଣଙ୍କର *${service}* କାମ ସଫଳତାପୂର୍ବକ ପ୍ରଦାନ କରାଗଲା। Digital Darsan ବ୍ୟବହାର କରିଥିବାରୁ ଧନ୍ୟବାଦ!`;
-      }
-      window.open(`https://wa.me/91${phone}?text=${encodeURIComponent(msg)}`, '_blank');
-    }
+function clearAllData(){
+ if(!confirm('Are you sure? All final dashboard data will be deleted from this browser.'))return;
+ Object.values(keys).forEach(key=>localStorage.removeItem(key));
+ loadSettings();refresh();
+ alert('Final dashboard data cleared.');
+}
 
-    function changeJobStage(jobId, stg) {
-      const j = DB.jobs.find(x => x.id === jobId);
-      if (!j) return;
-      j.stage = stg;
-      saveDB();
-      renderGlobalJobs();
-      sendWhatsAppMessage(j.phone, j.name, j.service, stg, j.docs);
-    }
-
-    function renderGlobalJobs() {
-      const tbody = document.getElementById('globalJobsTbody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      if (DB.jobs.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#64748b;">କୌଣସି ଜବ୍ ନାହିଁ।</td></tr>`;
-        return;
-      }
-
-      DB.jobs.forEach(job => {
-        const curIdx = STAGES.indexOf(job.stage);
-        let stepsHtml = '';
-        STAGES.forEach((stg, idx) => {
-          let cls = ''; if (idx < curIdx) cls = 'completed'; else if (idx === curIdx) cls = 'current';
-          stepsHtml += `<div class="step-node ${cls}" onclick="changeJobStage(${job.id}, '${stg}')"><div class="step-circle">${idx < curIdx ? '✓' : idx + 1}</div><span class="step-label">${stg}</span></div>`;
-        });
-
-        tbody.innerHTML += `
-          <tr>
-            <td>${job.date}</td>
-            <td><b>${job.name}</b><br><small style="color:#64748b;">📱 ${job.phone}</small></td>
-            <td><b>${job.service}</b><br><small style="color:#64748b;">Docs: ${job.docs}</small></td>
-            <td><div class="pipeline-steps" style="margin:4px 0; width:220px;">${stepsHtml}</div></td>
-            <td><span class="badge ${job.payStatus === 'Paid' ? 'badge-paid' : 'badge-due'}">₹${job.amount} (${job.payStatus})</span></td>
-            <td>
-              <button class="btn btn-whatsapp" style="padding:5px 10px; font-size:11px;" onclick="sendWhatsAppMessage('${job.phone}', '${job.name}', '${job.service}', '${job.stage}', '${job.docs}')">
-                <i data-lucide="send" style="width:12px;"></i> WhatsApp
-              </button>
-            </td>
-          </tr>
-        `;
-      });
-      lucide.createIcons();
-    }
-
-    function renderAccountsTable() {
-      const tbody = document.getElementById('accountsInvoicesTbody');
-      if (!tbody) return;
-      tbody.innerHTML = '';
-      DB.jobs.forEach(job => {
-        tbody.innerHTML += `
-          <tr>
-            <td>${job.date}</td>
-            <td><b>${job.name}</b> (${job.phone})</td>
-            <td>${job.service}</td>
-            <td>₹${job.amount}</td>
-            <td><span class="badge ${job.payStatus === 'Paid' ? 'badge-paid' : 'badge-due'}">${job.payStatus}</span></td>
-          </tr>
-        `;
-      });
-    }
-
-    function handlePhoneSearch(val) { if (val.length === 10) searchCustomerDirect(); }
-
-    function searchCustomerDirect() {
-      const phone = document.getElementById('cSearchPhone').value.trim();
-      if (!phone || phone.length < 10) return;
-      const cust = DB.customers[phone];
-      if (!cust) return alert('ଏହି ନମ୍ବରରେ କୌଣସି ଗ୍ରାହକ ନାହାଁନ୍ତି!');
-
-      document.getElementById('customerProfileWorkspace').style.display = 'block';
-      document.getElementById('cpAvatar').innerText = cust.name.charAt(0).toUpperCase();
-      document.getElementById('cpName').innerText = cust.name;
-      document.getElementById('cpPhone').innerText = cust.phone;
-      document.getElementById('cpFather').innerText = cust.father;
-      document.getElementById('cpMother').innerText = cust.mother;
-      document.getElementById('cpAddress').innerText = cust.address;
-
-      const histContainer = document.getElementById('custWorkHistoryContainer');
-      histContainer.innerHTML = '';
-      const cJobs = DB.jobs.filter(j => j.phone === phone);
-      cJobs.forEach(j => {
-        histContainer.innerHTML += `
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:12px; margin-bottom:10px; display:flex; justify-content:space-between; align-items:center;">
-            <div>
-              <b>${j.service}</b> (Status: <span style="color:var(--primary);">${j.stage}</span>)
-              <br><small style="color:#64748b;">ଜମା ଡକ୍ୟୁମେଣ୍ଟ୍: ${j.docs} | ତାରିଖ: ${j.date}</small>
-            </div>
-            <div><b>₹${j.amount}</b> (${j.payStatus})</div>
-          </div>
-        `;
-      });
-    }
-
-    function exportDatabaseJSON() {
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(DB));
-      const dl = document.createElement('a');
-      dl.setAttribute("href", dataStr);
-      dl.setAttribute("download", `DigitalDarsan_Backup_${new Date().toISOString().slice(0,10)}.json`);
-      document.body.appendChild(dl); dl.click(); dl.remove();
-    }
-
-    window.onload = initSuite;
-  </script>
+document.getElementById('today').textContent=new Date().toLocaleDateString('en-IN',{dateStyle:'full'});
+document.getElementById('year').textContent=new Date().getFullYear();
+document.getElementById('finance-date').value=new Date().toISOString().slice(0,10);
+document.getElementById('settle-date').value=new Date().toISOString().slice(0,10);
+loadSettings();
+calculateSettlement();
+refresh();
+</script>
 </body>
 </html>
