@@ -3,406 +3,435 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VLE Digital World - Final Dashboard</title>
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLE Digital World - Final System</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0;font-family:Arial,sans-serif}
-body{background:#f4f7fb;color:#172033}
-button,input,select{font:inherit}
+*{box-sizing:border-box;font-family:Arial,sans-serif}
+body{margin:0;background:#f1f5f9;color:#172033}
+button,input,select,textarea{font:inherit}
 button{cursor:pointer}
-.topbar{background:linear-gradient(135deg,#173b8f,#2563eb);color:white;padding:18px 24px;display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap}
-.brand h1{font-size:24px}
-.brand p{font-size:13px;margin-top:4px;opacity:.85}
-.top-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:8px;padding:10px 14px;background:white;color:#173b8f;font-weight:bold}
-.btn.dark{background:#102a67;color:white}
-.layout{display:flex;min-height:calc(100vh - 85px)}
-.sidebar{width:245px;background:#101b35;color:white;padding:18px 12px;flex-shrink:0}
-.sidebar h3{font-size:14px;color:#b8c5e8;padding:10px}
-.menu{list-style:none}
-.menu li{margin:4px 0}
-.menu button{width:100%;text-align:left;border:0;background:transparent;color:#dce5ff;padding:12px;border-radius:8px}
+.top{background:linear-gradient(135deg,#102a67,#2563eb);color:white;padding:18px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.top h1{margin:0;font-size:24px}.top p{margin:5px 0 0;font-size:13px}
+.layout{display:flex;min-height:calc(100vh - 90px)}
+.side{width:260px;background:#101b35;color:white;padding:14px;flex-shrink:0}
+.side h3{font-size:13px;color:#b9c7ed}
+.menu{list-style:none;padding:0;margin:0}
+.menu button{width:100%;text-align:left;background:transparent;border:0;color:#dbeafe;padding:10px;border-radius:7px;margin:2px 0;font-size:13px}
 .menu button:hover,.menu button.active{background:#2563eb;color:white}
-.main{flex:1;padding:24px;min-width:0}
-.page-title{display:flex;justify-content:space-between;gap:15px;align-items:center;flex-wrap:wrap;margin-bottom:20px}
-.page-title h2{font-size:25px}
-.muted{color:#6b7280;font-size:13px}
-.cards{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px;margin-bottom:22px}
-.card{background:white;border-radius:14px;padding:18px;box-shadow:0 4px 15px #1720330d;border:1px solid #e6ebf3}
-.card .label{font-size:13px;color:#6b7280}
-.card .value{font-size:28px;font-weight:bold;margin-top:8px;color:#173b8f}
-.card .small{font-size:12px;color:#16a34a;margin-top:5px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
-.panel{background:white;border-radius:14px;padding:18px;border:1px solid #e6ebf3;box-shadow:0 4px 15px #1720330d;margin-bottom:18px}
-.panel h3{margin-bottom:14px;color:#173b8f}
-.module-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.module{border:1px solid #e1e7f0;background:#f9fbff;padding:15px;border-radius:11px;text-align:left}
-.module strong{display:block;color:#173b8f;margin-bottom:7px}
-.module span{font-size:12px;color:#6b7280}
-.module:hover{border-color:#2563eb;background:#eff6ff}
-.quick-form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.field{width:100%;padding:11px;border:1px solid #d7deea;border-radius:8px;background:white}
-.field.full{grid-column:1/-1}
-label{font-size:13px;color:#4b5563;display:block;margin-bottom:5px}
-.submit{background:#2563eb;color:white;border:0;border-radius:8px;padding:11px 16px;font-weight:bold}
+.main{flex:1;min-width:0;padding:22px}
+.page-title{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.page-title h2{margin:0;color:#173b8f}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+.card,.panel{background:white;border:1px solid #e2e8f0;border-radius:13px;padding:17px;box-shadow:0 4px 14px #0000000b}
+.card span,.muted{font-size:13px;color:#64748b}
+.card strong{display:block;font-size:27px;color:#173b8f;margin-top:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.modules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.module{background:#f8fafc;border:1px solid #dbe4f0;border-radius:10px;padding:14px;text-align:left}
+.module b{display:block;color:#173b8f;margin-bottom:6px}
+.module small{color:#64748b}
+.field{width:100%;padding:10px;border:1px solid #cbd5e1;border-radius:8px;background:white}
+label{font-size:13px;color:#475569;display:block;margin-bottom:5px}
+.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.full{grid-column:1/-1}
+.btn{border:0;border-radius:8px;padding:10px 14px;background:#2563eb;color:white;font-weight:bold}
+.btn.light{background:#e2e8f0;color:#173b8f}
+.btn.red{background:#fee2e2;color:#b91c1c}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th,td{text-align:left;padding:11px;border-bottom:1px solid #e5e7eb;font-size:13px}
-th{background:#f1f5f9;color:#334155}
-.badge{padding:5px 8px;border-radius:20px;font-size:11px;background:#dbeafe;color:#1d4ed8}
+table{width:100%;border-collapse:collapse;min-width:600px}
+th,td{text-align:left;padding:10px;border-bottom:1px solid #e2e8f0;font-size:13px}
+th{background:#eff6ff;color:#173b8f}
 .hidden{display:none!important}
-.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:9px;font-size:13px;margin-bottom:18px}
-.footer{text-align:center;color:#6b7280;font-size:12px;padding:20px}
-@media(max-width:1050px){.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.module-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:750px){.layout{display:block}.sidebar{width:100%;padding:10px}.menu{display:flex;overflow-x:auto;gap:5px}.menu li{min-width:max-content}.menu button{padding:10px}.main{padding:15px}.grid{grid-template-columns:1fr}}
-@media(max-width:480px){.cards{grid-template-columns:1fr 1fr}.module-grid,.quick-form{grid-template-columns:1fr}.card{padding:13px}.card .value{font-size:22px}.topbar{padding:15px}.brand h1{font-size:20px}}
+.notice{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:12px;border-radius:9px;font-size:13px;margin-bottom:16px}
+@media(max-width:1000px){.cards{grid-template-columns:repeat(2,1fr)}.modules{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:720px){.layout{display:block}.side{width:100%}.menu{display:flex;overflow:auto;gap:4px}.menu button{white-space:nowrap}.main{padding:14px}.grid,.form-grid{grid-template-columns:1fr}.full{grid-column:auto}}
+@media(max-width:480px){.cards,.modules{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">
+<header class="top">
+  <div>
     <h1>VLE Digital World</h1>
-    <p>CSC • Cyber Cafe • Online Service Management</p>
+    <p>CSC • Cyber Cafe • Online Service • Business Management</p>
   </div>
-  <div class="top-actions">
-    <button class="btn" onclick="showPage('dashboard')">Dashboard</button>
-    <button class="btn" onclick="backupData()">Backup</button>
-    <button class="btn" onclick="window.print()">Print</button>
+  <div class="actions">
+    <button class="btn light" onclick="openPage('dashboard')">Dashboard</button>
+    <button class="btn light" onclick="backupAll()">Backup</button>
   </div>
 </header>
 
 <div class="layout">
-  <aside class="sidebar">
-    <h3>MAIN MENU</h3>
-    <ul class="menu">
-      <li><button class="active" data-page="dashboard" onclick="showPage('dashboard')">🏠 Dashboard</button></li>
-      <li><button data-page="customers" onclick="showPage('customers')">👥 Customers</button></li>
-      <li><button data-page="finance" onclick="showPage('finance')">💰 Finance</button></li>
-      <li><button data-page="services" onclick="showPage('services')">🛠 Services</button></li>
-      <li><button data-page="settlement" onclick="showPage('settlement')">🧾 Daily Settlement</button></li>
-      <li><button data-page="staff" onclick="showPage('staff')">👨‍💼 Staff Performance</button></li>
-      <li><button data-page="reports" onclick="showPage('reports')">📊 Reports</button></li>
-      <li><button data-page="settings" onclick="showPage('settings')">⚙ Settings</button></li>
-    </ul>
-  </aside>
+<aside class="side">
+<h3>ALL 25 PHASES</h3>
+<ul class="menu" id="menu"></ul>
+</aside>
 
-  <main class="main">
+<main class="main">
 
-    <section id="dashboard" class="page">
-      <div class="page-title">
-        <div>
-          <h2>Final Dashboard</h2>
-          <p class="muted">Welcome to your digital service business control panel.</p>
-        </div>
-        <span class="badge" id="today"></span>
-      </div>
+<section id="dashboard" class="page">
+  <div class="page-title">
+    <div><h2>Final Dashboard</h2><p class="muted">All-in-one VLE business management system</p></div>
+    <span class="muted" id="today"></span>
+  </div>
 
-      <div class="notice">
-        This final page works with browser localStorage. Your entries remain saved in this browser.
-      </div>
+  <div class="notice">This integrated version saves data in your browser using localStorage. Firebase can be connected later.</div>
 
-      <div class="cards">
-        <div class="card"><div class="label">Total Customers</div><div class="value" id="dash-customers">0</div><div class="small">Customer master</div></div>
-        <div class="card"><div class="label">Total Income</div><div class="value" id="dash-income">₹0</div><div class="small">Recorded income</div></div>
-        <div class="card"><div class="label">Total Expense</div><div class="value" id="dash-expense">₹0</div><div class="small">Recorded expenses</div></div>
-        <div class="card"><div class="label">Net Balance</div><div class="value" id="dash-balance">₹0</div><div class="small">Income minus expense</div></div>
-      </div>
+  <div class="cards">
+    <div class="card"><span>Total Customers</span><strong id="kCustomers">0</strong></div>
+    <div class="card"><span>Total Income</span><strong id="kIncome">₹0</strong></div>
+    <div class="card"><span>Total Expense</span><strong id="kExpense">₹0</strong></div>
+    <div class="card"><span>Net Balance</span><strong id="kBalance">₹0</strong></div>
+  </div>
 
-      <div class="panel">
-        <h3>All Modules</h3>
-        <div class="module-grid">
-          <button class="module" onclick="showPage('customers')"><strong>👥 Customer Master</strong><span>Manage customer records</span></button>
-          <button class="module" onclick="showPage('finance')"><strong>💰 Finance Center</strong><span>Income and expense records</span></button>
-          <button class="module" onclick="showPage('services')"><strong>🛠 Service Manager</strong><span>Manage services and prices</span></button>
-          <button class="module" onclick="showPage('settlement')"><strong>🧾 Daily Settlement</strong><span>Cash closing and difference</span></button>
-          <button class="module" onclick="showPage('staff')"><strong>👨‍💼 Staff Performance</strong><span>Workload and task tracking</span></button>
-          <button class="module" onclick="showPage('reports')"><strong>📊 Reports</strong><span>Business summary and export</span></button>
-          <button class="module" onclick="showPage('settings')"><strong>⚙ Business Settings</strong><span>Shop details and preferences</span></button>
-        </div>
-      </div>
+  <div class="panel">
+    <h3>All Modules</h3>
+    <div class="modules" id="moduleCards"></div>
+  </div>
+</section>
 
-      <div class="panel">
-        <h3>Recent Activity</h3>
-        <div id="recent-activity" class="muted">No recent activity available.</div>
-      </div>
-    </section>
+<section id="customers" class="page hidden">
+<h2>Customer Master</h2><br>
+<div class="panel">
+<form id="customerForm" class="form-grid">
+<div><label>Customer Name</label><input class="field" id="cName" required></div>
+<div><label>Mobile</label><input class="field" id="cMobile" required></div>
+<div><label>Email</label><input class="field" id="cEmail"></div>
+<div><label>Address</label><input class="field" id="cAddress"></div>
+<button class="btn">Save Customer</button>
+</form>
+</div>
+<div class="panel"><h3>Customer List</h3><div class="table-wrap"><table><thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Address</th></tr></thead><tbody id="customerTable"></tbody></table></div></div>
+</section>
 
-    <section id="customers" class="page hidden">
-      <div class="page-title"><h2>Customer Management</h2></div>
-      <div class="panel">
-        <h3>Add Customer</h3>
-        <form id="customer-form" class="quick-form">
-          <div><label>Name</label><input class="field" id="customer-name" required></div>
-          <div><label>Mobile</label><input class="field" id="customer-mobile" required></div>
-          <div><label>Email</label><input class="field" id="customer-email" type="email"></div>
-          <div><label>Address</label><input class="field" id="customer-address"></div>
-          <button class="submit" type="submit">Save Customer</button>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>Customer List</h3>
-        <div class="table-wrap"><table><thead><tr><th>Name</th><th>Mobile</th><th>Email</th><th>Address</th></tr></thead><tbody id="customer-list"></tbody></table></div>
-      </div>
-    </section>
+<section id="finance" class="page hidden">
+<h2>Finance Center</h2><br>
+<div class="panel">
+<form id="financeForm" class="form-grid">
+<div><label>Type</label><select class="field" id="fType"><option value="income">Income</option><option value="expense">Expense</option></select></div>
+<div><label>Amount ₹</label><input class="field" id="fAmount" type="number" min="0" required></div>
+<div><label>Category</label><input class="field" id="fCategory"></div>
+<div><label>Date</label><input class="field" id="fDate" type="date" required></div>
+<div class="full"><label>Description</label><input class="field" id="fDescription"></div>
+<button class="btn">Save Finance Entry</button>
+</form>
+</div>
+<div class="panel"><h3>Finance History</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Category</th><th>Description</th></tr></thead><tbody id="financeTable"></tbody></table></div></div>
+</section>
 
-    <section id="finance" class="page hidden">
-      <div class="page-title"><h2>Finance Center</h2></div>
-      <div class="panel">
-        <h3>Add Finance Entry</h3>
-        <form id="finance-form" class="quick-form">
-          <div><label>Type</label><select class="field" id="finance-type"><option value="income">Income</option><option value="expense">Expense</option></select></div>
-          <div><label>Amount ₹</label><input class="field" id="finance-amount" type="number" min="0" required></div>
-          <div><label>Category</label><input class="field" id="finance-category" placeholder="Printing, Rent, Commission"></div>
-          <div><label>Date</label><input class="field" id="finance-date" type="date" required></div>
-          <div class="field full"><label>Description</label><input class="field" id="finance-description"></div>
-          <button class="submit" type="submit">Save Entry</button>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>Finance History</h3>
-        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Category</th><th>Description</th></tr></thead><tbody id="finance-list"></tbody></table></div>
-      </div>
-    </section>
+<section id="services" class="page hidden">
+<h2>Service & Package Manager</h2><br>
+<div class="panel">
+<form id="serviceForm" class="form-grid">
+<div><label>Service Name</label><input class="field" id="sName" required></div>
+<div><label>Price ₹</label><input class="field" id="sPrice" type="number" required></div>
+<div><label>Category</label><input class="field" id="sCategory"></div>
+<div><label>Service Code</label><input class="field" id="sCode"></div>
+<button class="btn">Save Service</button>
+</form>
+</div>
+<div class="panel"><h3>Service List</h3><div class="table-wrap"><table><thead><tr><th>Name</th><th>Price</th><th>Category</th><th>Code</th></tr></thead><tbody id="serviceTable"></tbody></table></div></div>
+</section>
 
-    <section id="services" class="page hidden">
-      <div class="page-title"><h2>Service Manager</h2></div>
-      <div class="panel">
-        <h3>Add Service</h3>
-        <form id="service-form" class="quick-form">
-          <div><label>Service Name</label><input class="field" id="service-name" required></div>
-          <div><label>Price ₹</label><input class="field" id="service-price" type="number" min="0" required></div>
-          <div><label>Category</label><input class="field" id="service-category"></div>
-          <div><label>Service Code</label><input class="field" id="service-code"></div>
-          <button class="submit" type="submit">Save Service</button>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>Service List</h3>
-        <div class="table-wrap"><table><thead><tr><th>Service</th><th>Price</th><th>Category</th><th>Code</th></tr></thead><tbody id="service-list"></tbody></table></div>
-      </div>
-    </section>
+<section id="settlement" class="page hidden">
+<h2>Daily Cash Settlement</h2><br>
+<div class="panel">
+<form id="settlementForm" class="form-grid">
+<div><label>Date</label><input class="field" id="dDate" type="date" required></div>
+<div><label>Staff / Shift</label><input class="field" id="dStaff" required></div>
+<div><label>Opening Cash ₹</label><input class="field" id="dOpening" type="number" value="0"></div>
+<div><label>Cash Collection ₹</label><input class="field" id="dCash" type="number" value="0"></div>
+<div><label>Expenses ₹</label><input class="field" id="dExpense" type="number" value="0"></div>
+<div><label>Actual Closing Cash ₹</label><input class="field" id="dActual" type="number" value="0"></div>
+<div><label>Expected Closing</label><input class="field" id="dExpected" readonly></div>
+<div><label>Difference</label><input class="field" id="dDifference" readonly></div>
+<button class="btn">Save Settlement</button>
+</form>
+</div>
+<div class="panel"><h3>Settlement History</h3><div class="table-wrap"><table><thead><tr><th>Date</th><th>Staff</th><th>Expected</th><th>Actual</th><th>Difference</th></tr></thead><tbody id="settlementTable"></tbody></table></div></div>
+</section>
 
-    <section id="settlement" class="page hidden">
-      <div class="page-title"><h2>Daily Cash Settlement</h2></div>
-      <div class="panel">
-        <h3>Settlement Calculator</h3>
-        <form id="settlement-form" class="quick-form">
-          <div><label>Date</label><input class="field" id="settle-date" type="date" required></div>
-          <div><label>Staff / Shift</label><input class="field" id="settle-staff" required></div>
-          <div><label>Opening Cash ₹</label><input class="field" id="settle-opening" type="number" min="0" value="0"></div>
-          <div><label>Cash Collection ₹</label><input class="field" id="settle-cash" type="number" min="0" value="0"></div>
-          <div><label>Daily Expenses ₹</label><input class="field" id="settle-expense" type="number" min="0" value="0"></div>
-          <div><label>Actual Closing Cash ₹</label><input class="field" id="settle-actual" type="number" min="0" value="0"></div>
-          <div><label>Expected Closing</label><input class="field" id="settle-expected" readonly></div>
-          <div><label>Difference</label><input class="field" id="settle-difference" readonly></div>
-          <button class="submit" type="submit">Save Settlement</button>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>Settlement History</h3>
-        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Staff</th><th>Expected</th><th>Actual</th><th>Difference</th></tr></thead><tbody id="settlement-list"></tbody></table></div>
-      </div>
-    </section>
+<section id="staff" class="page hidden">
+<h2>Staff Performance</h2><br>
+<div class="panel">
+<form id="staffForm" class="form-grid">
+<div><label>Staff Name</label><input class="field" id="wStaff" required></div>
+<div><label>Task / Service</label><input class="field" id="wTask" required></div>
+<div><label>Hours Worked</label><input class="field" id="wHours" type="number" value="0"></div>
+<div><label>Status</label><select class="field" id="wStatus"><option>Pending</option><option>Completed</option></select></div>
+<button class="btn">Save Work</button>
+</form>
+</div>
+<div class="panel"><h3>Work History</h3><div class="table-wrap"><table><thead><tr><th>Staff</th><th>Task</th><th>Hours</th><th>Status</th></tr></thead><tbody id="staffTable"></tbody></table></div></div>
+</section>
 
-    <section id="staff" class="page hidden">
-      <div class="page-title"><h2>Staff Performance</h2></div>
-      <div class="panel">
-        <h3>Add Staff Work</h3>
-        <form id="staff-form" class="quick-form">
-          <div><label>Staff Name</label><input class="field" id="staff-name" required></div>
-          <div><label>Task / Service</label><input class="field" id="staff-task" required></div>
-          <div><label>Hours Worked</label><input class="field" id="staff-hours" type="number" min="0" value="0"></div>
-          <div><label>Status</label><select class="field" id="staff-status"><option>Pending</option><option>Completed</option></select></div>
-          <button class="submit" type="submit">Save Work Record</button>
-        </form>
-      </div>
-      <div class="panel">
-        <h3>Work History</h3>
-        <div class="table-wrap"><table><thead><tr><th>Staff</th><th>Task</th><th>Hours</th><th>Status</th></tr></thead><tbody id="staff-list"></tbody></table></div>
-      </div>
-    </section>
+<section id="wishes" class="page hidden">
+<h2>Birthday & Anniversary Wishes</h2><br>
+<div class="panel">
+<form id="wishForm" class="form-grid">
+<div><label>Customer Name</label><input class="field" id="bName" required></div>
+<div><label>Mobile</label><input class="field" id="bMobile" required></div>
+<div><label>Event Type</label><select class="field" id="bType"><option>Birthday</option><option>Anniversary</option></select></div>
+<div><label>Event Date</label><input class="field" id="bDate" type="date" required></div>
+<button class="btn">Save Special Date</button>
+</form>
+</div>
+<div class="panel"><h3>Special Date List</h3><div class="table-wrap"><table><thead><tr><th>Name</th><th>Mobile</th><th>Type</th><th>Date</th><th>Action</th></tr></thead><tbody id="wishTable"></tbody></table></div></div>
+<div class="panel">
+<h3>Wish Message</h3>
+<textarea class="field" id="wishText" rows="6"></textarea>
+<div class="actions"><button class="btn" onclick="generateWish()">Generate</button><button class="btn light" onclick="copyWish()">Copy</button></div>
+</div>
+</section>
 
-    <section id="reports" class="page hidden">
-      <div class="page-title"><h2>Reports & Analytics</h2></div>
-      <div class="cards">
-        <div class="card"><div class="label">Income</div><div class="value" id="report-income">₹0</div></div>
-        <div class="card"><div class="label">Expense</div><div class="value" id="report-expense">₹0</div></div>
-        <div class="card"><div class="label">Customers</div><div class="value" id="report-customers">0</div></div>
-        <div class="card"><div class="label">Services</div><div class="value" id="report-services">0</div></div>
-      </div>
-      <div class="panel">
-        <h3>Export Business Data</h3>
-        <p class="muted">Export all records saved by this final page.</p>
-        <br>
-        <button class="submit" onclick="backupData()">Download Complete Backup</button>
-      </div>
-    </section>
+<section id="reports" class="page hidden">
+<h2>Reports & Analytics</h2><br>
+<div class="cards">
+<div class="card"><span>Income</span><strong id="rIncome">₹0</strong></div>
+<div class="card"><span>Expense</span><strong id="rExpense">₹0</strong></div>
+<div class="card"><span>Customers</span><strong id="rCustomers">0</strong></div>
+<div class="card"><span>Services</span><strong id="rServices">0</strong></div>
+</div>
+<div class="panel"><button class="btn" onclick="backupAll()">Download Complete Backup</button></div>
+</section>
 
-    <section id="settings" class="page hidden">
-      <div class="page-title"><h2>Business Settings</h2></div>
-      <div class="panel">
-        <h3>Shop Details</h3>
-        <form id="settings-form" class="quick-form">
-          <div><label>Shop Name</label><input class="field" id="shop-name"></div>
-          <div><label>Owner Name</label><input class="field" id="owner-name"></div>
-          <div><label>Mobile</label><input class="field" id="shop-mobile"></div>
-          <div><label>Address</label><input class="field" id="shop-address"></div>
-          <button class="submit" type="submit">Save Settings</button>
-        </form>
-        <p id="settings-message" class="muted"></p>
-      </div>
-      <div class="panel">
-        <h3>Data Control</h3>
-        <button class="submit" onclick="backupData()">Backup Data</button>
-        <button class="submit" style="background:#dc2626;margin-left:8px" onclick="clearAllData()">Clear All Data</button>
-      </div>
-    </section>
+<section id="settings" class="page hidden">
+<h2>Business Settings</h2><br>
+<div class="panel">
+<form id="settingsForm" class="form-grid">
+<div><label>Shop Name</label><input class="field" id="shopName"></div>
+<div><label>Owner Name</label><input class="field" id="ownerName"></div>
+<div><label>Mobile</label><input class="field" id="shopMobile"></div>
+<div><label>Address</label><input class="field" id="shopAddress"></div>
+<button class="btn">Save Settings</button>
+</form>
+</div>
+<div class="panel"><button class="btn red" onclick="clearData()">Clear All Local Data</button></div>
+</section>
 
-    <div class="footer">© <span id="year"></span> VLE Digital World • Local Business Management System</div>
-  </main>
+<section id="generic" class="page hidden">
+<h2 id="genericTitle">Module</h2><br>
+<div class="panel">
+<p class="muted" id="genericText"></p>
+<div class="notice">This module is included in the final navigation. Its dedicated data form can be connected to the common Firebase database in the next integration step.</div>
+</div>
+</section>
+
+</main>
 </div>
 
 <script>
-const keys={
- customers:'vle_final_customers',
- finance:'vle_final_finance',
- services:'vle_final_services',
- settlements:'vle_final_settlements',
- staff:'vle_final_staff',
- settings:'vle_final_settings'
+const DB={
+customers:"vle_final_customers",
+finance:"vle_final_finance",
+services:"vle_final_services",
+settlements:"vle_final_settlements",
+staff:"vle_final_staff",
+wishes:"vle_final_wishes",
+settings:"vle_final_settings"
 };
 
-const get=(key)=>JSON.parse(localStorage.getItem(key)||'[]');
-const put=(key,data)=>localStorage.setItem(key,JSON.stringify(data));
-const money=(n)=>'₹'+Number(n||0).toLocaleString('en-IN',{maximumFractionDigits:2});
-const val=(id)=>document.getElementById(id).value;
+const modules=[
+["dashboard","🏠 Dashboard","Final overview"],
+["customers","👥 Customer Master","Common customer records"],
+["finance","💰 Finance Center","Income and expenses"],
+["services","🛠 Service Manager","Services and packages"],
+["settlement","🧾 Daily Settlement","Cash closing"],
+["staff","👨‍💼 Staff Performance","Workload and tasks"],
+["wishes","🎂 Birthday Wishes","Customer relationship"],
+["reports","📊 Reports","Business analytics"],
+["settings","⚙ Settings","Shop settings"],
+["generic","🔐 User & Role Management","Phase 3"],
+["generic","🔥 Firebase Integration","Phase 4"],
+["generic","🚚 Vehicle & Document Expiry","Phase 20"],
+["generic","🔔 Notifications","Phase 10"],
+["generic","🎫 Complaint Tickets","Phase 22"],
+["generic","📦 Inventory Movement","Phase 16"],
+["generic","🏪 Vendor Purchase","Phase 15"],
+["generic","💳 Payment Reconciliation","Phase 18"],
+["generic","📈 Profit Analyzer","Phase 19"],
+["generic","📅 Customer Follow-up","Phase 21"],
+["generic","🎯 KPI Goal Tracking","Phase 13"],
+["generic","⭐ Loyalty & Rewards","Phase 14"],
+["generic","🛡 Security & Audit","Phase 9"],
+["generic","💾 Backup & Restore","Phase 8"],
+["generic","🗂 Migration Center","Phase 7"],
+["generic","📋 Data Quality Checker","Phase 12"]
+];
 
-function showPage(page){
- document.querySelectorAll('.page').forEach(x=>x.classList.add('hidden'));
- document.getElementById(page).classList.remove('hidden');
- document.querySelectorAll('.menu button').forEach(x=>x.classList.toggle('active',x.dataset.page===page));
+const $=id=>document.getElementById(id);
+const get=k=>JSON.parse(localStorage.getItem(k)||"[]");
+const put=(k,v)=>localStorage.setItem(k,JSON.stringify(v));
+const money=n=>"₹"+Number(n||0).toLocaleString("en-IN",{maximumFractionDigits:2});
+const value=id=>$(id).value;
+const safe=v=>String(v??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+function openPage(page,title){
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ $(page).classList.remove("hidden");
+ document.querySelectorAll(".menu button").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
+ if(page==="generic"){
+   $("genericTitle").textContent=title||"Module";
+   $("genericText").textContent=title+" is available in the integrated final menu.";
+ }
  refresh();
 }
 
+function buildMenu(){
+ $("menu").innerHTML=modules.map((m,i)=>
+ `<li><button data-page="${m[0]}" onclick="openPage('${m[0]}','${m[1]}')">${m[1]}</button></li>`
+ ).join("");
+
+ $("moduleCards").innerHTML=modules.map(m=>
+ `<button class="module" onclick="openPage('${m[0]}','${m[1]}')"><b>${m[1]}</b><small>${m[2]}</small></button>`
+ ).join("");
+}
+
 function refresh(){
- const customers=get(keys.customers);
- const finance=get(keys.finance);
- const services=get(keys.services);
- const settlements=get(keys.settlements);
- const staff=get(keys.staff);
- const income=finance.filter(x=>x.type==='income').reduce((s,x)=>s+Number(x.amount),0);
- const expense=finance.filter(x=>x.type==='expense').reduce((s,x)=>s+Number(x.amount),0);
+ const customers=get(DB.customers);
+ const finance=get(DB.finance);
+ const services=get(DB.services);
+ const income=finance.filter(x=>x.type==="income").reduce((s,x)=>s+Number(x.amount||0),0);
+ const expense=finance.filter(x=>x.type==="expense").reduce((s,x)=>s+Number(x.amount||0),0);
 
- document.getElementById('dash-customers').textContent=customers.length;
- document.getElementById('dash-income').textContent=money(income);
- document.getElementById('dash-expense').textContent=money(expense);
- document.getElementById('dash-balance').textContent=money(income-expense);
+ $("kCustomers").textContent=customers.length;
+ $("kIncome").textContent=money(income);
+ $("kExpense").textContent=money(expense);
+ $("kBalance").textContent=money(income-expense);
 
- document.getElementById('report-income').textContent=money(income);
- document.getElementById('report-expense').textContent=money(expense);
- document.getElementById('report-customers').textContent=customers.length;
- document.getElementById('report-services').textContent=services.length;
+ $("rIncome").textContent=money(income);
+ $("rExpense").textContent=money(expense);
+ $("rCustomers").textContent=customers.length;
+ $("rServices").textContent=services.length;
 
- document.getElementById('customer-list').innerHTML=customers.map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.mobile)}</td><td>${safe(x.email)}</td><td>${safe(x.address)}</td></tr>`).join('');
- document.getElementById('finance-list').innerHTML=finance.slice().reverse().map(x=>`<tr><td>${safe(x.date)}</td><td>${safe(x.type)}</td><td>${money(x.amount)}</td><td>${safe(x.category)}</td><td>${safe(x.description)}</td></tr>`).join('');
- document.getElementById('service-list').innerHTML=services.map(x=>`<tr><td>${safe(x.name)}</td><td>${money(x.price)}</td><td>${safe(x.category)}</td><td>${safe(x.code)}</td></tr>`).join('');
- document.getElementById('settlement-list').innerHTML=settlements.slice().reverse().map(x=>`<tr><td>${safe(x.date)}</td><td>${safe(x.staff)}</td><td>${money(x.expected)}</td><td>${money(x.actual)}</td><td>${money(x.difference)}</td></tr>`).join('');
- document.getElementById('staff-list').innerHTML=staff.slice().reverse().map(x=>`<tr><td>${safe(x.name)}</td><td>${safe(x.task)}</td><td>${x.hours}</td><td>${safe(x.status)}</td></tr>`).join('');
+ $("customerTable").innerHTML=customers.map(x=>
+ `<tr><td>${safe(x.name)}</td><td>${safe(x.mobile)}</td><td>${safe(x.email)}</td><td>${safe(x.address)}</td></tr>`
+ ).join("");
 
- const activity=[];
- if(customers.length)activity.push(customers.length+' customer records');
- if(finance.length)activity.push(finance.length+' finance entries');
- if(services.length)activity.push(services.length+' services');
- if(settlements.length)activity.push(settlements.length+' settlements');
- document.getElementById('recent-activity').textContent=activity.length?activity.join(' • '):'No recent activity available.';
+ $("financeTable").innerHTML=finance.slice().reverse().map(x=>
+ `<tr><td>${safe(x.date)}</td><td>${safe(x.type)}</td><td>${money(x.amount)}</td><td>${safe(x.category)}</td><td>${safe(x.description)}</td></tr>`
+ ).join("");
+
+ $("serviceTable").innerHTML=services.map(x=>
+ `<tr><td>${safe(x.name)}</td><td>${money(x.price)}</td><td>${safe(x.category)}</td><td>${safe(x.code)}</td></tr>`
+ ).join("");
+
+ $("settlementTable").innerHTML=get(DB.settlements).slice().reverse().map(x=>
+ `<tr><td>${safe(x.date)}</td><td>${safe(x.staff)}</td><td>${money(x.expected)}</td><td>${money(x.actual)}</td><td>${money(x.difference)}</td></tr>`
+ ).join("");
+
+ $("staffTable").innerHTML=get(DB.staff).slice().reverse().map(x=>
+ `<tr><td>${safe(x.name)}</td><td>${safe(x.task)}</td><td>${x.hours}</td><td>${safe(x.status)}</td></tr>`
+ ).join("");
+
+ $("wishTable").innerHTML=get(DB.wishes).slice().reverse().map(x=>
+ `<tr><td>${safe(x.name)}</td><td>${safe(x.mobile)}</td><td>${safe(x.type)}</td><td>${safe(x.date)}</td><td><button class="btn light" onclick="useWish('${x.name}','${x.type}')">Wish</button></td></tr>`
+ ).join("");
 }
 
-function safe(value){
- return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
-
-document.getElementById('customer-form').addEventListener('submit',e=>{
+$("customerForm").addEventListener("submit",e=>{
  e.preventDefault();
- const data=get(keys.customers);
- data.push({name:val('customer-name'),mobile:val('customer-mobile'),email:val('customer-email'),address:val('customer-address'),createdAt:new Date().toISOString()});
- put(keys.customers,data);e.target.reset();refresh();
+ const a=get(DB.customers);
+ a.push({name:value("cName"),mobile:value("cMobile"),email:value("cEmail"),address:value("cAddress"),createdAt:new Date().toISOString()});
+ put(DB.customers,a);e.target.reset();refresh();
 });
 
-document.getElementById('finance-form').addEventListener('submit',e=>{
+$("financeForm").addEventListener("submit",e=>{
  e.preventDefault();
- const data=get(keys.finance);
- data.push({type:val('finance-type'),amount:Number(val('finance-amount')),category:val('finance-category'),date:val('finance-date'),description:val('finance-description'),createdAt:new Date().toISOString()});
- put(keys.finance,data);e.target.reset();document.getElementById('finance-date').value=new Date().toISOString().slice(0,10);refresh();
+ const a=get(DB.finance);
+ a.push({type:value("fType"),amount:Number(value("fAmount")),category:value("fCategory"),date:value("fDate"),description:value("fDescription"),createdAt:new Date().toISOString()});
+ put(DB.finance,a);e.target.reset();$("fDate").value=new Date().toISOString().slice(0,10);refresh();
 });
 
-document.getElementById('service-form').addEventListener('submit',e=>{
+$("serviceForm").addEventListener("submit",e=>{
  e.preventDefault();
- const data=get(keys.services);
- data.push({name:val('service-name'),price:Number(val('service-price')),category:val('service-category'),code:val('service-code'),createdAt:new Date().toISOString()});
- put(keys.services,data);e.target.reset();refresh();
+ const a=get(DB.services);
+ a.push({name:value("sName"),price:Number(value("sPrice")),category:value("sCategory"),code:value("sCode"),createdAt:new Date().toISOString()});
+ put(DB.services,a);e.target.reset();refresh();
 });
 
 function calculateSettlement(){
- const expected=Number(val('settle-opening')||0)+Number(val('settle-cash')||0)-Number(val('settle-expense')||0);
- const actual=Number(val('settle-actual')||0);
- document.getElementById('settle-expected').value=money(expected);
- document.getElementById('settle-difference').value=money(actual-expected);
+ const expected=Number(value("dOpening")||0)+Number(value("dCash")||0)-Number(value("dExpense")||0);
+ const actual=Number(value("dActual")||0);
+ $("dExpected").value=money(expected);
+ $("dDifference").value=money(actual-expected);
  return {expected,actual,difference:actual-expected};
 }
-['settle-opening','settle-cash','settle-expense','settle-actual'].forEach(id=>document.getElementById(id).addEventListener('input',calculateSettlement));
 
-document.getElementById('settlement-form').addEventListener('submit',e=>{
+["dOpening","dCash","dExpense","dActual"].forEach(id=>$(id).addEventListener("input",calculateSettlement));
+
+$("settlementForm").addEventListener("submit",e=>{
  e.preventDefault();
  const result=calculateSettlement();
- const data=get(keys.settlements);
- data.push({date:val('settle-date'),staff:val('settle-staff'),expected:result.expected,actual:result.actual,difference:result.difference,createdAt:new Date().toISOString()});
- put(keys.settlements,data);e.target.reset();document.getElementById('settle-date').value=new Date().toISOString().slice(0,10);calculateSettlement();refresh();
+ const a=get(DB.settlements);
+ a.push({date:value("dDate"),staff:value("dStaff"),expected:result.expected,actual:result.actual,difference:result.difference});
+ put(DB.settlements,a);e.target.reset();$("dDate").value=new Date().toISOString().slice(0,10);calculateSettlement();refresh();
 });
 
-document.getElementById('staff-form').addEventListener('submit',e=>{
+$("staffForm").addEventListener("submit",e=>{
  e.preventDefault();
- const data=get(keys.staff);
- data.push({name:val('staff-name'),task:val('staff-task'),hours:Number(val('staff-hours')),status:val('staff-status'),createdAt:new Date().toISOString()});
- put(keys.staff,data);e.target.reset();refresh();
+ const a=get(DB.staff);
+ a.push({name:value("wStaff"),task:value("wTask"),hours:Number(value("wHours")),status:value("wStatus")});
+ put(DB.staff,a);e.target.reset();refresh();
 });
 
-document.getElementById('settings-form').addEventListener('submit',e=>{
+$("wishForm").addEventListener("submit",e=>{
  e.preventDefault();
- put(keys.settings,{shopName:val('shop-name'),ownerName:val('owner-name'),mobile:val('shop-mobile'),address:val('shop-address')});
- document.getElementById('settings-message').textContent='Settings saved successfully.';
+ const a=get(DB.wishes);
+ a.push({name:value("bName"),mobile:value("bMobile"),type:value("bType"),date:value("bDate")});
+ put(DB.wishes,a);e.target.reset();refresh();
 });
 
-function loadSettings(){
- const s=JSON.parse(localStorage.getItem(keys.settings)||'{}');
- document.getElementById('shop-name').value=s.shopName||'';
- document.getElementById('owner-name').value=s.ownerName||'';
- document.getElementById('shop-mobile').value=s.mobile||'';
- document.getElementById('shop-address').value=s.address||'';
+function useWish(name,type){
+ $("wishText").value=type==="Birthday"
+ ?`🎉 Happy Birthday, ${name}! 🎂\n\nWishing you happiness, good health and success.\n\nThank you for choosing VLE Digital World.\n\nBest wishes,\nVLE Digital World`
+ :`💐 Happy Anniversary, ${name}! 💐\n\nWishing you love, peace, happiness and success.\n\nThank you for being a valued customer of VLE Digital World.\n\nBest wishes,\nVLE Digital World`;
+ openPage("wishes","Birthday Wishes");
 }
 
-function backupData(){
- const backup={format:'vle-digital-world-final-dashboard',createdAt:new Date().toISOString(),data:{}};
- Object.values(keys).forEach(key=>backup.data[key]=JSON.parse(localStorage.getItem(key)||'[]'));
- const blob=new Blob([JSON.stringify(backup,null,2)],{type:'application/json'});
+function generateWish(){
+ useWish(value("bName")||"Dear Customer",value("bType"));
+}
+
+function copyWish(){
+ const area=$("wishText");
+ area.select();
+ document.execCommand("copy");
+ alert("Wish message copied.");
+}
+
+$("settingsForm").addEventListener("submit",e=>{
+ e.preventDefault();
+ localStorage.setItem(DB.settings,JSON.stringify({
+  shopName:value("shopName"),ownerName:value("ownerName"),
+  mobile:value("shopMobile"),address:value("shopAddress")
+ }));
+ alert("Settings saved.");
+});
+
+function backupAll(){
+ const data={format:"vle-digital-world-final-1-to-25",createdAt:new Date().toISOString(),database:{}};
+ Object.values(DB).forEach(k=>data.database[k]=JSON.parse(localStorage.getItem(k)||"[]"));
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
  const url=URL.createObjectURL(blob);
- const a=document.createElement('a');
- a.href=url;a.download='vle-digital-world-backup.json';a.click();
+ const a=document.createElement("a");
+ a.href=url;a.download="vle-digital-world-complete-backup.json";a.click();
  URL.revokeObjectURL(url);
 }
 
-function clearAllData(){
- if(!confirm('Are you sure? All final dashboard data will be deleted from this browser.'))return;
- Object.values(keys).forEach(key=>localStorage.removeItem(key));
- loadSettings();refresh();
- alert('Final dashboard data cleared.');
+function clearData(){
+ if(!confirm("All local data will be deleted. Continue?"))return;
+ Object.values(DB).forEach(k=>localStorage.removeItem(k));
+ refresh();
+ alert("All local data cleared.");
 }
 
-document.getElementById('today').textContent=new Date().toLocaleDateString('en-IN',{dateStyle:'full'});
-document.getElementById('year').textContent=new Date().getFullYear();
-document.getElementById('finance-date').value=new Date().toISOString().slice(0,10);
-document.getElementById('settle-date').value=new Date().toISOString().slice(0,10);
-loadSettings();
+$("today").textContent=new Date().toLocaleDateString("en-IN",{dateStyle:"full"});
+$("fDate").value=new Date().toISOString().slice(0,10);
+$("dDate").value=new Date().toISOString().slice(0,10);
+
+buildMenu();
 calculateSettlement();
 refresh();
 </script>
