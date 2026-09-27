@@ -1,299 +1,1954 @@
 <!DOCTYPE html>
-<html lang="or">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Darsan — Complete VLE Business Management ERP</title>
-  <!-- Google Modern Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Kalinga&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <!-- Lucide Vector Icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- QR Code Generator CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
-
-  <style>
-    :root {
-      --font-main: 'Plus Jakarta Sans', 'Kalinga', -apple-system, BlinkMacSystemFont, sans-serif;
-      --bg: #f8fafc;
-      --surface-glass: rgba(255, 255, 255, 0.92);
-      --border-glass: rgba(255, 255, 255, 0.95);
-      --border-subtle: #e2e8f0;
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
-      --primary-glow: rgba(37, 99, 235, 0.16);
-      --accent: #f59e0b;
-      --success: #10b981;
-      --danger: #ef4444;
-      --text-main: #0f172a;
-      --text-muted: #64748b;
-      --radius-sm: 10px;
-      --radius-md: 16px;
-      --radius-lg: 22px;
-      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
-      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-      --shadow-lg: 0 20px 35px -10px rgba(0, 0, 0, 0.08);
-    }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: var(--font-main); -webkit-font-smoothing: antialiased; }
-
-    body {
-      background: radial-gradient(at 0% 0%, #f1f5f9 0px, transparent 50%),
-                  radial-gradient(at 100% 100%, #e2e8f0 0px, transparent 50%), var(--bg);
-      color: var(--text-main); display: flex; min-height: 100vh; overflow-x: hidden;
-    }
-
-    @keyframes spin { 100% { transform: rotate(360deg); } }
-    .spin { animation: spin 1s linear infinite; }
-
-    /* Floating Modern Sidebar */
-    aside {
-      width: 280px; margin: 16px 0 16px 16px; background: #090d16; color: #fff;
-      display: flex; flex-direction: column; flex-shrink: 0; border-radius: var(--radius-lg);
-      box-shadow: 0 20px 40px rgba(0,0,0,0.25); border: 1px solid rgba(255, 255, 255, 0.06);
-    }
-
-    .brand {
-      padding: 26px 22px; font-size: 1.15rem; font-weight: 800; display: flex; align-items: center;
-      gap: 12px; letter-spacing: -0.02em; border-bottom: 1px solid rgba(255, 255, 255, 0.06);
-    }
-    .brand-badge {
-      width: 38px; height: 38px; background: linear-gradient(135deg, #38bdf8, #2563eb);
-      border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center;
-      color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
-    }
-
-    .nav-list { list-style: none; padding: 16px 12px; overflow-y: auto; flex: 1; }
-    .nav-category { font-size: 0.72rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: #475569; padding: 12px 16px 6px 16px; }
-    .nav-item {
-      padding: 12px 16px; display: flex; align-items: center; gap: 14px; cursor: pointer; color: #94a3b8;
-      font-size: 0.92rem; font-weight: 600; border-radius: var(--radius-sm); margin-bottom: 4px; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    .nav-item svg { width: 19px; height: 19px; stroke-width: 2.2px; }
-    .nav-item:hover { background: rgba(255, 255, 255, 0.06); color: #f8fafc; transform: translateX(3px); }
-    .nav-item.active { background: linear-gradient(90deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.5); }
-
-    /* Main Container */
-    main { flex: 1; display: flex; flex-direction: column; height: 100vh; overflow-y: auto; padding: 16px 24px; }
-    header {
-      background: var(--surface-glass); backdrop-filter: blur(16px); padding: 18px 28px; border-radius: var(--radius-md);
-      border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); display: flex; justify-content: space-between; align-items: center; margin-bottom: 22px;
-    }
-    .shop-details h2 { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.02em; }
-    .shop-details p { font-size: 0.85rem; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
-
-    .content { flex: 1; }
-    .tab-section { display: none; }
-    .tab-section.active { display: block; animation: modernFade 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-    @keyframes modernFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* Cards & Forms */
-    .card { background: var(--surface-glass); backdrop-filter: blur(16px); border-radius: var(--radius-md); border: 1px solid var(--border-glass); padding: 24px; box-shadow: var(--shadow-md); margin-bottom: 22px; }
-    .card-title { font-size: 1.12rem; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
-    
-    .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 16px; margin-bottom: 16px; }
-    .form-group { display: flex; flex-direction: column; gap: 6px; }
-    label { font-size: 0.85rem; font-weight: 600; color: #334155; }
-    input, select, textarea { padding: 12px 14px; background: rgba(248, 250, 252, 0.85); border: 1px solid #cbd5e1; border-radius: 10px; font-size: 0.92rem; outline: none; transition: all 0.2s ease; }
-    input:focus, select:focus, textarea:focus { background: #fff; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-glow); }
-
-    /* Buttons */
-    .btn { padding: 11px 18px; border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
-    .btn svg { width: 17px; height: 17px; stroke-width: 2.2px; }
-    .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 99, 235, 0.4); }
-    .btn-primary:hover { box-shadow: 0 10px 20px -3px rgba(37, 99, 235, 0.5); transform: translateY(-1px); }
-    .btn-success { background: linear-gradient(135deg, #10b981, #059669); color: #fff; }
-    .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: #fff; }
-    .btn-secondary { background: #f1f5f9; color: #334155; }
-    .btn-secondary:hover { background: #e2e8f0; }
-    .btn-whatsapp { background: #25d366; color: #fff; box-shadow: 0 6px 14px -3px rgba(37, 211, 102, 0.4); }
-    .btn-whatsapp:hover { background: #1eb956; transform: translateY(-1px); }
-
-    /* Tables & Badges */
-    .table-container { overflow-x: auto; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
-    table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.92rem; }
-    th, td { padding: 13px 16px; border-bottom: 1px solid var(--border-subtle); }
-    th { background: rgba(241, 245, 249, 0.85); font-weight: 700; color: #475569; font-size: 0.82rem; text-transform: uppercase; }
-    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-    .badge-paid { background: #dcfce7; color: #15803d; }
-    .badge-due { background: #fee2e2; color: #b91c1c; }
-
-    /* SMART ALERT CARDS (DASHBOARD) */
-    .alerts-summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 16px; }
-    .alert-chip-box { padding: 14px 18px; border-radius: 12px; display: flex; align-items: center; justify-content: space-between; border: 1px solid transparent; cursor: pointer; transition: all 0.2s ease; }
-    .chip-red { background: #fef2f2; border-color: #fecaca; color: #b91c1c; }
-    .chip-orange { background: #fffbeb; border-color: #fde68a; color: #b45309; }
-    .chip-yellow { background: #fefce8; border-color: #fef08a; color: #854d0e; }
-    .alert-item-card { background: #fff; border: 1px solid var(--border-subtle); border-radius: 12px; padding: 16px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; transition: all 0.2s ease; }
-    .alert-item-card:hover { border-color: #93c5fd; box-shadow: var(--shadow-sm); }
-
-    /* CUSTOMER 360° PROFILE SPECIFIC */
-    .profile-banner { background: #fff; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); padding: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 18px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
-    .profile-avatar { width: 64px; height: 64px; background: linear-gradient(135deg, #38bdf8, #2563eb); color: #fff; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 800; box-shadow: 0 8px 18px -4px rgba(37, 99, 235, 0.4); }
-    .profile-stats-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; background: #f8fafc; padding: 12px 18px; border-radius: 14px; border: 1px solid #e2e8f0; }
-    @media (max-width: 900px) { .profile-stats-grid { grid-template-columns: repeat(2, 1fr); } }
-    .p-stat-item { text-align: center; }
-    .p-stat-item span { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); display: block; }
-    .p-stat-item b { font-size: 1.25rem; font-weight: 800; display: block; margin-top: 2px; }
-    
-    .sub-tabs-bar { display: flex; gap: 10px; border-bottom: 1px solid var(--border-subtle); padding-bottom: 10px; margin-bottom: 18px; overflow-x: auto; }
-    .sub-tab-btn { padding: 8px 16px; border: none; background: none; border-radius: 8px; font-size: 0.88rem; font-weight: 700; color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s ease; white-space: nowrap; }
-    .sub-tab-btn.active { background: #eff6ff; color: var(--primary); }
-
-    /* Metrics Grid */
-    .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 18px; margin-bottom: 22px; }
-    .metric-card { background: var(--surface-glass); backdrop-filter: blur(14px); padding: 22px; border-radius: var(--radius-md); border: 1px solid var(--border-glass); box-shadow: var(--shadow-sm); }
-    .metric-header { display: flex; justify-content: space-between; align-items: center; }
-    .metric-title { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-    .metric-icon { width: 38px; height: 38px; border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; }
-    .icon-blue { background: rgba(37, 99, 235, 0.1); color: var(--primary); }
-    .icon-red { background: rgba(239, 68, 68, 0.1); color: var(--danger); }
-    .icon-green { background: rgba(16, 185, 129, 0.1); color: var(--success); }
-    .icon-amber { background: rgba(245, 158, 11, 0.1); color: var(--accent); }
-    .metric-value { font-size: 1.9rem; font-weight: 800; margin: 12px 0 6px 0; }
-
-    /* Pipeline Tracking Card */
-    .pipeline-steps { display: flex; align-items: center; justify-content: space-between; position: relative; margin: 18px 0; }
-    .pipeline-steps::before { content: ''; position: absolute; top: 15px; left: 20px; right: 20px; height: 3px; background: #e2e8f0; z-index: 1; }
-    .step-node { position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; }
-    .step-circle { width: 30px; height: 30px; border-radius: 50%; background: #f1f5f9; border: 2px solid #cbd5e1; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; }
-    .step-node.completed .step-circle { background: #10b981; border-color: #10b981; color: #fff; }
-    .step-node.current .step-circle { background: #2563eb; border-color: #2563eb; color: #fff; box-shadow: 0 0 0 4px var(--primary-glow); }
-    .step-label { font-size: 0.72rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
-
-    /* Modal */
-    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.75); backdrop-filter: blur(8px); align-items: center; justify-content: center; z-index: 9999; padding: 20px; }
-    .modal-content { background: #fff; padding: 24px; border-radius: 18px; width: 100%; max-width: 600px; box-shadow: var(--shadow-lg); max-height: 90vh; overflow-y: auto; }
-
-    @media print {
-      body * { visibility: hidden; }
-      #printableArea, #printableArea * { visibility: visible; }
-      #printableArea { position: absolute; left: 0; top: 0; width: 210mm; min-height: 297mm; margin: 0; padding: 0; background: #fff; }
-      .no-print { display: none !important; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLE Daily Life Solution - Smart VLE Business System</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        csc: {
+                            blue: '#1d4ed8',
+                            darkblue: '#1e3a8a',
+                            light: '#f8fafc',
+                            accent: '#3b82f6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col pb-24 md:pb-0">
 
-  <!-- Floating Navigation Sidebar -->
-  <aside class="no-print">
-    <div class="brand">
-      <div class="brand-badge"><i data-lucide="shield-check"></i></div>
-      <span>Digital Darsan</span>
+    <!-- AUTHENTICATION / REGISTRATION SCREEN -->
+    <div id="authScreen" class="fixed inset-0 bg-blue-900 z-50 flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full p-6 space-y-6 my-8">
+            <div class="text-center">
+                <div class="bg-csc-blue text-white w-14 h-14 rounded-2xl mx-auto flex items-center justify-center text-2xl shadow-lg mb-3">
+                    <i class="fa-solid fa-id-card"></i>
+                </div>
+                <h1 class="text-2xl font-bold text-slate-900">VLE Daily Life Solution</h1>
+                <p class="text-xs text-slate-500 mt-1">Smart VLE Business Office Suite & Digital Services in Odisha</p>
+            </div>
+
+            <div class="flex bg-slate-100 p-1 rounded-xl">
+                <button type="button" onclick="switchAuthTab('login')" id="authTabLoginBtn" class="flex-1 py-2 rounded-lg text-xs font-semibold bg-white text-csc-blue shadow transition">Login</button>
+                <button type="button" onclick="switchAuthTab('register')" id="authTabRegBtn" class="flex-1 py-2 rounded-lg text-xs font-semibold text-slate-600 transition">New VLE Registration</button>
+            </div>
+
+            <div id="authErrorMsg" class="hidden bg-rose-50 border border-rose-200 text-rose-600 text-xs p-3 rounded-xl text-center"></div>
+
+            <!-- LOGIN FORM -->
+            <form id="loginForm" onsubmit="handleLogin(event)" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Login Email / Mobile *</label>
+                    <input type="text" id="loginEmail" required value="vle1@csc.gov.in" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-csc-blue focus:outline-none" placeholder="Enter email or mobile">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Password *</label>
+                    <input type="password" id="loginPassword" required value="password123" class="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-csc-blue focus:outline-none" placeholder="Enter password">
+                </div>
+                <button type="submit" class="w-full bg-csc-blue hover:bg-blue-700 text-white font-semibold py-3 rounded-xl text-sm shadow transition">
+                    Secure Login
+                </button>
+                <div class="border-t pt-3 text-center">
+                    <p class="text-xs text-slate-400 mb-2">Demo Accounts:</p>
+                    <div class="flex justify-center gap-2">
+                        <button type="button" onclick="fillDemoVLE(1)" class="text-xs bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-lg font-medium text-slate-700">VLE 1 (Priyadarsan)</button>
+                        <button type="button" onclick="fillDemoVLE(2)" class="text-xs bg-purple-100 hover:bg-purple-200 px-3 py-1.5 rounded-lg font-medium text-purple-700">Admin Panel</button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- REGISTRATION FORM -->
+            <form id="registerForm" onsubmit="handleRegister(event)" class="space-y-3 hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Full Name *</label>
+                        <input type="text" id="regName" required placeholder="Priyadarsan Ojha" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Mobile Number *</label>
+                        <input type="tel" id="regMobile" required pattern="[0-9]{10}" placeholder="10-digit mobile" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Email (Login ID) *</label>
+                        <input type="email" id="regEmail" required placeholder="vle@csc.gov.in" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">District *</label>
+                        <input type="text" id="regDistrict" required placeholder="Dhenkanal" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">CSC Centre Name *</label>
+                        <input type="text" id="regCscName" required placeholder="DIGITAL DARSAN CSC" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Password *</label>
+                        <input type="password" id="regPassword" required placeholder="Min 6 chars" class="w-full px-3 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 rounded-xl text-sm shadow transition mt-2">
+                    Complete VLE Registration & Start
+                </button>
+            </form>
+        </div>
     </div>
 
-    <ul class="nav-list">
-      <div class="nav-category">Core Business Modules</div>
-      <li class="nav-item active" onclick="openTab('dashboard-module', this)"><i data-lucide="layout-dashboard"></i> Overview & Alerts</li>
-      <li class="nav-item" onclick="openTab('customer-module', this)"><i data-lucide="users"></i> Customer 360°</li>
-      <li class="nav-item" onclick="openTab('accounts-module', this)"><i data-lucide="wallet"></i> Business Accounts</li>
+    <!-- MAIN APP WRAPPER -->
+    <div id="mainAppWrapper" class="hidden flex flex-col min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-csc-blue text-white shadow-md sticky top-0 z-40">
+            <div class="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="bg-white text-csc-blue font-bold px-3 py-1.5 rounded-xl shadow flex items-center space-x-2">
+                        <i class="fa-solid fa-id-card text-lg"></i>
+                        <span class="tracking-wide text-sm md:text-base">VLE Daily Life Solution</span>
+                    </div>
+                    <div>
+                        <h1 class="font-bold text-base md:text-lg leading-tight" id="headerCscName">DIGITAL DARSAN CSC</h1>
+                        <p class="text-xs text-blue-100">VLE: <span id="headerVleName">Priyadarsan</span> | <span class="text-emerald-300 font-medium">● Smart System Active</span></p>
+                    </div>
+                </div>
 
-      <div class="nav-category">Tools & Workspace</div>
-      <li class="nav-item" onclick="openTab('billing-module', this)"><i data-lucide="receipt"></i> Direct Billing</li>
-      <li class="nav-item" onclick="openTab('smart-crop', this)"><i data-lucide="crop"></i> Auto Corner Crop</li>
-      <li class="nav-item" onclick="openTab('a4-enhancer', this)"><i data-lucide="file-check"></i> Clear White A4</li>
-      <li class="nav-item" onclick="openTab('resizer', this)"><i data-lucide="maximize-2"></i> Job Resizer (OSSSC)</li>
-      <li class="nav-item" onclick="openTab('photo-studio', this)"><i data-lucide="image"></i> Passport Studio (4×6)</li>
-      <li class="nav-item" onclick="openTab('letter-module', this)"><i data-lucide="file-text"></i> Odia Letter Maker</li>
-      <li class="nav-item" onclick="openTab('cloud-backup', this)"><i data-lucide="cloud"></i> Database Backup</li>
-      <li class="nav-item" onclick="openTab('settings', this)"><i data-lucide="settings"></i> Settings</li>
-    </ul>
-  </aside>
+                <div class="flex items-center space-x-2 md:space-x-3">
+                    <!-- Notification Bell -->
+                    <div class="relative">
+                        <button onclick="toggleNotificationDropdown()" class="relative bg-blue-800 hover:bg-blue-900 px-3 py-2 rounded-xl text-sm transition">
+                            <i class="fa-solid fa-bell"></i>
+                            <span id="notifBadge" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold px-1.5 py-0.2 rounded-full">3</span>
+                        </button>
+                        <div id="notifDropdown" class="hidden absolute right-0 mt-2 w-80 bg-white text-slate-800 rounded-2xl shadow-2xl border border-slate-200 z-50 p-3 space-y-2">
+                            <div class="flex justify-between items-center border-b pb-2">
+                                <span class="font-bold text-xs uppercase text-slate-500">Notifications & Follow-ups</span>
+                                <span onclick="toggleNotificationDropdown()" class="cursor-pointer text-xs text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark"></i></span>
+                            </div>
+                            <div id="notifListContainer" class="space-y-2 max-h-64 overflow-y-auto text-xs"></div>
+                        </div>
+                    </div>
 
-  <main>
-    <header class="no-print">
-      <div class="shop-details">
-        <h2 id="headerShopName">Digital Darsan</h2>
-        <p id="headerShopContact">Contact: 8249833933 | Rathapada, Dhenkanal</p>
-      </div>
-      <div style="display:flex; gap:10px;">
-        <button class="btn btn-primary" onclick="openNewCustomerModal()">
-          <i data-lucide="user-plus"></i> New Customer
-        </button>
-        <button class="btn btn-primary" onclick="window.print()">
-          <i data-lucide="printer"></i> Print Screen
-        </button>
-      </div>
-    </header>
+                    <div class="relative hidden md:block w-56 lg:w-72">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="globalSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="Search customer, vehicle, app no..." class="w-full pl-9 pr-4 py-1.5 bg-blue-800 text-white placeholder-blue-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-white">
+                    </div>
+                    <button onclick="openModal('modalNewCustomer')" class="bg-emerald-500 hover:bg-emerald-600 text-white text-xs md:text-sm font-semibold px-3 py-2 rounded-xl shadow transition flex items-center space-x-1">
+                        <i class="fa-solid fa-user-plus"></i>
+                        <span class="hidden sm:inline">Customer</span>
+                    </button>
+                    <button onclick="openModal('modalNewWork')" class="bg-amber-400 hover:bg-amber-500 text-slate-900 text-xs md:text-sm font-semibold px-3 py-2 rounded-xl shadow transition flex items-center space-x-1">
+                        <i class="fa-solid fa-file-circle-plus"></i>
+                        <span class="hidden sm:inline">Work</span>
+                    </button>
+                    <button onclick="handleLogout()" class="text-xs bg-blue-800 hover:bg-blue-900 px-3 py-2 rounded-xl font-medium transition" title="Logout">
+                        <i class="fa-solid fa-power-off"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
 
-    <div class="content">
+        <div class="max-w-7xl mx-auto w-full flex-1 flex flex-col md:flex-row px-2 md:px-4 py-4 gap-4">
+            <!-- Desktop Sidebar Navigation -->
+            <aside class="hidden md:block w-64 bg-white rounded-2xl shadow-sm border border-slate-200 p-4 shrink-0 h-fit sticky top-20">
+                <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2 px-3">Main Menu</div>
+                <nav class="space-y-1">
+                    <button onclick="switchTab('dashboard')" id="nav-dashboard" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-chart-pie w-5 text-center"></i><span>Dashboard</span>
+                    </button>
+                    <button onclick="switchTab('customers')" id="nav-customers" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-users w-5 text-center"></i><span>Smart Customers CRM</span>
+                    </button>
+                    <button onclick="switchTab('khata')" id="nav-khata" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-book-bookmark w-5 text-center text-emerald-600"></i><span>Digital Khata (Ledger)</span>
+                    </button>
+                    <button onclick="switchTab('vehicles')" id="nav-vehicles" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-car w-5 text-center"></i><span>Vehicle Renewals</span>
+                    </button>
+                    <button onclick="switchTab('work')" id="nav-work" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-file-lines w-5 text-center"></i><span>Work & Staff Tracker</span>
+                    </button>
+                    <button onclick="switchTab('pending')" id="nav-pending" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-clock-rotate-left w-5 text-center"></i><span>Pending & Follow-ups</span>
+                    </button>
+                    <button onclick="switchTab('payments')" id="nav-payments" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-indian-rupee-sign w-5 text-center"></i><span>Payments & Dues</span>
+                    </button>
+                    <button onclick="switchTab('business')" id="nav-business" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-wallet w-5 text-center"></i><span>My Business & Income</span>
+                    </button>
+                    <button onclick="switchTab('cashbook')" id="nav-cashbook" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-book-open w-5 text-center"></i><span>Daily Cashbook</span>
+                    </button>
+                    <button onclick="switchTab('offers')" id="nav-offers" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-bullhorn w-5 text-center text-amber-500"></i><span>Smart Offers & Poster</span>
+                    </button>
+                    <button onclick="switchTab('whatsapp')" id="nav-whatsapp" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-brands fa-whatsapp w-5 text-center text-emerald-500"></i><span>WhatsApp Center</span>
+                    </button>
+                    <button onclick="switchTab('documents')" id="nav-documents" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-folder-open w-5 text-center"></i><span>Document Vault</span>
+                    </button>
+                    <button onclick="switchTab('reports')" id="nav-reports" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-chart-column w-5 text-center"></i><span>Reports & Tax Export</span>
+                    </button>
+                    <button onclick="switchTab('admin')" id="nav-admin" class="nav-btn hidden w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-purple-700 hover:bg-purple-50 transition">
+                        <i class="fa-solid fa-shield-halved w-5 text-center"></i><span>Admin Panel</span>
+                    </button>
+                    <button onclick="switchTab('settings')" id="nav-settings" class="nav-btn w-full flex items-center space-x-3 px-3.5 py-2.5 rounded-xl text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-csc-blue transition">
+                        <i class="fa-solid fa-gear w-5 text-center"></i><span>Settings</span>
+                    </button>
+                </nav>
+            </aside>
 
-      <!-- ========================================================
-           MODULE 1: DASHBOARD & SMART ALERTS HUB
-      ======================================================== -->
-      <section id="dashboard-module" class="tab-section active">
-        <!-- 4 Primary Financial Metrics -->
-        <div class="metrics-grid">
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Today's Income</span><div class="metric-icon icon-green"><i data-lucide="indian-rupee"></i></div></div>
-            <div class="metric-value" style="color:var(--success);" id="dashTodayIncome">₹0</div>
-            <div style="font-size:0.8rem; color:var(--success); font-weight:600;">Paid & Received Today</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Pending / Due Amount</span><div class="metric-icon icon-red"><i data-lucide="alert-circle"></i></div></div>
-            <div class="metric-value" style="color:var(--danger);" id="dashTotalDue">₹0</div>
-            <div style="font-size:0.8rem; color:var(--danger); font-weight:600;">Total Khata Outstanding</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Total Customers</span><div class="metric-icon icon-blue"><i data-lucide="users"></i></div></div>
-            <div class="metric-value" style="color:var(--primary);" id="dashTotalCustomers">0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">In Database</div>
-          </div>
-          <div class="metric-card">
-            <div class="metric-header"><span class="metric-title">Active Vehicles Tracked</span><div class="metric-icon icon-amber"><i data-lucide="truck"></i></div></div>
-            <div class="metric-value" style="color:var(--accent);" id="dashTotalVehicles">0</div>
-            <div style="font-size:0.8rem; color:var(--text-muted); font-weight:600;">Insurance & PUCs Active</div>
-          </div>
+            <!-- Main Content Area -->
+            <main class="flex-1 w-full overflow-hidden">
+                <!-- Mobile Search Bar -->
+                <div class="mb-3 md:hidden">
+                    <div class="relative w-full">
+                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </span>
+                        <input type="text" id="mobileSearchInput" oninput="handleGlobalSearch(this.value)" placeholder="Search customer, vehicle, app no..." class="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-csc-blue">
+                    </div>
+                </div>
+
+                <!-- Global Search Results View -->
+                <div id="globalSearchResults" class="hidden mb-4 bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                    <div class="flex justify-between items-center mb-3">
+                        <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-search mr-2 text-csc-blue"></i>Global Search Results</h3>
+                        <button onclick="closeGlobalSearch()" class="text-xs text-slate-500 hover:text-red-500"><i class="fa-solid fa-xmark text-lg"></i></button>
+                    </div>
+                    <div id="searchResultsContent" class="space-y-2 max-h-96 overflow-y-auto"></div>
+                </div>
+
+                <!-- TAB 1: DASHBOARD -->
+                <section id="tab-dashboard" class="tab-content space-y-4">
+                    <div class="bg-gradient-to-r from-blue-700 to-indigo-800 text-white p-5 md:p-6 rounded-2xl shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                        <div>
+                            <h2 class="text-xl md:text-2xl font-bold" id="dashGreeting">Good Morning, Priyadarsan! 🙏</h2>
+                            <p class="text-blue-100 text-sm mt-1">VLE Daily Life Solution: Enter data once, everything updates automatically ($100\%$ synced).</p>
+                        </div>
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="openModal('modalNewCustomer')" class="bg-white text-csc-blue px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold shadow hover:bg-blue-50 transition"><i class="fa-solid fa-user-plus mr-1"></i> New Customer</button>
+                            <button onclick="openModal('modalNewWork')" class="bg-amber-400 text-slate-900 px-4 py-2.5 rounded-xl text-xs md:text-sm font-semibold shadow hover:bg-amber-300 transition"><i class="fa-solid fa-file-circle-plus mr-1"></i> New Work</button>
+                        </div>
+                    </div>
+
+                    <!-- Digital Khata Quick Card Banner -->
+                    <div onclick="switchTab('khata')" class="bg-gradient-to-r from-emerald-600 to-teal-700 text-white p-4 rounded-2xl shadow-sm cursor-pointer flex justify-between items-center hover:opacity-95 transition">
+                        <div>
+                            <span class="text-xs uppercase font-semibold text-emerald-200 tracking-wider">DIGITAL DARSAN CSC Khata (Ledger)</span>
+                            <h3 id="dashKhataTotalDue" class="text-2xl font-bold mt-1">Total Customer Due: ₹0</h3>
+                        </div>
+                        <div class="bg-white/10 px-4 py-2 rounded-xl text-xs font-semibold flex items-center space-x-1">
+                            <span>Open Ledger</span> <i class="fa-solid fa-chevron-right ml-1"></i>
+                        </div>
+                    </div>
+
+                    <!-- Top Financial Quick Bar -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">Today's Collection</span>
+                            <h3 id="topDashToday" class="text-xl font-bold text-emerald-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">This Month Collection</span>
+                            <h3 id="topDashMonth" class="text-xl font-bold text-csc-blue mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">This Year Collection</span>
+                            <h3 id="topDashYear" class="text-xl font-bold text-indigo-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-3.5 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">Net Business Income</span>
+                            <h3 id="topDashNet" class="text-xl font-bold text-amber-600 mt-1">₹0</h3>
+                        </div>
+                    </div>
+
+                    <!-- Dashboard Summary Cards -->
+                    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-3 md:gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase">Customers</p>
+                                <h3 id="statCustomers" class="text-2xl font-bold text-slate-800 mt-1">0</h3>
+                                <span class="text-xs text-csc-blue font-medium">CRM Records</span>
+                            </div>
+                            <div class="bg-blue-50 text-csc-blue p-3.5 rounded-2xl text-xl"><i class="fa-solid fa-users"></i></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase">Vehicles</p>
+                                <h3 id="statVehicles" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
+                                <span class="text-xs text-amber-600 font-medium">Renewals due</span>
+                            </div>
+                            <div class="bg-amber-50 text-amber-600 p-3.5 rounded-2xl text-xl"><i class="fa-solid fa-car"></i></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase">New Works</p>
+                                <h3 id="statNewWorks" class="text-2xl font-bold text-indigo-600 mt-1">0</h3>
+                                <span class="text-xs text-indigo-600 font-medium">Applications</span>
+                            </div>
+                            <div class="bg-indigo-50 text-indigo-600 p-3.5 rounded-2xl text-xl"><i class="fa-solid fa-file-lines"></i></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase">Pending</p>
+                                <h3 id="statPending" class="text-2xl font-bold text-amber-600 mt-1">0</h3>
+                                <span class="text-xs text-amber-600 font-medium">Follow-ups</span>
+                            </div>
+                            <div class="bg-amber-50 text-amber-600 p-3.5 rounded-2xl text-xl"><i class="fa-solid fa-clock"></i></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex items-center justify-between">
+                            <div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase">Birthdays</p>
+                                <h3 id="statBirthdays" class="text-2xl font-bold text-purple-600 mt-1">0</h3>
+                                <span class="text-xs text-purple-600 font-medium">Today</span>
+                            </div>
+                            <div class="bg-purple-50 text-purple-600 p-3.5 rounded-2xl text-xl"><i class="fa-solid fa-cake-candles"></i></div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions Grid -->
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-sm mb-3">Quick Actions</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-7 gap-2.5">
+                            <button onclick="openModal('modalNewCustomer')" class="p-3 bg-blue-50 hover:bg-blue-100 text-csc-blue rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-user-plus text-lg"></i><span>New Customer</span>
+                            </button>
+                            <button onclick="openModal('modalAddVehicle')" class="p-3 bg-amber-50 hover:bg-amber-100 text-amber-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-car text-lg"></i><span>Add Vehicle</span>
+                            </button>
+                            <button onclick="openModal('modalNewWork')" class="p-3 bg-indigo-50 hover:bg-indigo-100 text-indigo-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-file-circle-plus text-lg"></i><span>New Work</span>
+                            </button>
+                            <button onclick="switchTab('khata')" class="p-3 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-book-bookmark text-lg"></i><span>Digital Khata</span>
+                            </button>
+                            <button onclick="switchTab('offers')" class="p-3 bg-purple-50 hover:bg-purple-100 text-purple-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-bullhorn text-lg"></i><span>Smart Offers</span>
+                            </button>
+                            <button onclick="switchTab('whatsapp')" class="p-3 bg-teal-50 hover:bg-teal-100 text-teal-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-brands fa-whatsapp text-lg"></i><span>WhatsApp Center</span>
+                            </button>
+                            <button onclick="switchTab('reports')" class="p-3 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex flex-col items-center justify-center space-y-1.5 transition">
+                                <i class="fa-solid fa-chart-column text-lg"></i><span>Tax Reports</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Today's Work & Urgent Items -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                        <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-4">
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-list-check text-csc-blue mr-2"></i>Today's Work List</h3>
+                                <button onclick="switchTab('work')" class="text-xs font-semibold text-csc-blue hover:underline">View All</button>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-left text-sm">
+                                    <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                        <tr>
+                                            <th class="p-2.5">Customer</th>
+                                            <th class="p-2.5">Service</th>
+                                            <th class="p-2.5">Status</th>
+                                            <th class="p-2.5 text-right">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="dashboardWorkBody" class="divide-y divide-slate-100"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Urgent Overdue & Reminders -->
+                        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-4 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-800 text-base mb-3"><i class="fa-solid fa-triangle-exclamation text-rose-500 mr-2"></i>Urgent Dues & Follow-ups</h3>
+                                <div id="dashboardUrgentList" class="space-y-2.5 max-h-64 overflow-y-auto"></div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-100">
+                                <button onclick="switchTab('pending')" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-xl text-xs font-medium">View All Pending Tasks</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 2: SMART CUSTOMER CRM -->
+                <section id="tab-customers" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-users text-csc-blue mr-2"></i>Smart Customer CRM & Timeline</h2>
+                            <p class="text-xs text-slate-500">Search mobile or name. Auto-connected to vehicles, khata, and complete history.</p>
+                        </div>
+                        <div class="flex items-center space-x-2 w-full sm:w-auto">
+                            <input type="text" id="customerSearchInput" oninput="renderCustomers(this.value)" placeholder="Search mobile or name..." class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm w-full sm:w-64 focus:outline-none focus:ring-2 focus:ring-csc-blue">
+                            <button onclick="openModal('modalNewCustomer')" class="bg-csc-blue hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap shadow transition"><i class="fa-solid fa-user-plus mr-1"></i> Add</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-3 max-h-[600px] overflow-y-auto space-y-2" id="customerListContainer"></div>
+                        <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5" id="customerDetailView">
+                            <div class="text-center py-12 text-slate-400">
+                                <i class="fa-solid fa-user-circle text-4xl mb-2"></i>
+                                <p class="text-sm">Select a customer from the list to view their complete profile, timeline, khata, and greetings.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 3: DIGITAL KHATA (LEDGER) -->
+                <section id="tab-khata" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-book-bookmark text-emerald-600 mr-2"></i>DIGITAL DARSAN CSC Khata (Customer Ledger)</h2>
+                            <p class="text-xs text-slate-500">Automated ledger tracking credit, debit, and customer-wise balances.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="text" id="khataSearchInput" oninput="renderDigitalKhata(this.value)" placeholder="Search customer khata..." class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm w-full sm:w-64">
+                            <button onclick="window.print()" class="bg-slate-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold"><i class="fa-solid fa-print mr-1"></i> Print Statement</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl">
+                            <span class="text-xs text-emerald-800 font-semibold uppercase block">Total Credit (Received)</span>
+                            <h3 id="khataTotalPaid" class="text-2xl font-bold text-emerald-700 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-rose-50 border border-rose-200 p-4 rounded-2xl">
+                            <span class="text-xs text-rose-800 font-semibold uppercase block">Total Outstanding Dues</span>
+                            <h3 id="khataTotalDue" class="text-2xl font-bold text-rose-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-blue-50 border border-blue-200 p-4 rounded-2xl">
+                            <span class="text-xs text-blue-800 font-semibold uppercase block">Total Business Volume</span>
+                            <h3 id="khataTotalVolume" class="text-2xl font-bold text-csc-blue mt-1">₹0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr>
+                                        <th class="p-3">Customer Name</th>
+                                        <th class="p-3">Mobile</th>
+                                        <th class="p-3">Total Service</th>
+                                        <th class="p-3">Paid (Credit)</th>
+                                        <th class="p-3">Due (Balance)</th>
+                                        <th class="p-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="digitalKhataTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 4: VEHICLE MANAGEMENT & RENEWAL -->
+                <section id="tab-vehicles" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-car text-amber-600 mr-2"></i>Vehicle Management & Renewal Tracker</h2>
+                            <p class="text-xs text-slate-500">Smart expiry calculation for Insurance, PUC, Fitness, and Road Tax.</p>
+                        </div>
+                        <div class="flex items-center space-x-2 w-full sm:w-auto">
+                            <input type="text" id="vehicleSearchInput" oninput="renderVehicles(this.value)" placeholder="Search vehicle no, owner..." class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm w-full sm:w-64">
+                            <button onclick="openModal('modalAddVehicle')" class="bg-amber-500 hover:bg-amber-600 text-slate-900 px-4 py-2 rounded-xl text-sm font-semibold whitespace-nowrap shadow"><i class="fa-solid fa-car mr-1"></i> Add Vehicle</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <div class="bg-white p-3 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">Total Vehicles</span>
+                            <h3 id="vStatTotal" class="text-xl font-bold text-slate-800 mt-1">0</h3>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">Insurance Expiring</span>
+                            <h3 id="vStatInsExp" class="text-xl font-bold text-amber-600 mt-1">0</h3>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">PUC Expiring</span>
+                            <h3 id="vStatPucExp" class="text-xl font-bold text-rose-600 mt-1">0</h3>
+                        </div>
+                        <div class="bg-white p-3 rounded-2xl border border-slate-200">
+                            <span class="text-[11px] font-semibold text-slate-500 uppercase">Expired Docs</span>
+                            <h3 id="vStatExpired" class="text-xl font-bold text-red-600 mt-1">0</h3>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-1 bg-white rounded-2xl shadow-sm border border-slate-200 p-3 max-h-[600px] overflow-y-auto space-y-2" id="vehicleListContainer"></div>
+                        <div class="md:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 p-5" id="vehicleDetailView">
+                            <div class="text-center py-12 text-slate-400">
+                                <i class="fa-solid fa-car text-4xl mb-2 text-amber-500"></i>
+                                <p class="text-sm">Select a vehicle from the list to view profile, renewal status, and WhatsApp greetings.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 5: WORK & STAFF TRACKER -->
+                <section id="tab-work" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-file-lines text-csc-blue mr-2"></i>Work & Staff Performance Tracker</h2>
+                            <p class="text-xs text-slate-500">Assign applications to staff and track individual performance.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="openModal('modalNewWorker')" class="bg-slate-700 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs font-semibold"><i class="fa-solid fa-user-tie mr-1"></i> Add Staff</button>
+                            <button onclick="openModal('modalNewWork')" class="bg-csc-blue hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-plus mr-1"></i> New Work</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4" id="staffPerformanceContainer"></div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="p-3 border-b font-bold text-slate-700 text-sm">All Applications List</div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr>
+                                        <th class="p-3">App No</th>
+                                        <th class="p-3">Customer</th>
+                                        <th class="p-3">Service</th>
+                                        <th class="p-3">Assigned Staff</th>
+                                        <th class="p-3">Status</th>
+                                        <th class="p-3 text-right">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="workTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 6: PENDING & FOLLOW-UPS -->
+                <section id="tab-pending" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-clock-rotate-left text-amber-500 mr-2"></i>Pending Work & Customer Follow-ups</h2>
+                            <p class="text-xs text-slate-500">Smart reminders and due date follow-ups.</p>
+                        </div>
+                        <button onclick="openAddReminderModal()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-plus mr-1"></i> Add Reminder</button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr>
+                                        <th class="p-3">Task / Customer</th>
+                                        <th class="p-3">Type / Service</th>
+                                        <th class="p-3">Due Date</th>
+                                        <th class="p-3">Notes</th>
+                                        <th class="p-3 text-right">Quick Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingWorkTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 7: PAYMENTS & DUES -->
+                <section id="tab-payments" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-indian-rupee-sign text-emerald-600 mr-2"></i>Payment Management & Dues</h2>
+                            <p class="text-xs text-slate-500">Track balance amounts, collect dues, and generate instant bills.</p>
+                        </div>
+                        <button onclick="openModal('modalNewWork')" class="bg-emerald-600 hover:bg-emerald-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-plus mr-1"></i> New Entry</button>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr>
+                                        <th class="p-3">Customer</th>
+                                        <th class="p-3">Service</th>
+                                        <th class="p-3">Total</th>
+                                        <th class="p-3">Paid</th>
+                                        <th class="p-3">Balance Due</th>
+                                        <th class="p-3 text-right">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="paymentsTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 8: MY BUSINESS & INCOME -->
+                <section id="tab-business" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-wallet text-csc-blue mr-2"></i>My Business & Income Analytics</h2>
+                            <p class="text-xs text-slate-500">Automated gross collection, expenses, and net business income.</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <select id="bizMonthSelect" onchange="renderBusinessAnalytics()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm bg-white">
+                                <option value="01">January</option> <option value="02">February</option> <option value="03">March</option>
+                                <option value="04">April</option> <option value="05">May</option> <option value="06">June</option>
+                                <option value="07">July</option> <option value="08">August</option> <option value="09" selected>September</option>
+                                <option value="10">October</option> <option value="11">November</option> <option value="12">December</option>
+                            </select>
+                            <select id="bizYearSelect" onchange="renderBusinessAnalytics()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm bg-white">
+                                <option value="2026" selected>2026</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Gross Collection</span>
+                            <h3 id="bizGrossCol" class="text-2xl font-bold text-emerald-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total Expenses</span>
+                            <h3 id="bizTotalExp" class="text-2xl font-bold text-rose-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Net Business Income</span>
+                            <h3 id="bizNetInc" class="text-2xl font-bold text-indigo-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Pending Dues</span>
+                            <h3 id="bizPendingDues" class="text-2xl font-bold text-amber-600 mt-1">₹0</h3>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-700 text-sm mb-3"><i class="fa-solid fa-chart-pie mr-2 text-csc-blue"></i>Service-wise Income</h3>
+                            <div id="serviceWiseIncomeContainer" class="space-y-2 max-h-72 overflow-y-auto"></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-700 text-sm mb-3"><i class="fa-solid fa-calendar-days mr-2 text-indigo-600"></i>Monthly Breakdown</h3>
+                            <div class="overflow-x-auto max-h-72 overflow-y-auto">
+                                <table class="w-full text-left text-xs">
+                                    <thead class="bg-slate-50 text-slate-500 uppercase">
+                                        <tr><th class="p-2">Month</th><th class="p-2">Works</th><th class="p-2">Collection</th><th class="p-2">Expense</th><th class="p-2 text-right">Net</th></tr>
+                                    </thead>
+                                    <tbody id="yearlyMonthlyBreakdownBody" class="divide-y divide-slate-100"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 9: DAILY CASHBOOK -->
+                <section id="tab-cashbook" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-book-open text-blue-600 mr-2"></i>Daily Cashbook</h2>
+                            <p class="text-xs text-slate-500">Automatic customer payments cascading into cashbook and expenses.</p>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <input type="date" id="cashbookDateFilter" onchange="renderCashbook()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm bg-white">
+                            <button onclick="openModal('modalAddExpense')" class="bg-rose-500 hover:bg-rose-600 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-plus mr-1"></i> Add Expense</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total Income</span>
+                            <h3 id="cbTotalIncome" class="text-2xl font-bold text-emerald-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total Expenses</span>
+                            <h3 id="cbTotalExpense" class="text-2xl font-bold text-rose-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Net Cash Gain</span>
+                            <h3 id="cbNetGain" class="text-2xl font-bold text-indigo-600 mt-1">₹0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Closing Balance</span>
+                            <h3 id="cbClosing" class="text-2xl font-bold text-slate-800 mt-1">₹0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div class="p-3 border-b font-bold text-slate-700 text-sm">Transactions Log</div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr><th class="p-3">Date / Type</th><th class="p-3">Category</th><th class="p-3">Description</th><th class="p-3">Mode</th><th class="p-3 text-right">Amount</th></tr>
+                                </thead>
+                                <tbody id="cashbookTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 10: SMART OFFERS & POSTER CREATOR -->
+                <section id="tab-offers" class="tab-content hidden space-y-4">
+                    <div class="bg-gradient-to-r from-amber-500 to-orange-600 text-white p-6 rounded-2xl shadow-md space-y-3">
+                        <h2 class="text-xl font-bold"><i class="fa-solid fa-bullhorn mr-2"></i>Smart Offer Poster Generator</h2>
+                        <p class="text-xs text-amber-100 max-w-xl">Create professional promotional posters for WhatsApp status, Facebook, and local digital marketing in 1 click.</p>
+                        <div class="pt-2 flex gap-2">
+                            <button onclick="openModal('modalNewOffer')" class="bg-white text-amber-900 px-4 py-2 rounded-xl text-xs font-bold shadow hover:bg-amber-50"><i class="fa-solid fa-plus mr-1"></i> Create New Offer</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="offersGridContainer"></div>
+                </section>
+
+                <!-- TAB 11: WHATSAPP CENTER -->
+                <section id="tab-whatsapp" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-5 rounded-2xl shadow-sm border border-slate-200 space-y-4">
+                        <div class="border-b pb-3">
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-brands fa-whatsapp text-emerald-500 mr-2"></i>Smart WhatsApp Center</h2>
+                            <p class="text-xs text-slate-500">Select message type and customer to instantly generate formatted WhatsApp greetings & alerts.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Select Customer *</label>
+                                <select id="waCustomerSelect" class="w-full px-3.5 py-2.5 border rounded-xl text-sm bg-white"></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-600 mb-1">Message Template *</label>
+                                <select id="waTemplateSelect" onchange="updateWhatsAppPreview()" class="w-full px-3.5 py-2.5 border rounded-xl text-sm bg-white">
+                                    <option value="morning">Good Morning Greeting</option>
+                                    <option value="ready">Service Completed / Ready</option>
+                                    <option value="due">Payment Due Reminder</option>
+                                    <option value="insurance">Vehicle Insurance Renewal</option>
+                                    <option value="festival">Festival Greeting</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-600 mb-1">Message Preview & Edit</label>
+                            <textarea id="waMessagePreview" rows="4" class="w-full p-3.5 border rounded-xl text-sm font-mono bg-slate-50"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="sendPreparedWhatsApp()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-5 py-2.5 rounded-xl text-sm font-semibold shadow flex items-center space-x-2">
+                                <i class="fa-brands fa-whatsapp text-lg"></i><span>Send via WhatsApp</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 12: DOCUMENT VAULT -->
+                <section id="tab-documents" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col sm:flex-row justify-between items-center gap-3">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-folder-open text-csc-blue mr-2"></i>Secure Document Vault</h2>
+                            <p class="text-xs text-slate-500">Organize customer and vehicle documents securely with restricted isolated access.</p>
+                        </div>
+                        <div class="flex items-center space-x-2 w-full sm:w-auto">
+                            <select id="docCategoryFilter" onchange="renderDocuments()" class="px-3.5 py-2 border border-slate-300 rounded-xl text-sm bg-white">
+                                <option value="ALL">All Categories</option>
+                                <option value="PAN">PAN</option>
+                                <option value="RC">Vehicle RC</option>
+                                <option value="Insurance">Insurance Policy</option>
+                                <option value="Certificate">Certificate</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <button onclick="openUploadDocModal()" class="bg-csc-blue hover:bg-blue-700 text-white px-4 py-2 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-upload mr-1"></i> Upload</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4" id="documentsGridContainer"></div>
+                </section>
+
+                <!-- TAB 13: REPORTS & TAX EXPORT -->
+                <section id="tab-reports" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex justify-between items-center">
+                        <div>
+                            <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-chart-column text-csc-blue mr-2"></i>Reports & Tax Accounting Export</h2>
+                            <p class="text-xs text-slate-500">Daily, weekly, monthly and yearly collection & service statistics.</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="exportCSVData()" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow"><i class="fa-solid fa-file-excel mr-1"></i> Export CSV</button>
+                            <button onclick="window.print()" class="bg-slate-700 hover:bg-slate-800 text-white px-3.5 py-2 rounded-xl text-xs font-semibold shadow"><i class="fa-solid fa-print mr-1"></i> Print</button>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                            <h3 class="font-bold text-slate-700 mb-3 text-sm"><i class="fa-solid fa-chart-pie mr-2 text-csc-blue"></i>Service-wise Income</h3>
+                            <div id="serviceWiseReportContainer" class="space-y-2"></div>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-700 mb-3 text-sm"><i class="fa-solid fa-file-invoice-dollar mr-2 text-emerald-600"></i>Financial Summary</h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between p-2.5 bg-slate-50 rounded-xl"><span>Total Collections:</span> <span id="repTotalCol" class="font-bold text-slate-800">₹0</span></div>
+                                    <div class="flex justify-between p-2.5 bg-slate-50 rounded-xl"><span>Pending Dues:</span> <span id="repTotalDues" class="font-bold text-rose-600">₹0</span></div>
+                                    <div class="flex justify-between p-2.5 bg-slate-50 rounded-xl"><span>Total Expenses:</span> <span id="repTotalExp" class="font-bold text-amber-600">₹0</span></div>
+                                    <div class="flex justify-between p-2.5 bg-blue-50 rounded-xl font-bold"><span>Net Business Income:</span> <span id="repNetInc" class="text-csc-blue">₹0</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 14: ADMIN PANEL -->
+                <section id="tab-admin" class="tab-content hidden space-y-4">
+                    <div class="bg-purple-900 text-white p-5 rounded-2xl shadow-md flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-bold"><i class="fa-solid fa-shield-halved mr-2"></i>Admin Control Center</h2>
+                            <p class="text-xs text-purple-200">Manage all registered VLE accounts and system metrics.</p>
+                        </div>
+                        <div class="bg-white/10 px-3 py-1.5 rounded-xl text-xs font-semibold">Authorized Admin</div>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total Registered VLEs</span>
+                            <h3 id="adminStatVles" class="text-2xl font-bold text-slate-800 mt-1">1</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total System Customers</span>
+                            <h3 id="adminStatCust" class="text-2xl font-bold text-csc-blue mt-1">0</h3>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200">
+                            <span class="text-xs text-slate-500 uppercase font-semibold">Total System Revenue</span>
+                            <h3 id="adminStatRev" class="text-2xl font-bold text-emerald-600 mt-1">₹0</h3>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                        <h3 class="font-bold text-slate-800 text-sm mb-3">All VLE Accounts Database</h3>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left text-sm">
+                                <thead class="bg-slate-50 text-slate-500 uppercase text-xs">
+                                    <tr><th class="p-3">VLE Name / Email</th><th class="p-3">CSC Centre</th><th class="p-3">District</th><th class="p-3 text-right">Action</th></tr>
+                                </thead>
+                                <tbody id="adminVlesTableBody" class="divide-y divide-slate-100"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- TAB 15: SETTINGS -->
+                <section id="tab-settings" class="tab-content hidden space-y-4">
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200">
+                        <h2 class="text-lg font-bold text-slate-800"><i class="fa-solid fa-gear text-csc-blue mr-2"></i>VLE Profile & Security Settings</h2>
+                        <p class="text-xs text-slate-500">Configure profile, CSC centre details, and data backup.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3">
+                            <h3 class="font-bold text-slate-700 text-sm">VLE & Centre Profile</h3>
+                            <div><label class="block text-xs font-semibold text-slate-600 mb-1">VLE Name</label><input type="text" id="setVleName" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-slate-600 mb-1">CSC Centre Name</label><input type="text" id="setCscName" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-slate-600 mb-1">CSC VLE ID</label><input type="text" id="setCscId" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-slate-600 mb-1">Mobile Number</label><input type="text" id="setMobile" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                            <button onclick="saveSettings()" class="bg-csc-blue text-white px-4 py-2 rounded-xl text-sm font-semibold shadow hover:bg-blue-700 transition">Save Changes</button>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 space-y-3 flex flex-col justify-between">
+                            <div>
+                                <h3 class="font-bold text-slate-700 text-sm mb-2">Secure Data Backup</h3>
+                                <p class="text-xs text-slate-500 mb-3">Export all your personal customers, vehicles, works, and financial records securely as a JSON file.</p>
+                            </div>
+                            <div class="space-y-2">
+                                <button onclick="downloadBackup()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white py-2.5 rounded-xl text-sm font-semibold shadow"><i class="fa-solid fa-download mr-1"></i> Export My Data Backup</button>
+                                <button onclick="handleLogout()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 py-2 rounded-xl text-xs font-medium">Logout</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
         </div>
 
-        <!-- SMART RENEWAL ALERTS WIDGET -->
-        <div class="card">
-          <div class="card-title">
-            <div style="display:flex; align-items:center; gap:8px;">
-              <i data-lucide="bell-ring" style="color:var(--danger);"></i>
-              <span>Smart Renewal & Expiry Alerts Hub</span>
-            </div>
-            <div style="display:flex; gap:8px;">
-              <select id="alertCategoryFilter" onchange="renderAlertsList()" style="padding:6px 10px; font-size:12px;">
-                <option value="ALL">All Categories</option>
-                <option value="Insurance">🚘 Insurance</option>
-                <option value="PUC">🛞 PUC / Pollution</option>
-                <option value="RoadTax">🧾 Road Tax</option>
-                <option value="Fitness">🔧 Fitness</option>
-                <option value="Permit">📋 Permit</option>
-                <option value="RC">🪪 RC Validity</option>
-              </select>
-            </div>
-          </div>
+        <!-- Mobile Bottom Navigation -->
+        <nav class="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 shadow-lg flex justify-around py-2 px-1 z-40">
+            <button onclick="switchTab('dashboard')" class="mobile-nav-btn flex flex-col items-center text-slate-500 hover:text-csc-blue text-xs" data-tab="dashboard">
+                <i class="fa-solid fa-chart-pie text-lg"></i><span>Home</span>
+            </button>
+            <button onclick="switchTab('customers')" class="mobile-nav-btn flex flex-col items-center text-slate-500 hover:text-csc-blue text-xs" data-tab="customers">
+                <i class="fa-solid fa-users text-lg"></i><span>CRM</span>
+            </button>
+            <button onclick="switchTab('khata')" class="mobile-nav-btn flex flex-col items-center text-slate-500 hover:text-csc-blue text-xs" data-tab="khata">
+                <i class="fa-solid fa-book-bookmark text-lg"></i><span>Khata</span>
+            </button>
+            <button onclick="switchTab('vehicles')" class="mobile-nav-btn flex flex-col items-center text-slate-500 hover:text-csc-blue text-xs" data-tab="vehicles">
+                <i class="fa-solid fa-car text-lg"></i><span>Vehicles</span>
+            </button>
+            <button onclick="switchTab('business')" class="mobile-nav-btn flex flex-col items-center text-slate-500 hover:text-csc-blue text-xs" data-tab="business">
+                <i class="fa-solid fa-wallet text-lg"></i><span>Income</span>
+            </button>
+        </nav>
+    </div>
 
-          <div class="alerts-summary-grid">
-            <div class="alert-chip-box chip-red" onclick="filterAlertsByDays(0)">
-              <div><b>🔴 Expired / Today</b><p style="font-size:0.75rem; margin-top:2px;">Immediate action</p></div>
-              <h3 id="alertCountToday" style="font-size:1.4rem;">0</h3>
+    <!-- MODAL: NEW CUSTOMER -->
+    <div id="modalNewCustomer" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-user-plus mr-2 text-csc-blue"></i>Add New Customer</h3>
+                <button onclick="closeModal('modalNewCustomer')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
-            <div class="alert-chip-box chip-orange" onclick="filterAlertsByDays(7)">
-              <div><b>🟠 Next 7 Days</b><p style="font-size:0.75rem; margin-top:2px;">Urgent renewals</p></div>
-              <h3 id="alertCount7Days" style="font-size:1.4rem;">0</h3>
-            </div>
-            <div class="alert-chip-box chip-yellow" onclick="filterAlertsByDays(30)">
-              <div><b>🟡 Next 30 Days</b><p style="font-size:0.75rem; margin-top:2px;">Advance notices</p></div>
-              <h3 id="alertCount30Days" style="font-size:1.4rem;">0</h3>
-            </div>
-          </div>
-
-          <div id="smartAlertsItemsContainer" style="margin-top:14px;"></div>
+            <form id="formNewCustomer" onsubmit="saveNewCustomer(event)" class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Customer Name *</label>
+                        <input type="text" id="ncName" required class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Mobile Number *</label>
+                        <input type="tel" id="ncMobile" required pattern="[0-9]{10}" placeholder="10-digit mobile" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Village / Area</label>
+                        <input type="text" id="ncVillage" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Father's / Husband's Name</label>
+                        <input type="text" id="ncGuardian" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Date of Birth (DOB)</label>
+                        <input type="date" id="ncDob" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">PAN Number</label>
+                        <input type="text" id="ncPan" placeholder="ABCDE1234F" class="w-full px-3.5 py-2 border rounded-xl text-sm uppercase">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Notes / Address</label>
+                    <textarea id="ncNotes" rows="2" class="w-full px-3.5 py-2 border rounded-xl text-sm"></textarea>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalNewCustomer')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-csc-blue text-white rounded-xl text-sm font-semibold hover:bg-blue-700">Save Customer</button>
+                </div>
+            </form>
         </div>
-      </section>
+    </div>
 
-      <!-- ========================================================
-           MODULE 2: CENTRALIZED CUSTOMER 360° (WITH VEHICLE & RTO FETCH)
-      ======================================================== -->
-      <section id="customer-module" class="tab-section">
-        <div class="card">
-          <div class="card-title">
-            <span>👤 Customer 360° Central Workspace</span>
-            <span style="font-size:12px; color:var(--text-muted);">Instant Customer Lookup</span>
-          </div>
-          <div style="display:flex; gap:10px; max-width:540px;">
-            <input type="tel" id="cSearchPhone" placeholder="Enter 10-Digit Mobile Number (e.g. 8249833933)" maxlength="10" style="flex:1;" oninput="handlePhoneSearch(this.value)
+    <!-- MODAL: ADD VEHICLE -->
+    <div id="modalAddVehicle" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-xl w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-car mr-2 text-amber-600"></i>Add Vehicle Record</h3>
+                <button onclick="closeModal('modalAddVehicle')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="formAddVehicle" onsubmit="saveNewVehicle(event)" class="space-y-3">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Vehicle Number *</label>
+                        <input type="text" id="vhNumber" required placeholder="e.g. OD-06-AB-1234" class="w-full px-3.5 py-2 border rounded-xl text-sm uppercase">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Vehicle Type *</label>
+                        <select id="vhType" required class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                            <option value="Bike">Bike</option><option value="Scooty">Scooty</option><option value="Car">Car</option><option value="Auto">Auto</option><option value="Tractor">Tractor</option><option value="Truck">Truck</option><option value="Bus">Bus</option><option value="Commercial">Commercial</option><option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Owner Mobile (Customer) *</label>
+                        <input type="tel" id="vhMobile" required placeholder="10-digit mobile" onblur="lookupCustomerForVehicle(this.value)" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                        <p id="vhCustomerStatus" class="text-xs font-semibold mt-1"></p>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Owner Name *</label>
+                        <input type="text" id="vhOwnerName" required placeholder="Full owner name" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Insurance Company</label>
+                        <input type="text" id="vhInsCompany" placeholder="e.g. ICICI Lombard" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Policy Number</label>
+                        <input type="text" id="vhInsPolicy" placeholder="Policy number" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Insurance Expiry Date</label>
+                        <input type="date" id="vhInsExpiry" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">PUC Expiry Date</label>
+                        <input type="date" id="vhPucExpiry" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Road Tax Due Date</label>
+                        <input type="date" id="vhTaxDue" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Fitness Expiry Date</label>
+                        <input type="date" id="vhFitnessExpiry" class="w-full px-3 py-1.5 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalAddVehicle')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-amber-500 text-slate-900 rounded-xl text-sm font-semibold hover:bg-amber-600">Save Vehicle</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NEW WORK -->
+    <div id="modalNewWork" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-lg w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-file-circle-plus mr-2 text-csc-blue"></i>One-Click New Work (Auto Khata Update)</h3>
+                <button onclick="closeModal('modalNewWork')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="formNewWork" onsubmit="saveNewWork(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Customer Mobile Lookup *</label>
+                    <div class="flex gap-2">
+                        <input type="tel" id="nwMobile" placeholder="Enter 10-digit mobile" onblur="lookupCustomerForWork(this.value)" required class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                        <button type="button" onclick="lookupCustomerForWork(document.getElementById('nwMobile').value)" class="bg-slate-100 px-3 py-2 rounded-xl text-xs font-medium">Verify</button>
+                    </div>
+                    <p id="nwCustomerFoundName" class="text-xs text-emerald-600 font-semibold mt-1"></p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Select Service *</label>
+                        <select id="nwService" required class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                            <option value="PAN Card">PAN Card</option><option value="PAN Correction">PAN Correction</option><option value="Aadhaar Print">Aadhaar Print</option><option value="Voter ID">Voter ID</option><option value="Driving Licence">Driving Licence</option><option value="Income Certificate">Income Certificate</option><option value="Caste Certificate">Caste Certificate</option><option value="Vehicle Insurance">Vehicle Insurance</option><option value="Ticket Booking">Ticket Booking</option><option value="Recharge">Recharge</option><option value="Other">Other</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Assign Staff / Worker</label>
+                        <select id="nwWorker" class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                            <option value="Rahul (Operator)">Rahul (Operator)</option>
+                            <option value="Pooja (Assistant)">Pooja (Assistant)</option>
+                            <option value="Self (Priyadarsan)">Self (Priyadarsan)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Total Amount (₹) *</label>
+                        <input type="number" id="nwTotal" required oninput="calcWorkBalance()" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Paid Amount (₹) *</label>
+                        <input type="number" id="nwPaid" required oninput="calcWorkBalance()" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Balance Due (₹)</label>
+                        <input type="number" id="nwBalance" readonly class="w-full px-3.5 py-2 bg-slate-100 border rounded-xl text-sm font-bold text-rose-600">
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Payment Mode</label>
+                        <select id="nwMode" class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                            <option value="Cash">Cash</option><option value="UPI">UPI</option><option value="Bank">Bank Transfer</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Status</label>
+                        <select id="nwStatus" class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                            <option value="New">New</option><option value="Processing">Processing</option><option value="Submitted">Submitted</option><option value="Completed">Completed</option>
+                        </select>
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Notes / Application No</label>
+                    <input type="text" id="nwNotes" placeholder="e.g. App No: 99120 or docs pending" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalNewWork')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-csc-blue text-white rounded-xl text-sm font-semibold hover:bg-blue-700">Save Work & Update Khata</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: ADD EXPENSE -->
+    <div id="modalAddExpense" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-receipt mr-2 text-rose-500"></i>Add Center Expense</h3>
+                <button onclick="closeModal('modalAddExpense')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form id="formAddExpense" onsubmit="saveExpense(event)" class="space-y-3">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Category *</label>
+                    <select id="exCategory" class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                        <option value="Electricity">Electricity</option><option value="Internet">Internet</option><option value="Rent">Rent</option><option value="Stationery">Stationery</option><option value="Printing Material">Printing Material</option><option value="Travel">Travel</option><option value="Staff Salary">Staff Salary</option><option value="Maintenance">Maintenance</option><option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Amount (₹) *</label>
+                        <input type="number" id="exAmount" required class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-1">Date *</label>
+                        <input type="date" id="exDate" required class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                    </div>
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Description</label>
+                    <input type="text" id="exDesc" placeholder="e.g. Monthly broadband bill" class="w-full px-3.5 py-2 border rounded-xl text-sm">
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalAddExpense')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-rose-500 text-white rounded-xl text-sm font-semibold hover:bg-rose-600">Save Expense</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NEW OFFER POSTER -->
+    <div id="modalNewOffer" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-bullhorn mr-2 text-amber-500"></i>Create Smart Offer</h3>
+                <button onclick="closeModal('modalNewOffer')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveNewOffer(event)" class="space-y-3">
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Offer Title *</label><input type="text" id="offTitle" required placeholder="e.g. Vehicle Insurance Special Discount" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Service / Category *</label><input type="text" id="offService" required placeholder="e.g. Car & Bike Insurance" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                <div class="grid grid-cols-2 gap-3">
+                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Old Price (₹)</label><input type="number" id="offOldPrice" placeholder="1200" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                    <div><label class="block text-xs font-semibold text-slate-600 mb-1">Offer Price (₹) *</label><input type="number" id="offNewPrice" required placeholder="999" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                </div>
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Valid Until Date *</label><input type="date" id="offValid" required class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Description / Benefits</label><textarea id="offDesc" rows="2" placeholder="Instant policy in 5 minutes..." class="w-full px-3.5 py-2 border rounded-xl text-sm"></textarea></div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalNewOffer')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-amber-500 text-slate-900 rounded-xl text-sm font-semibold hover:bg-amber-600">Generate Poster</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: NEW WORKER -->
+    <div id="modalNewWorker" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-5 space-y-4 my-8">
+            <div class="flex justify-between items-center border-b pb-3">
+                <h3 class="font-bold text-slate-800 text-base"><i class="fa-solid fa-user-tie mr-2 text-slate-700"></i>Add Center Staff</h3>
+                <button onclick="closeModal('modalNewWorker')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <form onsubmit="saveNewWorker(event)" class="space-y-3">
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Staff Name *</label><input type="text" id="wrkName" required placeholder="Rahul Sharma" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                <div><label class="block text-xs font-semibold text-slate-600 mb-1">Mobile Number *</label><input type="tel" id="wrkMobile" required placeholder="10-digit mobile" class="w-full px-3.5 py-2 border rounded-xl text-sm"></div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-600 mb-1">Role *</label>
+                    <select id="wrkRole" class="w-full px-3.5 py-2 border rounded-xl text-sm bg-white">
+                        <option value="Operator">Operator</option><option value="Assistant">Assistant</option><option value="Account Staff">Account Staff</option><option value="Document Staff">Document Staff</option><option value="Manager">Manager</option>
+                    </select>
+                </div>
+                <div class="flex justify-end space-x-2 pt-3 border-t">
+                    <button type="button" onclick="closeModal('modalNewWorker')" class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl text-sm font-medium">Cancel</button>
+                    <button type="submit" class="px-4 py-2 bg-slate-800 text-white rounded-xl text-sm font-semibold hover:bg-slate-900">Save Staff</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: RECEIPT -->
+    <div id="modalReceipt" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 overflow-y-auto">
+        <div class="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 space-y-4 my-8">
+            <div id="receiptContent" class="space-y-3 text-sm border p-4 rounded-xl bg-slate-50">
+                <div class="text-center border-b pb-3">
+                    <h3 id="rcptCscName" class="font-bold text-base text-csc-blue">DIGITAL DARSAN CSC</h3>
+                    <p id="rcptVleInfo" class="text-xs text-slate-500">VLE: Priyadarsan | Mob: 9876543210</p>
+                    <span class="inline-block mt-2 px-2.5 py-0.5 bg-blue-100 text-csc-blue font-bold text-xs rounded-full">ACKNOWLEDGEMENT & BILL</span>
+                </div>
+                <div class="space-y-1.5 text-xs">
+                    <div class="flex justify-between"><span>Bill / Receipt No:</span> <span id="rcptNo" class="font-bold">RCP-1049</span></div>
+                    <div class="flex justify-between"><span>Date:</span> <span id="rcptDate">2026-09-25</span></div>
+                    <div class="flex justify-between"><span>Customer Name:</span> <span id="rcptCustomer" class="font-bold">Amit Sharma</span></div>
+                    <div class="flex justify-between"><span>Mobile:</span> <span id="rcptMobile">9876543210</span></div>
+                    <div class="flex justify-between"><span>Service:</span> <span id="rcptService" class="font-bold text-csc-blue">PAN Card</span></div>
+                    <div class="flex justify-between"><span>App / Ref No:</span> <span id="rcptAppNo">N/A</span></div>
+                </div>
+                <div class="border-t pt-2 space-y-1 text-xs">
+                    <div class="flex justify-between"><span>Total Amount:</span> <span id="rcptTotal">₹150</span></div>
+                    <div class="flex justify-between"><span>Paid Amount:</span> <span id="rcptPaid" class="font-bold text-emerald-600">₹150</span></div>
+                    <div class="flex justify-between"><span>Balance Due:</span> <span id="rcptBalance" class="font-bold text-slate-800">₹0</span></div>
+                </div>
+                <div class="text-center pt-3 border-t text-[11px] text-slate-400">
+                    Thank you for visiting VLE Daily Life Solution! 🙏<br>Auto-updated in Digital Khata & Cashbook.
+                </div>
+            </div>
+            <div class="flex gap-2 justify-end">
+                <button onclick="window.print()" class="px-3 py-2 bg-slate-700 text-white rounded-xl text-xs font-semibold"><i class="fa-solid fa-print mr-1"></i> Print Bill</button>
+                <button onclick="shareReceiptWhatsApp()" class="px-3 py-2 bg-emerald-600 text-white rounded-xl text-xs font-semibold"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp</button>
+                <button onclick="closeModal('modalReceipt')" class="px-3 py-2 bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Logic Script -->
+    <script>
+        let currentUserEmail = null;
+
+        // SaaS & Business System State Store with Customized Branding
+        let vleDataStore = {
+            "vle1@csc.gov.in": {
+                vleId: "vle-id-1",
+                role: "vle",
+                password: "password123",
+                settings: { vleName: "Priyadarsan Ojha", cscName: "VLE Daily Life Solution", cscId: "210049010001", mobile: "9876543210", email: "vle1@csc.gov.in", district: "Dhenkanal" },
+                customers: [
+                    { id: 1, vleId: "vle-id-1", name: "Ramesh Kumar", mobile: "9876543210", village: "Rampur", guardian: "Pankaj Kumar", dob: "1993-06-14", pan: "ABCDE1234F", notes: "Regular customer", date: "2026-09-20" },
+                    { id: 2, vleId: "vle-id-1", name: "Priya Devi", mobile: "9123456789", village: "Bela", guardian: "Suresh Kumar", dob: "1995-02-10", pan: "FGHIJ5678K", notes: "Income certificate", date: "2026-09-22" }
+                ],
+                vehicles: [
+                    { id: 301, vleId: "vle-id-1", customerId: 1, number: "OD-06-AB-1234", type: "Car", ownerName: "Ramesh Kumar", mobile: "9876543210", insCompany: "ICICI Lombard", insPolicy: "POL-99211", insExpiry: "2026-10-15", pucExpiry: "2026-10-01", taxDue: "2026-12-31", fitnessExpiry: "2027-01-10", date: "2026-09-20" }
+                ],
+                work: [
+                    { id: 101, vleId: "vle-id-1", customerId: 1, customerName: "Ramesh Kumar", mobile: "9876543210", service: "PAN Correction", appNo: "PAN-9921", status: "Completed", worker: "Rahul (Operator)", total: 150, paid: 150, mode: "Cash", date: "2026-09-25", notes: "Done" },
+                    { id: 102, vleId: "vle-id-1", customerId: 2, customerName: "Priya Devi", mobile: "9123456789", service: "Income Certificate", appNo: "INC-4410", status: "Processing", worker: "Pooja (Assistant)", total: 60, paid: 30, mode: "UPI", date: "2026-09-25", notes: "Pending Tahasildar" },
+                    { id: 103, vleId: "vle-id-1", customerId: 1, customerName: "Ramesh Kumar (OD-06-AB-1234)", mobile: "9876543210", service: "Vehicle Insurance", appNo: "INS-7711", status: "Completed", worker: "Rahul (Operator)", total: 1500, paid: 1000, mode: "UPI", date: "2026-09-24", notes: "Balance ₹500 due" }
+                ],
+                expenses: [
+                    { id: 1, vleId: "vle-id-1", category: "Electricity", amount: 1200, date: "2026-09-24", desc: "Power bill", mode: "Cash" },
+                    { id: 2, vleId: "vle-id-1", category: "Internet", amount: 800, date: "2026-09-20", desc: "Broadband", mode: "UPI" }
+                ],
+                documents: [
+                    { id: 1, vleId: "vle-id-1", name: "Ramesh PAN", customerName: "Ramesh Kumar", category: "PAN", date: "2026-09-20", notes: "Secure document" }
+                ],
+                reminders: [
+                    { id: 1, vleId: "vle-id-1", title: "OD-06-AB-1234 Insurance Expiry", type: "Vehicle Insurance", date: "2026-10-15", notes: "Renewal notice for Nexon" }
+                ],
+                workers: [
+                    { id: 1, name: "Rahul Sharma", mobile: "9811122233", role: "Operator", date: "2026-01-10" },
+                    { id: 2, name: "Pooja Patel", mobile: "9722233344", role: "Assistant", date: "2026-03-15" }
+                ],
+                offers: [
+                    { id: 1, title: "Vehicle Insurance Special", service: "Car & Bike Insurance", oldPrice: 1500, newPrice: 1299, valid: "2026-10-31", desc: "Instant policy delivery with zero paperwork." }
+                ],
+                cashbook: [
+                    { id: 1, vleId: "vle-id-1", type: "Income", category: "PAN Correction", desc: "Ramesh Kumar PAN", mode: "Cash", amount: 150, date: "2026-09-25" },
+                    { id: 2, vleId: "vle-id-1", type: "Income", category: "Income Certificate", desc: "Priya Devi advance", mode: "UPI", amount: 30, date: "2026-09-25" },
+                    { id: 3, vleId: "vle-id-1", type: "Income", category: "Vehicle Insurance", desc: "Ramesh Kumar (OD-06-AB-1234)", mode: "UPI", amount: 1000, date: "2026-09-24" },
+                    { id: 4, vleId: "vle-id-1", type: "Expense", category: "Electricity", desc: "Power bill", mode: "Cash", amount: 1200, date: "2026-09-24" },
+                    { id: 5, vleId: "vle-id-1", type: "Expense", category: "Internet", desc: "Broadband", mode: "UPI", amount: 800, date: "2026-09-20" }
+                ]
+            },
+            "admin@csc.gov.in": {
+                vleId: "admin-id-99",
+                role: "admin",
+                password: "adminpassword",
+                settings: { vleName: "Super Admin", cscName: "VLE Daily Life Hub", email: "admin@csc.gov.in", mobile: "9000000000" },
+                customers: [], vehicles: [], work: [], expenses: [], documents: [], reminders: [], workers: [], offers: [], cashbook: []
+            }
+        };
+
+        let activeData = null;
+
+        // Persistent Storage
+        const STORAGE_KEY = 'vle_daily_life_solution_store_v1';
+        function loadPersistentStore() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (!raw) return;
+                const saved = JSON.parse(raw);
+                if (saved && typeof saved === 'object') {
+                    Object.keys(saved).forEach(email => {
+                        if (saved[email] && typeof saved[email] === 'object') vleDataStore[email] = saved[email];
+                    });
+                }
+            } catch (err) { console.warn('Store load failed', err); }
+        }
+        function persistStore() {
+            try { localStorage.setItem(STORAGE_KEY, JSON.stringify(vleDataStore)); } catch (err) { console.warn('Store save failed', err); }
+        }
+        function persistActiveData() { if (activeData && currentUserEmail) { vleDataStore[currentUserEmail] = activeData; persistStore(); } }
+        window.addEventListener('beforeunload', persistStore);
+        setInterval(persistStore, 1500);
+        loadPersistentStore();
+
+        function switchAuthTab(tab) {
+            const loginBtn = document.getElementById('authTabLoginBtn');
+            const regBtn = document.getElementById('authTabRegBtn');
+            const loginForm = document.getElementById('loginForm');
+            const regForm = document.getElementById('registerForm');
+
+            if (tab === 'login') {
+                loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold bg-white text-csc-blue shadow transition";
+                regBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-slate-600 transition";
+                loginForm.classList.remove('hidden'); regForm.classList.add('hidden');
+            } else {
+                regBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold bg-white text-csc-blue shadow transition";
+                loginBtn.className = "flex-1 py-2 rounded-lg text-xs font-semibold text-slate-600 transition";
+                regForm.classList.remove('hidden'); loginForm.classList.add('hidden');
+            }
+        }
+
+        function fillDemoVLE(vleNo) {
+            if (vleNo === 1) {
+                document.getElementById('loginEmail').value = "vle1@csc.gov.in";
+                document.getElementById('loginPassword').value = "password123";
+            } else {
+                document.getElementById('loginEmail').value = "admin@csc.gov.in";
+                document.getElementById('loginPassword').value = "adminpassword";
+            }
+        }
+
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const account = vleDataStore[email];
+            const password = document.getElementById('loginPassword').value;
+            if (!account || account.password !== password) {
+                showAuthError("Invalid email or password.");
+                return;
+            }
+
+            currentUserEmail = email;
+            activeData = vleDataStore[email];
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('mainAppWrapper').classList.remove('hidden');
+
+            if (activeData.role === 'admin') {
+                document.getElementById('nav-admin').classList.remove('hidden');
+                switchTab('admin');
+                renderAdminPanel();
+            } else {
+                document.getElementById('nav-admin').classList.add('hidden');
+                switchTab('dashboard');
+            }
+
+            applySettingsToUI();
+            refreshAllViews();
+            showToast("Login successful. Welcome to VLE Daily Life Solution!");
+        }
+
+        function handleRegister(e) {
+            e.preventDefault();
+            const name = document.getElementById('regName').value.trim();
+            const mobile = document.getElementById('regMobile').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const cscName = document.getElementById('regCscName').value.trim();
+            const district = document.getElementById('regDistrict').value.trim();
+            const pass = document.getElementById('regPassword').value;
+
+            if (vleDataStore[email]) { showAuthError("Email already registered."); return; }
+
+            vleDataStore[email] = {
+                vleId: 'vle-id-' + Date.now(),
+                role: "vle",
+                password: pass,
+                settings: { vleName: name, cscName: cscName, cscId: '210' + Math.floor(1000000 + Math.random() * 9000000), mobile: mobile, email: email, district: district },
+                customers: [], vehicles: [], work: [], expenses: [], documents: [], reminders: [], workers: [], offers: [], cashbook: []
+            };
+
+            currentUserEmail = email;
+            activeData = vleDataStore[email];
+            document.getElementById('authScreen').classList.add('hidden');
+            document.getElementById('mainAppWrapper').classList.remove('hidden');
+            document.getElementById('nav-admin').classList.add('hidden');
+
+            applySettingsToUI();
+            refreshAllViews();
+            switchTab('dashboard');
+            persistStore();
+            showToast("Registration successful!");
+        }
+
+        function handleLogout() {
+            persistActiveData();
+            currentUserEmail = null; activeData = null;
+            document.getElementById('mainAppWrapper').classList.add('hidden');
+            document.getElementById('authScreen').classList.remove('hidden');
+            showToast("Logged out securely.");
+        }
+
+        function showAuthError(msg) {
+            const err = document.getElementById('authErrorMsg');
+            err.innerText = msg; err.classList.remove('hidden');
+            setTimeout(() => err.classList.add('hidden'), 4000);
+        }
+
+        function applySettingsToUI() {
+            if (!activeData || activeData.role === 'admin') return;
+            document.getElementById('headerCscName').innerText = activeData.settings.cscName;
+            document.getElementById('headerVleName').innerText = activeData.settings.vleName;
+            document.getElementById('dashGreeting').innerText = `Good Morning, ${activeData.settings.vleName}! 🙏`;
+
+            document.getElementById('setVleName').value = activeData.settings.vleName;
+            document.getElementById('setCscName').value = activeData.settings.cscName;
+            document.getElementById('setCscId').value = activeData.settings.cscId || '';
+            document.getElementById('setMobile').value = activeData.settings.mobile;
+        }
+
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('bg-blue-50', 'text-csc-blue'));
+            const nav = document.getElementById('nav-' + tabId);
+            if (nav) nav.classList.add('bg-blue-50', 'text-csc-blue');
+
+            document.querySelectorAll('.mobile-nav-btn').forEach(el => el.classList.remove('text-csc-blue'));
+            const mob = document.querySelector(`.mobile-nav-btn[data-tab="${tabId}"]`);
+            if (mob) mob.classList.add('text-csc-blue');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+
+        function refreshAllViews() {
+            if (!activeData || activeData.role === 'admin') return;
+            persistActiveData();
+            const todayStr = new Date().toISOString().split('T')[0];
+            const currentYear = todayStr.slice(0, 4);
+            const currentMonth = todayStr.slice(0, 7);
+
+            document.getElementById('statCustomers').innerText = activeData.customers.length;
+            document.getElementById('statVehicles').innerText = activeData.vehicles.length;
+            document.getElementById('statNewWorks').innerText = activeData.work.length;
+            document.getElementById('statPending').innerText = activeData.work.filter(w => w.status !== 'Completed').length;
+
+            const bdaysToday = activeData.customers.filter(c => c.dob && c.dob.endsWith(todayStr.slice(5)));
+            document.getElementById('statBirthdays').innerText = bdaysToday.length;
+
+            const totalDues = activeData.work.reduce((acc, w) => acc + Math.max(0, Number(w.total) - Number(w.paid)), 0);
+            document.getElementById('statPaymentDue').innerText = '₹' + totalDues;
+            document.getElementById('dashKhataTotalDue').innerText = 'Total Customer Due: ₹' + totalDues;
+
+            const todayInc = activeData.cashbook.filter(c => c.date === todayStr && c.type === 'Income').reduce((a, b) => a + Number(b.amount), 0);
+            const monthInc = activeData.cashbook.filter(c => c.date.startsWith(currentMonth) && c.type === 'Income').reduce((a, b) => a + Number(b.amount), 0);
+            const yearInc = activeData.cashbook.filter(c => c.date.startsWith(currentYear) && c.type === 'Income').reduce((a, b) => a + Number(b.amount), 0);
+            const totalExp = activeData.expenses.reduce((a, b) => a + Number(b.amount), 0);
+            const netInc = yearInc - totalExp;
+
+            document.getElementById('topDashToday').innerText = '₹' + todayInc;
+            document.getElementById('topDashMonth').innerText = '₹' + monthInc;
+            document.getElementById('topDashYear').innerText = '₹' + yearInc;
+            document.getElementById('topDashNet').innerText = '₹' + netInc;
+
+            renderDashboardWork();
+            renderDashboardUrgent();
+            renderCustomers('');
+            renderDigitalKhata('');
+            renderVehicles('');
+            renderWork();
+            renderPendingWork();
+            renderPayments();
+            renderBusinessAnalytics();
+            renderCashbook();
+            renderExpenses();
+            renderDocuments();
+            renderReminders();
+            renderOffers();
+            renderWhatsAppCustomerSelect();
+            updateNotificationsBadge();
+        }
+
+        function toggleNotificationDropdown() {
+            const box = document.getElementById('notifDropdown');
+            box.classList.toggle('hidden');
+            renderNotificationsList();
+        }
+
+        function renderNotificationsList() {
+            const container = document.getElementById('notifListContainer');
+            container.innerHTML = '';
+            let count = 0;
+
+            activeData.work.filter(w => (w.total - w.paid) > 0).forEach(w => {
+                count++;
+                container.innerHTML += `<div class="p-2 bg-rose-50 rounded-xl text-rose-800 font-medium">Payment Due: ₹${w.total - w.paid} from ${w.customerName} (${w.service})</div>`;
+            });
+
+            const todayStr = new Date().toISOString().split('T')[0].slice(5);
+            activeData.customers.filter(c => c.dob && c.dob.endsWith(todayStr)).forEach(c => {
+                count++;
+                container.innerHTML += `<div class="p-2 bg-purple-50 rounded-xl text-purple-800 font-medium"><i class="fa-solid fa-cake-candles mr-1"></i> Today is ${c.name}'s Birthday! Send WhatsApp greeting.</div>`;
+            });
+
+            activeData.vehicles.forEach(v => {
+                if (v.insExpiry) {
+                    count++;
+                    container.innerHTML += `<div class="p-2 bg-amber-50 rounded-xl text-amber-900">Vehicle Ins Exp: ${v.number} (${v.insExpiry})</div>`;
+                }
+            });
+
+            if (count === 0) container.innerHTML = `<div class="p-2 text-slate-400">No unread notifications.</div>`;
+            document.getElementById('notifBadge').innerText = count;
+        }
+
+        function updateNotificationsBadge() {
+            let count = activeData.work.filter(w => (w.total - w.paid) > 0).length + activeData.vehicles.length;
+            document.getElementById('notifBadge').innerText = count;
+        }
+
+        function renderDashboardWork() {
+            const tbody = document.getElementById('dashboardWorkBody');
+            tbody.innerHTML = '';
+            activeData.work.slice(0, 5).forEach(w => {
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-2.5 font-medium">${w.customerName}</td>
+                        <td class="p-2.5 text-slate-600">${w.service}</td>
+                        <td class="p-2.5"><span class="px-2 py-0.5 rounded-full text-xs font-semibold ${getStatusBadge(w.status)}">${w.status}</span></td>
+                        <td class="p-2.5 text-right"><button onclick="sendWhatsApp('${w.customerName}', '${w.service}', '${w.status}', '${w.mobile}')" class="text-emerald-600 hover:text-emerald-700"><i class="fa-brands fa-whatsapp text-lg"></i></button></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function renderDashboardUrgent() {
+            const list = document.getElementById('dashboardUrgentList');
+            list.innerHTML = '';
+            const pendingDues = activeData.work.filter(w => (w.total - w.paid) > 0);
+            if (pendingDues.length === 0) {
+                list.innerHTML = `<p class="text-xs text-slate-400 p-2">Great! No urgent dues today.</p>`;
+                return;
+            }
+            pendingDues.slice(0, 4).forEach(w => {
+                list.innerHTML += `
+                    <div class="p-3 bg-rose-50 border border-rose-200 rounded-xl text-xs flex justify-between items-center">
+                        <div>
+                            <span class="font-bold text-rose-800 block">${w.customerName} (${w.service})</span>
+                            <span class="text-slate-600">Due: ₹${w.total - w.paid}</span>
+                        </div>
+                        <button onclick="sendWhatsApp('${w.customerName}', '${w.service}', 'Payment Due ₹${w.total - w.paid}', '${w.mobile}')" class="text-emerald-600 hover:text-emerald-700"><i class="fa-brands fa-whatsapp text-lg"></i></button>
+                    </div>
+                `;
+            });
+        }
+
+        function getStatusBadge(st) {
+            switch(st) {
+                case 'Completed': case 'Approved': return 'bg-emerald-100 text-emerald-700';
+                case 'Processing': case 'Submitted': return 'bg-blue-100 text-blue-700';
+                case 'Rejected': return 'bg-rose-100 text-rose-700';
+                default: return 'bg-amber-100 text-amber-700';
+            }
+        }
+
+        function renderCustomers(query) {
+            const container = document.getElementById('customerListContainer');
+            container.innerHTML = '';
+            const filtered = activeData.customers.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.mobile.includes(query));
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="p-4 text-center text-xs text-slate-400">No customers found.<br><button onclick="openModal('modalNewCustomer')" class="mt-2 text-csc-blue font-semibold">+ Add Customer</button></div>`;
+                return;
+            }
+
+            filtered.forEach(c => {
+                container.innerHTML += `
+                    <div onclick="selectCustomer(${c.id})" class="p-3 bg-slate-50 hover:bg-blue-50 border border-slate-200 rounded-xl cursor-pointer transition flex justify-between items-center">
+                        <div>
+                            <h4 class="font-bold text-slate-800 text-sm">${c.name}</h4>
+                            <p class="text-xs text-slate-500"><i class="fa-solid fa-phone mr-1"></i>${c.mobile} | ${c.village || 'N/A'}</p>
+                        </div>
+                        <i class="fa-solid fa-chevron-right text-slate-300 text-xs"></i>
+                    </div>
+                `;
+            });
+        }
+
+        function selectCustomer(id) {
+            const c = activeData.customers.find(x => x.id === id);
+            if (!c) return;
+
+            const custWorks = activeData.work.filter(w => w.customerId === id);
+            const custVehicles = activeData.vehicles.filter(v => v.mobile === c.mobile || v.customerId === id);
+            const totalPaidLtv = custWorks.reduce((acc, w) => acc + Number(w.paid), 0);
+            const dueAmount = custWorks.reduce((acc, w) => acc + Math.max(0, w.total - w.paid), 0);
+            const lastWork = custWorks.length > 0 ? custWorks[0].service : 'None';
+
+            const detail = document.getElementById('customerDetailView');
+            let vehiclesHtml = '';
+            custVehicles.forEach(v => {
+                vehiclesHtml += `<div class="p-2.5 bg-amber-50 border border-amber-200 rounded-xl text-xs font-bold text-amber-900"><i class="fa-solid fa-car mr-1"></i>${v.number} (${v.type})</div>`;
+            });
+            if (custVehicles.length === 0) vehiclesHtml = `<p class="text-xs text-slate-400">No vehicles linked.</p>`;
+
+            let historyHtml = '';
+            custWorks.forEach(w => {
+                historyHtml += `<div class="p-2.5 bg-slate-50 border rounded-xl text-xs flex justify-between items-center"><span>${w.date} - ${w.service} (₹${w.paid}/₹${w.total})</span><span class="font-semibold text-csc-blue">${w.status}</span></div>`;
+            });
+            if (custWorks.length === 0) historyHtml = `<p class="text-xs text-slate-400">No work history.</p>`;
+
+            detail.innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex justify-between items-start border-b pb-3">
+                        <div>
+                            <h3 class="text-lg font-bold text-slate-800">${c.name}</h3>
+                            <p class="text-xs text-slate-500">Mobile: <span class="font-semibold text-slate-700">${c.mobile}</span> | Village: ${c.village || 'N/A'} | DOB: ${c.dob || 'N/A'}</p>
+                            <p class="text-xs text-slate-400 mt-1">PAN: ${c.pan || 'N/A'} | Guardian: ${c.guardian || 'N/A'}</p>
+                        </div>
+                        <div class="flex gap-1.5 flex-wrap">
+                            <button onclick="sendCustomerGreeting('${c.name}', '${c.mobile}')" class="bg-emerald-600 text-white px-3 py-1.5 rounded-xl text-xs font-semibold"><i class="fa-brands fa-whatsapp mr-1"></i> Greeting</button>
+                            <button onclick="deleteCustomer(${c.id})" class="bg-rose-50 text-rose-600 px-3 py-1.5 rounded-xl text-xs font-semibold"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center">
+                        <div class="bg-blue-50 p-2.5 rounded-xl"><span class="text-xs text-slate-500 block">Total Works</span><span class="font-bold text-csc-blue">${custWorks.length}</span></div>
+                        <div class="bg-emerald-50 p-2.5 rounded-xl"><span class="text-xs text-slate-500 block">Lifetime Value</span><span class="font-bold text-emerald-700">₹${totalPaidLtv}</span></div>
+                        <div class="bg-rose-50 p-2.5 rounded-xl"><span class="text-xs text-slate-500 block">Due Amount</span><span class="font-bold text-rose-600">₹${dueAmount}</span></div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-700 text-xs uppercase mb-2">Vehicles Owned</h4>
+                        <div class="space-y-2">${vehiclesHtml}</div>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-700 text-xs uppercase mb-2">Complete Timeline (Last Service: ${lastWork})</h4>
+                        <div class="space-y-2 max-h-48 overflow-y-auto">${historyHtml}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function saveNewCustomer(e) {
+            e.preventDefault();
+            const mobile = document.getElementById('ncMobile').value;
+            const existing = activeData.customers.find(c => c.mobile === mobile);
+            if (existing) {
+                alert("Customer already exists with this mobile number! Opening profile.");
+                selectCustomer(existing.id);
+                closeModal('modalNewCustomer');
+                return;
+            }
+
+            const cust = {
+                id: Date.now(),
+                vleId: activeData.vleId,
+                name: document.getElementById('ncName').value,
+                mobile: mobile,
+                village: document.getElementById('ncVillage').value,
+                guardian: document.getElementById('ncGuardian').value,
+                dob: document.getElementById('ncDob').value,
+                pan: document.getElementById('ncPan').value.toUpperCase(),
+                notes: document.getElementById('ncNotes').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+            activeData.customers.unshift(cust);
+            closeModal('modalNewCustomer');
+            refreshAllViews();
+            showToast("Customer Saved ✓");
+        }
+
+        function deleteCustomer(id) {
+            if (confirm("Delete customer?")) {
+                activeData.customers = activeData.customers.filter(c => c.id !== id);
+                refreshAllViews();
+                document.getElementById('customerDetailView').innerHTML = `<div class="text-center py-12 text-slate-400"><p class="text-sm">Customer deleted.</p></div>`;
+                showToast("Customer deleted.");
+            }
+        }
+
+        function renderDigitalKhata(query) {
+            const tbody = document.getElementById('digitalKhataTableBody');
+            tbody.innerHTML = '';
+            let totalPaidAll = 0;
+            let totalDueAll = 0;
+            let totalVolAll = 0;
+
+            const filtered = activeData.customers.filter(c => c.name.toLowerCase().includes(query.toLowerCase()) || c.mobile.includes(query));
+
+            filtered.forEach(c => {
+                const cWorks = activeData.work.filter(w => w.customerId === c.id || w.mobile === c.mobile);
+                const paid = cWorks.reduce((a, b) => a + Number(b.paid), 0);
+                const total = cWorks.reduce((a, b) => a + Number(b.total), 0);
+                const due = Math.max(0, total - paid);
+
+                totalPaidAll += paid;
+                totalDueAll += due;
+                totalVolAll += total;
+
+                tbody.innerHTML += `
+                    <tr class="hover:bg-slate-50">
+                        <td class="p-3 font-medium">${c.name}<br><span class="text-xs text-slate-400">${c.village || 'N/A'}</span></td>
+                        <td class="p-3 text-slate-600">${c.mobile}</td>
+                        <td class="p-3 font-semibold">₹${total}</td>
+                        <td class="p-3 text-emerald-600 font-semibold">₹${paid}</td>
+                        <td class="p-3 font-bold text-rose-600">₹${due}</td>
+                        <td class="p-3 text-right space-x-1">
+                            ${due > 0 ? `<button onclick="collectKhataDue('${c.mobile}')" class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg text-xs font-semibold">Collect</button>` : ''}
+                            <button onclick="sendKhataWhatsApp('${c.name}', '${c.mobile}', ${due})" class="text-emerald-600 hover:text-emerald-700 px-2 py-1"><i class="fa-brands fa-whatsapp text-lg"></i></button>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            document.getElementById('khataTotalPaid').innerText = '₹' + totalPaidAll;
+            document.getElementById('khataTotalDue').innerText = '₹' + totalDueAll;
+            document.getElementById('khataTotalVolume').innerText = '₹' + totalVolAll;
+        }
+
+        function collectKhataDue(mobile) {
+            const w = activeData.work.find(x => x.mobile === mobile && (x.total - x.paid) > 0);
+            if (!w) { alert("No pending due found for this customer."); return; }
+            const due = w.total - w.paid;
+            const amt = prompt(`Collect due payment for ${w.customerName}:`, due);
+            if (amt && Number(amt) > 0) {
+                w.paid += Number(amt);
+                activeData.cashbook.unshift({ id: Date.now(), vleId: activeData.vleId, type: "Income", category: w.service, desc: `${w.customerName} - Khata due collected`, mode: "Cash", amount: Number(amt), date: new Date().toISOString().split('T')[0] });
+                refreshAllViews();
+                showToast("Khata updated & cashbook credited ✓");
+                openReceipt(w);
+            }
+        }
+
+        function sendKhataWhatsApp(name, mobile, due) {
+            const text = encodeURIComponent(`Namaste ${name} Ji 🙏\nYour digital khata due balance at VLE Daily Life Solution is ₹${due}. Please clear your balance at your earliest convenience. Thank you!`);
+            window.open(`https://wa.me/91${mobile}?text=${text}`, '_blank');
+        }
+
+        function renderOffers() {
+            const container = document.getElementById('offersGridContainer');
+            container.innerHTML = '';
+            if (!activeData.offers || activeData.offers.length === 0) {
+                container.innerHTML = `<p class="text-xs text-slate-400 p-4">No smart offers created yet.</p>`;
+                return;
+            }
+            activeData.offers.forEach(o => {
+                container.innerHTML += `
+                    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm p-4 flex flex-col justify-between space-y-3">
+                        <div class="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-4 rounded-xl text-center space-y-1">
+                            <span class="text-[10px] uppercase tracking-widest bg-white/20 px-2 py-0.5 rounded font-bold">Special Offer</span>
+                            <h4 class="font-bold text-base">${o.title}</h4>
+                            <p class="text-xs text-amber-100">${o.service}</p>
+                            <div class="pt-2 flex justify-center items-center space-x-2">
+                                <span class="line-through text-xs text-amber-200">₹${o.oldPrice || '1500'}</span>
+                                <span class="text-xl font-extrabold text-white">₹${o.newPrice}</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600">${o.desc} | Valid till: ${o.valid}</p>
+                        <div class="pt-2 border-t flex justify-end space-x-2">
+                            <button onclick="shareOfferWhatsApp('${o.title}', '${o.newPrice}', '${o.valid}')" class="px-3 py-1.5 bg-emerald-600 text-white rounded-xl text-xs font-semibold"><i class="fa-brands fa-whatsapp mr-1"></i> Share Poster</button>
+                            <button onclick="deleteOffer(${o.id})" class="px-3 py-1.5 bg-rose-50 text-rose-600 rounded-xl text-xs font-semibold">Delete</button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function saveNewOffer(e) {
+            e.preventDefault();
+            const offer = {
+                id: Date.now(),
+                title: document.getElementById('offTitle').value,
+                service: document.getElementById('offService').value,
+                oldPrice: document.getElementById('offOldPrice').value,
+                newPrice: document.getElementById('offNewPrice').value,
+                valid: document.getElementById('offValid').value,
+                desc: document.getElementById('offDesc').value
+            };
+            activeData.offers.unshift(offer);
+            closeModal('modalNewOffer');
+            renderOffers();
+            showToast("Smart offer poster generated successfully ✓");
+        }
+
+        function deleteOffer(id) {
+            activeData.offers = activeData.offers.filter(o => o.id !== id);
+            renderOffers();
+            showToast("Offer removed.");
+        }
+
+        function shareOfferWhatsApp(title, price, valid) {
+            const text = encodeURIComponent(`📢 *SPECIAL OFFER FROM VLE Daily Life Solution*\n\n*${title}*\nSpecial Price: *₹${price}*\nValid Till: *${valid}*\n\nVisit our CSC Centre today or contact 9876543210! 🙏`);
+            window.open(`https://wa.me/?text=${text}`, '_blank');
+        }
+
+        function renderWorkers() {
+            const container = document.getElementById('staffPerformanceContainer');
+            container.innerHTML = '';
+            if (!activeData.workers) activeData.workers = [];
+
+            activeData.workers.forEach(w => {
+                const wWorks = activeData.work.filter(wk => wk.worker === w.name || (wk.worker && wk.worker.includes(w.name)));
+                const completed = wWorks.filter(wk => wk.status === 'Completed').length;
+                const collected = wWorks.reduce((a, b) => a + Number(b.paid), 0);
+
+                container.innerHTML += `
+                    <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-2">
+                                <h4 class="font-bold text-slate-800 text-sm"><i class="fa-solid fa-user-tie text-csc-blue mr-1.5"></i>${w.name}</h4>
+                                <span class="px-2 py-0.5 bg-blue-50 text-csc-blue font-semibold text-xs rounded">${w.role}</span>
+                            </div>
+                            <p class="text-xs text-slate-500 mb-3"><i class="fa-solid fa-phone mr-1"></i>${w.mobile}</p>
+                            <div class="grid grid-cols-2 gap-2 text-center text-xs">
+                                <div class="bg-slate-50 p-2 rounded-xl"><span class="text-slate-400 block">Total Assigned</span><span class="font-bold text-slate-800">${wWorks.length}</span></div>
+                                <div class="bg-emerald-50 p-2 rounded-xl"><span class="text-emerald-700 block">Completed</span><span class="font-bold text-emerald-800">${completed}</span></div>
+                            </div>
+                        </div>
+                        <div class="mt-3 pt-3 border-t text-xs flex justify-between items-center text-slate-500">
+                            <span>Payment Collected:</span>
+                            <span class="font-bold text-emerald-600">₹${collected}</span>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function saveNewWorker(e) {
+            e.preventDefault();
+            const worker = {
+                id: Date.now(),
+                name: document.getElementById('wrkName').value,
+                mobile: document.getElementById('wrkMobile').value,
+                role: document.getElementById('wrkRole').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+            activeData.workers.push(worker);
+            closeModal('modalNewWorker');
+            renderWorkers();
+            showToast("Staff registered successfully ✓");
+        }
+
+        function renderWhatsAppCustomerSelect() {
+            const sel = document.getElementById('waCustomerSelect');
+            sel.innerHTML = '';
+            activeData.customers.forEach(c => {
+                sel.innerHTML += `<option value="${c.mobile}">${c.name} (${c.mobile})</option>`;
+            });
+            updateWhatsAppPreview();
+        }
+
+        function updateWhatsAppPreview() {
+            const temp = document.getElementById('waTemplateSelect').value;
+            const mobile = document.getElementById('waCustomerSelect').value;
+            const c = activeData.customers.find(x => x.mobile === mobile);
+            const name = c ? c.name : 'Customer';
+
+            let msg = '';
+            if (temp === 'morning') msg = `Good Morning ${name} Ji 🙏\nThank you for trusting VLE Daily Life Solution.\nWe are always ready to assist you with your digital services.`;
+            else if (temp === 'ready') msg = `Namaste ${name} Ji 🙏\nYour document/application at VLE Daily Life Solution is ready. Please visit our centre to collect it.`;
+            else if (temp === 'due') msg = `Namaste ${name} Ji 🙏\nA payment due is pending for your application at VLE Daily Life Solution. Please clear the balance at your earliest convenience.`;
+            else if (temp === 'insurance') msg = `Dear ${name} Ji 🙏\nYour vehicle insurance is due for renewal soon. Please contact VLE Daily Life Solution for instant renewal assistance.`;
+            else msg = `Festive Greetings from VLE Daily Life Solution!\nWishing you and your family a wonderful time ahead. 🙏`;
+
+            document.getElementById('waMessagePreview').value = msg;
+        }
+
+        function sendPreparedWhatsApp() {
+            const mobile = document.getElementById('waCustomerSelect').value;
+            const msg = encodeURIComponent(document.getElementById('waMessagePreview').value);
+            window.open(`https://wa.me/91${mobile}?text=${msg}`, '_blank');
+        }
+
+        function sendCustomerGreeting(name, mobile) {
+            const text = encodeURIComponent(`Namaste ${name} Ji 🙏\nThank you for visiting VLE Daily Life Solution. We appreciate your trust in our digital services!`);
+            window.open(`https://wa.me/91${mobile}?text=${text}`, '_blank');
+        }
+
+        function handleGlobalSearch(query) {
+            const box = document.getElementById('globalSearchResults');
+            const content = document.getElementById('searchResultsContent');
+            if (!query || query.trim() === '') { box.classList.add('hidden'); return; }
+            box.classList.remove('hidden');
+            content.innerHTML = '';
+            const q = query.toLowerCase();
+
+            const matchCust = activeData.customers.filter(c => c.name.toLowerCase().includes(q) || c.mobile.includes(q));
+            const matchVeh = activeData.vehicles.filter(v => v.number.toLowerCase().includes(q) || v.ownerName.toLowerCase().includes(q));
+            const matchWork = activeData.work.filter(w => w.appNo.toLowerCase().includes(q) || w.service.toLowerCase().includes(q));
+
+            matchCust.forEach(c => { content.innerHTML += `<div class="p-2 bg-slate-50 rounded-xl text-xs flex justify-between items-center"><span>Customer: <b>${c.name}</b> (${c.mobile})</span> <button onclick="switchTab('customers')" class="text-csc-blue font-bold">View</button></div>`; });
+            matchVeh.forEach(v => { content.innerHTML += `<div class="p-2 bg-amber-50 rounded-xl text-xs flex justify-between items-center"><span>Vehicle: <b>${v.number}</b> (${v.ownerName})</span> <button onclick="switchTab('vehicles'); selectVehicle(${v.id});" class="text-amber-700 font-bold">View</button></div>`; });
+            matchWork.forEach(w => { content.innerHTML += `<div class="p-2 bg-slate-50 rounded-xl text-xs flex justify-between items-center"><span>Work: <b>${w.service}</b> (${w.appNo})</span> <button onclick="switchTab('work')" class="text-csc-blue font-bold">View</button></div>`; });
+        }
+
+        function closeGlobalSearch() { document.getElementById('globalSearchResults').classList.add('hidden'); }
+
+        function renderReports() {
+            const container = document.getElementById('serviceWiseReportContainer');
+            container.innerHTML = '';
+            let counts = {};
+            activeData.work.forEach(w => { counts[w.service] = (counts[w.service] || 0) + Number(w.total); });
+            for (let [srv, amt] of Object.entries(counts)) {
+                container.innerHTML += `<div class="flex justify-between items-center p-2.5 bg-slate-50 rounded-xl text-sm"><span class="font-medium">${srv}</span><span class="font-bold text-csc-blue">₹${amt}</span></div>`;
+            }
+            const col = activeData.work.reduce((a, b) => a + Number(b.paid), 0);
+            const dues = activeData.work.reduce((a, b) => a + Math.max(0, Number(b.total) - Number(b.paid)), 0);
+            const exp = activeData.expenses.reduce((a, b) => a + Number(b.amount), 0);
+            document.getElementById('repTotalCol').innerText = '₹' + col;
+            document.getElementById('repTotalDues').innerText = '₹' + dues;
+            document.getElementById('repTotalExp').innerText = '₹' + exp;
+            document.getElementById('repNetInc').innerText = '₹' + (col - exp);
+        }
+
+        function exportCSVData() {
+            let csv = "Customer,Service,Status,Total,Paid,Date\n";
+            activeData.work.forEach(w => { csv += `"${w.customerName}","${w.service}","${w.status}",${w.total},${w.paid},"${w.date}"\n`; });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = 'vle_tax_report.csv'; a.click();
+        }
+
+        function saveSettings() {
+            activeData.settings.vleName = document.getElementById('setVleName').value;
+            activeData.settings.cscName = document.getElementById('setCscName').value;
+            activeData.settings.cscId = document.getElementById('setCscId').value;
+            activeData.settings.mobile = document.getElementById('setMobile').value;
+            applySettingsToUI(); persistActiveData(); showToast("Settings updated ✓");
+        }
+
+        function downloadBackup() {
+            const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(activeData, null, 2));
+            const a = document.createElement('a'); a.href = dataStr; a.download = `vle_backup_${activeData.vleId}.json`; a.click();
+        }
+
+        function renderAdminPanel() {
+            document.getElementById('adminStatVles').innerText = Object.keys(vleDataStore).length - 1;
+            const allCust = Object.keys(vleDataStore).reduce((acc, k) => k !== 'admin@csc.gov.in' ? acc + vleDataStore[k].customers.length : acc, 0);
+            const allRev = Object.keys(vleDataStore).reduce((acc, k) => k !== 'admin@csc.gov.in' ? acc + vleDataStore[k].cashbook.filter(c => c.type==='Income').reduce((x, y) => x + Number(y.amount), 0) : acc, 0);
+
+            document.getElementById('adminStatCust').innerText = allCust;
+            document.getElementById('adminStatRev').innerText = '₹' + allRev;
+
+            const tbody = document.getElementById('adminVlesTableBody');
+            tbody.innerHTML = '';
+            Object.keys(vleDataStore).forEach(email => {
+                if (email === 'admin@csc.gov.in') return;
+                const v = vleDataStore[email];
+                tbody.innerHTML += `
+                    <tr>
+                        <td class="p-3 font-medium">${v.settings.vleName}<br><span class="text-xs text-slate-400">${email}</span></td>
+                        <td class="p-3">${v.settings.cscName}</td>
+                        <td class="p-3">${v.settings.district || 'N/A'}</td>
+                        <td class="p-3 text-right"><span class="px-2.5 py-1 bg-emerald-100 text-emerald-700 font-bold text-xs rounded">Active VLE</span></td>
+                    </tr>
+                `;
+            });
+        }
+
+        function showToast(msg) {
+            const div = document.createElement('div');
+            div.className = 'fixed top-16 right-4 bg-slate-900 text-white px-4 py-3 rounded-2xl shadow-2xl z-50 text-xs md:text-sm font-medium transition animate-bounce';
+            div.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-400 mr-2"></i> ${msg}`;
+            document.body.appendChild(div);
+            setTimeout(() => div.remove(), 3000);
+        }
+
+        window.onload = function() {
+            document.getElementById('exDate').valueAsDate = new Date();
+            document.getElementById('cashbookDateFilter').value = new Date().toISOString().split('T')[0];
+            document.getElementById('vhInsExpiry').value = new Date(Date.now() + 30*24*60*60*1000).toISOString().split('T')[0];
+        };
+    </script>
+</body>
+</html>
